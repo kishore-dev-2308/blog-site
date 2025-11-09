@@ -1,0 +1,505 @@
+[2025-10-28 21:00:37] [32minfo[39m: Home route accessed
+[2025-10-28 21:10:22] [32minfo[39m: Home route accessed
+[2025-10-28 21:10:54] [32minfo[39m: test
+[2025-10-28 21:26:32] [32minfo[39m: [object Object]
+[2025-10-28 21:28:02] [32minfo[39m: [object Object]
+[2025-10-28 21:28:16] [32minfo[39m: undefined
+[2025-10-28 21:29:30] [32minfo[39m: Decoded token: {
+  "id": "68fba7f7c6b66457df1faa4f",
+  "role": 3,
+  "iat": 1761666030,
+  "exp": 1761752430
+}
+[2025-10-28 21:30:55] [32minfo[39m: undefined
+[2025-10-28 21:31:14] [32minfo[39m: {
+  "id": "68fba7f7c6b66457df1faa4f",
+  "role": 3,
+  "iat": 1761666030,
+  "exp": 1761752430
+}
+[2025-10-28 21:31:43] [32minfo[39m: undefined
+[2025-10-28 21:32:17] [32minfo[39m: 68fba7f7c6b66457df1faa4f
+[2025-10-28 21:34:32] [32minfo[39m: 68fba7f7c6b66457df1faa4f
+[2025-10-28 21:34:33] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2025-10-28 21:35:05] [32minfo[39m: 68fba7f7c6b66457df1faa4f
+[2025-10-28 21:35:13] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2025-10-28 21:35:41] [32minfo[39m: 68fba7f7c6b66457df1faa4f
+[2025-10-28 21:35:47] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findFirst()` invocation:
+
+{
+  where: {
+    id: "68fba7f7c6b66457df1faa4f"
+  },
+  select: {
+?   id?: true,
+?   name?: true,
+?   email?: true,
+?   password?: true,
+?   role?: true,
+?   blogs?: true,
+?   _count?: true
+  }
+}
+
+The `select` statement for type User needs at least one truthy value.
+[2025-10-28 21:36:10] [32minfo[39m: 68fba7f7c6b66457df1faa4f
+[2025-10-28 21:36:11] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2025-10-28 21:42:16] [31merror[39m: Profile fetch failed: Cannot read properties of undefined (reading 'user')
+[2025-10-28 21:42:42] [31merror[39m: Profile fetch failed: Cannot read properties of undefined (reading 'user')
+[2025-10-28 21:43:10] [31merror[39m: Profile fetch failed: Cannot read properties of undefined (reading 'user')
+[2025-10-28 21:43:23] [32minfo[39m: id
+[2025-10-28 21:43:24] [31merror[39m: Profile fetch failed: Cannot read properties of undefined (reading 'user')
+[2025-10-28 21:43:44] [32minfo[39m: id
+[2025-10-28 21:43:57] [31merror[39m: Profile fetch failed: Cannot read properties of undefined (reading 'id')
+[2025-10-28 21:44:54] [32minfo[39m: id
+[2025-10-28 21:45:06] [32minfo[39m: id
+[2025-10-28 21:48:17] [32minfo[39m: User data
+[2025-10-28 22:01:16] [32minfo[39m: User data
+[2025-10-28 22:03:20] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2025-10-29 21:10:56] [32minfo[39m: Home route accessed
+[2025-10-29 21:12:53] [32minfo[39m: Home route accessed
+[2025-10-29 21:13:34] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2025-10-29 21:13:41] [31merror[39m: Profile fetch failed: prisma is not defined
+[2025-10-29 21:14:53] [31merror[39m: Profile fetch failed: userId is not defined
+[2025-10-29 21:15:29] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.update()` invocation:
+
+{
+  where: {
+    id: "68fba7f7c6b66457df1faa4f"
+  },
+  data: {
+    name: "kishore kumar",
+    profileImage: "/uploads/1761752724275-585932345.jpg",
+    ~~~~~~~~~~~~
+?   email?: String | StringFieldUpdateOperationsInput,
+?   password?: String | StringFieldUpdateOperationsInput,
+?   role?: Int | IntFieldUpdateOperationsInput,
+?   blogs?: BlogUpdateManyWithoutAuthorNestedInput
+  },
+  select: {
+    id: true,
+    name: true,
+    email: true,
+    profileImage: true
+  }
+}
+
+Unknown argument `profileImage`. Available options are marked with ?.
+[2025-10-29 21:17:13] [31merror[39m: Profile fetch failed: userId is not defined
+[2025-10-29 21:17:50] [31merror[39m: Profile fetch failed: userId is not defined
+[2025-10-29 21:18:19] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:19:47] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:22:37] [31merror[39m: Profile fetch failed: userId is not defined
+[2025-10-29 21:23:28] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: "68fba7f7c6b66457df1faa4f"
+  },
+  select: {
+    coverImage: true,
+    ~~~~~~~~~~
+?   id?: true,
+?   name?: true,
+?   email?: true,
+?   password?: true,
+?   profileImage?: true,
+?   role?: true,
+?   blogs?: true,
+?   _count?: true
+  }
+}
+
+Unknown field `coverImage` for select statement on model `User`. Available options are marked with ?.
+[2025-10-29 21:24:35] [31merror[39m: Profile fetch failed: path is not defined
+[2025-10-29 21:25:20] [31merror[39m: Profile fetch failed: fs is not defined
+[2025-10-29 21:26:44] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:26:59] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:30:13] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\server\uploads\1761753419050-633087734.jpg
+[2025-10-29 21:30:13] [33mwarn[39m: ⚠️ Could not delete old image (D:\kishore_project\blog_site\server\server\uploads\1761753419050-633087734.jpg): ENOENT: no such file or directory, access 'D:\kishore_project\blog_site\server\server\uploads\1761753419050-633087734.jpg'
+[2025-10-29 21:30:13] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:31:28] [32minfo[39m: Attempting to delete old image: D:\uploads\1761753612178-905608669.jpg
+[2025-10-29 21:31:28] [33mwarn[39m: ⚠️ Could not delete old image (D:\uploads\1761753612178-905608669.jpg): ENOENT: no such file or directory, access 'D:\uploads\1761753612178-905608669.jpg'
+[2025-10-29 21:31:29] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:33:34] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1761753686504-914762937.jpg
+[2025-10-29 21:33:34] [32minfo[39m: ✅ Deleted old profile image: D:\kishore_project\blog_site\server\uploads\1761753686504-914762937.jpg
+[2025-10-29 21:33:35] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:34:10] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1761753812462-59821403.jpg
+[2025-10-29 21:34:10] [32minfo[39m: ✅ Deleted old profile image: D:\kishore_project\blog_site\server\uploads\1761753812462-59821403.jpg
+[2025-10-29 21:34:11] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:39:43] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1761753849950-552888030.jpg
+[2025-10-29 21:40:48] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1761753849950-552888030.jpg
+[2025-10-29 21:40:48] [33mwarn[39m: ⚠️ Could File (D:\kishore_project\blog_site\server\uploads\1761753849950-552888030.jpg): ENOENT: no such file or directory, access 'D:\kishore_project\blog_site\server\uploads\1761753849950-552888030.jpg'
+[2025-10-29 21:40:48] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-29 21:41:39] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1761754242634-416391949.jpg
+[2025-10-29 21:41:39] [32minfo[39m: ✅ Deleted File: D:\kishore_project\blog_site\server\uploads\1761754242634-416391949.jpg
+[2025-10-29 21:41:39] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2025-10-30 21:22:12] [32minfo[39m: Home route accessed
+[2025-10-30 21:22:33] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2025-10-30 21:23:11] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2025-10-30 21:30:27] [31merror[39m: userId is not defined
+[2025-10-30 21:47:51] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-10-30 22:02:45] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+{
+  where: {
+    _id: "69038faf560090b5f69c0552",
+    ~~~
+?   AND?: BlogWhereInput | BlogWhereInput[],
+?   OR?: BlogWhereInput[],
+?   NOT?: BlogWhereInput | BlogWhereInput[],
+?   id?: StringFilter | String,
+?   title?: StringFilter | String,
+?   content?: StringFilter | String,
+?   coverImage?: StringNullableFilter | String | Null,
+?   authorId?: StringFilter | String,
+?   createdAt?: DateTimeFilter | DateTime,
+?   updatedAt?: DateTimeFilter | DateTime,
+?   author?: UserScalarRelationFilter | UserWhereInput
+  },
+  select: {
+    title: true,
+    content: true,
+    coverImage: true,
+    authorId: true
+  }
+}
+
+Unknown argument `_id`. Did you mean `id`? Available options are marked with ?.
+[2025-11-04 19:59:28] [32minfo[39m: Home route accessed
+[2025-11-04 19:59:56] [31merror[39m: Cannot set headers after they are sent to the client
+[2025-11-04 20:00:03] [31merror[39m: Cannot set headers after they are sent to the client
+[2025-11-04 20:00:50] [31merror[39m: Cannot set headers after they are sent to the client
+[2025-11-04 20:01:16] [31merror[39m: Cannot set headers after they are sent to the client
+[2025-11-04 20:02:30] [31merror[39m: Cannot set headers after they are sent to the client
+[2025-11-04 20:08:37] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-11-04 20:08:37] [31merror[39m: Cannot set headers after they are sent to the client
+[2025-11-04 20:09:07] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-11-04 20:11:50] [31merror[39m: Unexpected non-whitespace character after JSON at position 5 (line 1 column 6)
+[2025-11-04 20:13:18] [31merror[39m: Assignment to constant variable.
+[2025-11-04 20:13:57] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-11-04 20:13:57] [31merror[39m: 
+Invalid `prisma.blog.update()` invocation:
+
+{
+  where: {
+    id: "69038faf560090b5f69c0552"
+  },
+  data: {
+    title: "Test",
+    content: {
+      ops: [
+      ~~~
+        {
+          insert: "10 Tips to Improve Your JavaScript Skills 🚀\n",
+          attributes: {
+            header: 2
+          }
+        },
+        {
+          insert: "JavaScript "
+        },
+        {
+          attributes: {
+            bold: true
+          },
+          insert: "is one of the most popular programming languages"
+        },
+        {
+          insert: " in the world, and mastering it can open up huge career opportunities for web developers.\n\n"
+        },
+        {
+          insert: "1. Practice Every Day\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Consistency is key! Write at least "
+        },
+        {
+          attributes: {
+            italic: true
+          },
+          insert: "10–15 lines of code"
+        },
+        {
+          insert: " daily. Even small projects will sharpen your skills.\n\n"
+        },
+        {
+          insert: "2. Understand the “Why”\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Don’t just copy code — understand "
+        },
+        {
+          attributes: {
+            underline: true
+          },
+          insert: "why"
+        },
+        {
+          insert: " it works. Read documentation, and break down complex examples.\n\n"
+        },
+        {
+          insert: "3. Learn ES6+ Features\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Arrow functions\nDestructuring\nAsync/Await\nModules\n",
+          attributes: {
+            list: "bullet"
+          }
+        },
+        {
+          insert: "\n4. Build Mini Projects\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Try creating simple apps like a "
+        },
+        {
+          attributes: {
+            code: true
+          },
+          insert: "todo list"
+        },
+        {
+          insert: ", "
+        },
+        {
+          attributes: {
+            code: true
+          },
+          insert: "weather app"
+        },
+        {
+          insert: ", or "
+        },
+        {
+          attributes: {
+            code: true
+          },
+          insert: "quiz game"
+        },
+        {
+          insert: ".\n\n"
+        },
+        {
+          insert: "5. Join the Community\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Follow discussions on "
+        },
+        {
+          insert: "Stack Overflow",
+          attributes: {
+            link: "https://stackoverflow.com/"
+          }
+        },
+        {
+          insert: " and GitHub. Learning from others is invaluable.\n\n"
+        },
+        {
+          insert: {
+            image: "https://images.unsplash.com/photo-1581092334514-3e09eab4b9b2"
+          }
+        },
+        {
+          insert: "\n\n"
+        },
+        {
+          attributes: {
+            bold: true
+          },
+          insert: "Conclusion:"
+        },
+        {
+          insert: " Keep learning, stay consistent, and never stop building. The best way to grow as a developer is to keep coding!\n"
+        }
+      ],
+?     set?: String
+    },
+    coverImage: "/uploads/1762267433370-697474327.jpg",
+    authorId: "68fba7f7c6b66457df1faa4f"
+  }
+}
+
+Unknown argument `ops`. Did you mean `set`? Available options are marked with ?.
+[2025-11-04 20:15:01] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-11-04 20:15:01] [31merror[39m: 
+Invalid `prisma.blog.update()` invocation:
+
+{
+  where: {
+    id: "69038faf560090b5f69c0552"
+  },
+  data: {
+    title: "Test",
+    content: {
+      ops: [
+      ~~~
+        {
+          insert: "10 Tips to Improve Your JavaScript Skills 🚀\n",
+          attributes: {
+            header: 2
+          }
+        },
+        {
+          insert: "JavaScript "
+        },
+        {
+          attributes: {
+            bold: true
+          },
+          insert: "is one of the most popular programming languages"
+        },
+        {
+          insert: " in the world, and mastering it can open up huge career opportunities for web developers.\n\n"
+        },
+        {
+          insert: "1. Practice Every Day\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Consistency is key! Write at least "
+        },
+        {
+          attributes: {
+            italic: true
+          },
+          insert: "10–15 lines of code"
+        },
+        {
+          insert: " daily. Even small projects will sharpen your skills.\n\n"
+        },
+        {
+          insert: "2. Understand the “Why”\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Don’t just copy code — understand "
+        },
+        {
+          attributes: {
+            underline: true
+          },
+          insert: "why"
+        },
+        {
+          insert: " it works. Read documentation, and break down complex examples.\n\n"
+        },
+        {
+          insert: "3. Learn ES6+ Features\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Arrow functions\nDestructuring\nAsync/Await\nModules\n",
+          attributes: {
+            list: "bullet"
+          }
+        },
+        {
+          insert: "\n4. Build Mini Projects\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Try creating simple apps like a "
+        },
+        {
+          attributes: {
+            code: true
+          },
+          insert: "todo list"
+        },
+        {
+          insert: ", "
+        },
+        {
+          attributes: {
+            code: true
+          },
+          insert: "weather app"
+        },
+        {
+          insert: ", or "
+        },
+        {
+          attributes: {
+            code: true
+          },
+          insert: "quiz game"
+        },
+        {
+          insert: ".\n\n"
+        },
+        {
+          insert: "5. Join the Community\n",
+          attributes: {
+            header: 3
+          }
+        },
+        {
+          insert: "Follow discussions on "
+        },
+        {
+          insert: "Stack Overflow",
+          attributes: {
+            link: "https://stackoverflow.com/"
+          }
+        },
+        {
+          insert: " and GitHub. Learning from others is invaluable.\n\n"
+        },
+        {
+          insert: {
+            image: "https://images.unsplash.com/photo-1581092334514-3e09eab4b9b2"
+          }
+        },
+        {
+          insert: "\n\n"
+        },
+        {
+          attributes: {
+            bold: true
+          },
+          insert: "Conclusion:"
+        },
+        {
+          insert: " Keep learning, stay consistent, and never stop building. The best way to grow as a developer is to keep coding!\n"
+        }
+      ],
+?     set?: String
+    },
+    coverImage: "/uploads/1762267494509-280200756.jpg",
+    authorId: "68fba7f7c6b66457df1faa4f"
+  }
+}
+
+Unknown argument `ops`. Did you mean `set`? Available options are marked with ?.
+[2025-11-04 20:15:30] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-11-04 20:22:24] [31merror[39m: id is not defined
+[2025-11-04 20:23:07] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-11-04 20:23:38] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
