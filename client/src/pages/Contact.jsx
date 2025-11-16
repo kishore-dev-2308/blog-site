@@ -35,18 +35,23 @@ const Contact = () => {
                             fontSize: "1rem",
                         }}
                     >
-                        Have a question or a project in mind? Drop a line. We'd love to hear
-                        from you and we'll get back to you as soon as possible.
+                        Have a question or a project in mind? Drop a line. We'd love to
+                        hear from you and we'll get back to you as soon as possible.
                     </Typography>
                 </Box>
 
-                {/* Form + Info */}
-                <Grid container spacing={5} alignItems="flex-start">
+                {/* Layout */}
+                <Grid
+                    container
+                    spacing={5}
+                    alignItems="flex-start"
+                    sx={{ flexDirection: { xs: "column", md: "row" } }}
+                >
                     {/* Left Form Section */}
-                    <Grid item xs={12} md={7}>
+                    <Grid item size={{ xs: 12, md: 7 }}>
                         <form>
                             <Grid container spacing={3}>
-                                <Grid item xs={12} md={6}>
+                                <Grid item size={{ xs: 12, md: 6 }}>
                                     <Typography
                                         sx={{
                                             fontSize: "0.9rem",
@@ -69,7 +74,8 @@ const Contact = () => {
                                         }}
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={6}>
+
+                                <Grid item size={{ xs: 12, md: 6 }}>
                                     <Typography
                                         sx={{
                                             fontSize: "0.9rem",
@@ -92,7 +98,8 @@ const Contact = () => {
                                         }}
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
+
+                                <Grid item size={{ xs: 12 }}>
                                     <Typography
                                         sx={{
                                             fontSize: "0.9rem",
@@ -117,7 +124,8 @@ const Contact = () => {
                                         }}
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
+
+                                <Grid item size={{ xs: 12 }}>
                                     <Button
                                         variant="contained"
                                         sx={{
@@ -127,6 +135,7 @@ const Contact = () => {
                                             px: 4,
                                             py: 1.2,
                                             fontWeight: 600,
+                                            width: { xs: "100%", sm: "auto" },
                                             "&:hover": {
                                                 backgroundColor: "#2563eb",
                                             },
@@ -140,19 +149,20 @@ const Contact = () => {
                     </Grid>
 
                     {/* Right Info Section */}
-                    <Grid item xs={12} md={5}>
+                    <Grid item size={{ xs: 12, md: 5 }}>
                         <Box display="flex" flexDirection="column" gap={4}>
                             {/* Email */}
                             <Box display="flex" alignItems="flex-start" gap={2}>
                                 <Box
                                     sx={{
-                                        width: 40,
-                                        height: 40,
+                                        width: 45,
+                                        height: 45,
                                         borderRadius: "50%",
                                         backgroundColor: "#eff6ff",
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "center",
+                                        flexShrink: 0,
                                     }}
                                 >
                                     <Email sx={{ color: "#3b82f6" }} />
@@ -172,10 +182,11 @@ const Contact = () => {
                                             fontSize: "0.9rem",
                                             color: "#6b7280",
                                             mb: 0.5,
+                                            lineHeight: 1.5,
                                         }}
                                     >
                                         Our inbox is always open. Whether you have a question or
-                                        just want to say hi, we’ll get back to you.
+                                        just want to say hi, we'll get back to you.
                                     </Typography>
                                     <Typography>
                                         <a
@@ -196,13 +207,14 @@ const Contact = () => {
                             <Box display="flex" alignItems="flex-start" gap={2}>
                                 <Box
                                     sx={{
-                                        width: 40,
-                                        height: 40,
+                                        width: 45,
+                                        height: 45,
                                         borderRadius: "50%",
                                         backgroundColor: "#eff6ff",
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "center",
+                                        flexShrink: 0,
                                     }}
                                 >
                                     <Call sx={{ color: "#3b82f6" }} />
@@ -222,10 +234,10 @@ const Contact = () => {
                                             fontSize: "0.9rem",
                                             color: "#6b7280",
                                             mb: 0.5,
+                                            lineHeight: 1.5,
                                         }}
                                     >
-                                        Mon–Fri from 9am to 5pm. Give us a ring to chat with a
-                                        member of our team.
+                                        Mon–Fri from 9am to 5pm. Reach out anytime.
                                     </Typography>
                                     <Typography>
                                         <a
@@ -246,13 +258,14 @@ const Contact = () => {
                             <Box display="flex" alignItems="flex-start" gap={2}>
                                 <Box
                                     sx={{
-                                        width: 40,
-                                        height: 40,
+                                        width: 45,
+                                        height: 45,
                                         borderRadius: "50%",
                                         backgroundColor: "#eff6ff",
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "center",
+                                        flexShrink: 0,
                                     }}
                                 >
                                     <LocationOn sx={{ color: "#3b82f6" }} />
@@ -272,11 +285,14 @@ const Contact = () => {
                                             fontSize: "0.9rem",
                                             color: "#6b7280",
                                             mb: 0.5,
+                                            lineHeight: 1.5,
                                         }}
                                     >
                                         Come say hello at our office headquarters.
                                     </Typography>
-                                    <Typography sx={{ fontWeight: 600 }}>City, Country</Typography>
+                                    <Typography sx={{ fontWeight: 600 }}>
+                                        City, Country
+                                    </Typography>
                                 </Box>
                             </Box>
                         </Box>

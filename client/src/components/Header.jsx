@@ -9,16 +9,17 @@ import {
     Container,
     Drawer,
     List,
-    ListItem,
+    ListItemButton,
     ListItemText,
     Box,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const location = useLocation();
 
     const handleToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -60,17 +61,29 @@ const Header = () => {
                             </Typography>
 
                             <Box className="d-none d-lg-flex gap-4">
-                                {navLinks.map((link) => (
-                                    <Button
-                                        key={link.label}
-                                        component={Link}
-                                        to={link.path}
-                                        color="inherit"
-                                        size="small"
-                                    >
-                                        {link.label}
-                                    </Button>
-                                ))}
+                                {navLinks.map((link) => {
+                                    const isActive = location.pathname === link.path;
+
+                                    return (
+                                        <Button
+                                            key={link.label}
+                                            component={Link}
+                                            to={link.path}
+                                            size="small"
+                                            sx={{
+                                                color: isActive ? "#137fec" : "inherit",
+                                                fontWeight: isActive ? 700 : 400,
+                                                borderBottom: isActive
+                                                    ? "2px solid #137fec"
+                                                    : "2px solid transparent",
+                                                borderRadius: 0,
+                                                pb: 0.5,
+                                            }}
+                                        >
+                                            {link.label}
+                                        </Button>
+                                    );
+                                })}
                             </Box>
                         </Box>
 
@@ -91,17 +104,33 @@ const Header = () => {
             <Drawer anchor="right" open={mobileOpen} onClose={handleToggle}>
                 <Box sx={{ width: 240, mt: 8 }}>
                     <List>
-                        {navLinks.map((link) => (
-                            <ListItem
-                                button
-                                key={link.label}
-                                component={Link}
-                                to={link.path}
-                                onClick={handleToggle}
-                            >
-                                <ListItemText primary={link.label} />
-                            </ListItem>
-                        ))}
+                        {navLinks.map((link) => {
+                            const isActive = location.pathname === link.path;
+
+                            return (
+                                <ListItemButton
+                                    key={link.label}
+                                    component={Link}
+                                    to={link.path}
+                                    onClick={handleToggle}
+                                    sx={{
+                                        backgroundColor: isActive ? "#e8f3ff" : "transparent",
+                                        borderLeft: isActive ? "4px solid #137fec" : "4px solid transparent",
+                                        color: isActive ? "#137fec" : "inherit",
+                                        "&:hover": {
+                                            backgroundColor: "#f0f7ff",
+                                        },
+                                    }}
+                                >
+                                    <ListItemText
+                                        primary={link.label}
+                                        primaryTypographyProps={{
+                                            fontWeight: isActive ? 700 : 400,
+                                        }}
+                                    />
+                                </ListItemButton>
+                            );
+                        })}
                     </List>
                 </Box>
             </Drawer>

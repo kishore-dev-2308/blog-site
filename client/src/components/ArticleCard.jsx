@@ -20,10 +20,10 @@ const ArticleCard = ({ category, title, author, date, image }) => (
         component="img"
         height="180"
         image={image}
-        onError={(e) => {
-          e.target.src =
-            "./public/placeholder.svg";
-        }}
+        // onError={(e) => {
+        //   e.target.src =
+        //     "./public/placeholder.svg";
+        // }}
         alt={title}
         sx={{
           transition: "transform 0.6s ease",

@@ -11,6 +11,7 @@ const NotFound = lazy(() => import("./pages/NotFound.jsx"));
 const ServerError = lazy(() => import("./pages/ServerError.jsx"));
 const Contact = lazy(() => import("./pages/Contact.jsx"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.jsx"));
+const Categories = lazy(() => import("./pages/Categories.jsx"));
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" index element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/categories" element={<Categories />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/500" element={<ServerError />} />
