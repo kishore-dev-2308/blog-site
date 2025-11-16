@@ -9,9 +9,13 @@ router.get('/list', auth, authorizeRoles(1, 2), listBlog);
 router.get('/:id', auth, authorizeRoles(1, 2), editBlog);
 router.post('/store', auth, upload.single("coverImage"), [
     body("title").notEmpty().withMessage("Title is required"),
+    body("content").notEmpty().withMessage("Content is required"),
+    body("categoryId").notEmpty().withMessage("Please select category"),
 ], storeBlog);
 router.post('/:id', auth, authorizeRoles(1, 2), upload.single("coverImage"), [
     body("title").notEmpty().withMessage("Title is required"),
+    body("content").notEmpty().withMessage("Content is required"),
+    body("categoryId").notEmpty().withMessage("Please select category"),
 ], updateBlog);
 
 export default router;

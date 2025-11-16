@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Grid } from "@mui/material";
 import HeroSection from "../components/HeroSection";
 import LatestArticles from "../components/LatestArticles";
-import TrendingPosts from "../components/TrendingPosts";
+import AllArticles from "../components/AllArticles";
 
 const Home = () => (
   <>
@@ -13,12 +13,11 @@ const Home = () => (
       sx={{ py: { xs: 3, md: 5 } }}
     >
       <Grid container spacing={4}>
-        <Grid item xs={12} md={8}>
-          <LatestArticles />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TrendingPosts />
-        </Grid>
+        <LatestArticles />
+      </Grid>
+
+      <Grid container spacing={4} sx={{mt:2}}>
+        <AllArticles />
       </Grid>
     </Container>
   </>

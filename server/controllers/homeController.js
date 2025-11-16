@@ -24,6 +24,9 @@ export const allBolgs = async (req, res) => {
                     author: {
                         select: { id: true, name: true, email: true, role: true },
                     },
+                    category: {
+                        select: { name: true }
+                    }
                 },
                 orderBy: { createdAt: "desc" },
                 skip,
@@ -41,5 +44,34 @@ export const allBolgs = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
+    }
+}
+
+export const getBySlug = async (req, res) => {
+
+    try {
+        const slug = req.params.slug
+        let blog = await prisma.blog.findFirst({
+            where: {
+                slug
+            },
+            include: {
+                author: {
+                    select: { name: true },
+                },
+                category: {
+                    select: { name: true }
+                }
+            }
+        });
+
+        if (!blog) {
+            res.status(404).json({ message: "Blog not found" });
+        }
+
+        res.status(200).json(blog);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 }

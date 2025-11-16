@@ -430,3 +430,8 @@ Invalid `prisma.blog.update()` invocation:
 
 Unknown argument `ops`. Did you mean `set`? Available options are marked with ?.
 [2025-11-04 20:22:24] [31merror[39m: id is not defined
+[2025-11-16 10:52:15] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+
+Inconsistent column data: Malformed ObjectID: provided hex string representation must be exactly 12 bytes, instead got: "test-blog", length 9.

@@ -503,3 +503,11 @@ Unknown argument `ops`. Did you mean `set`? Available options are marked with ?.
 [2025-11-04 20:22:24] [31merror[39m: id is not defined
 [2025-11-04 20:23:07] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
 [2025-11-04 20:23:38] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-11-16 10:34:03] [32minfo[39m: Home route accessed
+[2025-11-16 10:34:22] [33mwarn[39m: ⚠️ Could File (/uploads/1763269462602-552757038.jpg): ENOENT: no such file or directory, access 'D:\uploads\1763269462602-552757038.jpg'
+[2025-11-16 10:35:07] [32minfo[39m: Blog created by user 68fba7f7c6b66457df1faa4f with ID undefined
+[2025-11-16 10:52:15] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+
+Inconsistent column data: Malformed ObjectID: provided hex string representation must be exactly 12 bytes, instead got: "test-blog", length 9.

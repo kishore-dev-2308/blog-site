@@ -1,10 +1,9 @@
 import express from "express";
 import { auth, authorizeRoles } from "../middleware/authMiddleware.js";
-import { allBolgs, getBySlug } from "../controllers/homeController.js";
+import { getCategories } from "../controllers/categoryController.js";
 
 const router = express.Router();
 
-router.get('/', allBolgs);
-router.get('/get-by-slug/:slug', getBySlug);
+router.get('/get-list', getCategories);
 
 export default router;

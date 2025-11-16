@@ -18,7 +18,7 @@ export const storeBlog = async (req, res) => {
     try {
         const userId = req.user.id;
 
-        let { title, content } = req.body;
+        let { title, content, categoryId } = req.body;
         const coverImage = req.file ? `/uploads/${req.file.filename}` : undefined;
         const slug = await generateUniqueSlug(title);
 
@@ -38,6 +38,7 @@ export const storeBlog = async (req, res) => {
                 data: {
                     title,
                     slug,
+                    categoryId,
                     content,
                     coverImage,
                     authorId: userId,
@@ -83,6 +84,7 @@ export const editBlog = async (req, res) => {
                     content: true,
                     coverImage: true,
                     authorId: true,
+                    categoryId: true,
                 }
             });
         }
@@ -94,6 +96,7 @@ export const editBlog = async (req, res) => {
                 select: {
                     title: true,
                     content: true,
+                    categoryId: true,
                     coverImage: true,
                     authorId: true,
                 }
@@ -126,7 +129,7 @@ export const updateBlog = async (req, res) => {
     try {
         const userId = req.user.id;
         const blogId = req.params.id
-        let { title, content } = req.body;
+        let { title, content, categoryId } = req.body;
         let blog = {};
         if (req.user.role === 2) {
             blog = await prisma.blog.findFirst({
@@ -141,6 +144,7 @@ export const updateBlog = async (req, res) => {
                     content: true,
                     coverImage: true,
                     authorId: true,
+                    categoryId: true,
                 }
             });
         }
@@ -154,6 +158,7 @@ export const updateBlog = async (req, res) => {
                     content: true,
                     coverImage: true,
                     authorId: true,
+                    categoryId: true,
                 }
             });
         }
@@ -180,6 +185,7 @@ export const updateBlog = async (req, res) => {
                     title,
                     slug,
                     content,
+                    categoryId,
                     coverImage,
                     authorId: userId,
                 }
@@ -224,8 +230,11 @@ export const listBlog = async (req, res) => {
                 where,
                 include: {
                     author: {
-                        select: { id: true, name: true, email: true, role: true },
+                        select: { name: true },
                     },
+                    category: {
+                        select: { name: true }
+                    }
                 },
                 orderBy: { createdAt: "desc" },
                 skip,
