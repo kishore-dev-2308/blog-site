@@ -241,7 +241,7 @@ function CategoriesPage() {
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
 
-    const itemsPerPage = 3;
+    const itemsPerPage = 6;
 
     const filtered = posts.filter((p) => {
         const matchesCategory =
