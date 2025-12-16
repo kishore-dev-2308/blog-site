@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 // --- PUBLIC PAGES ---
 const Login = lazy(() => import("./components/AuthLayout/Login"));
@@ -8,8 +9,6 @@ const AuthLayout = lazy(() => import("./components/AuthLayout/AuthLayout"));
 
 const Home = lazy(() => import("./pages/Home"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
-const NotFound = lazy(() => import("./pages/NotFound.jsx"));
-const ServerError = lazy(() => import("./pages/ServerError.jsx"));
 const Contact = lazy(() => import("./pages/Contact.jsx"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.jsx"));
 const Categories = lazy(() => import("./pages/Categories.jsx"));
@@ -29,6 +28,12 @@ const AdminDashboard = lazy(() => import("./components/AdminLayout/Dashboaed.jsx
 const AdminUsers = lazy(() => import("./components/AdminLayout/Users.jsx"));
 const AdminPosts = lazy(() => import("./components/AdminLayout/Posts.jsx"));
 
+const NotFound = lazy(() => import("./components/Common/NotFound.jsx"));
+const ServerError = lazy(() => import("./components/Common/ServerError.jsx"));
+const ProtectedRoute = lazy(() => import("./components/Common/ProtectedRoute.jsx"));
+
+
+
 function App() {
   return (
     <Suspense fallback={
@@ -36,6 +41,14 @@ function App() {
         Loading...
       </div>
     }>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+      />
       <BrowserRouter>
 
         <Routes>
@@ -46,6 +59,30 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Route>
 
+          {/* AUTHOR ROUTES */}
+          <Route element={<ProtectedRoute allowedRoles={[2]} />}>
+            <Route path="/author" element={<AuthorLayout />}>
+              <Route index element={<AuthorDashboard />} />
+              <Route path="posts" element={<AuthorPosts />} />
+              <Route path="profile" element={<AuthorProfile />} />
+
+              <Route path="*" element={<NotFound />} />
+              <Route path="500" element={<ServerError />} />
+            </Route>
+          </Route>
+
+
+          {/* ADMIN ROUTES */}
+          <Route element={<ProtectedRoute allowedRoles={[1]} />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="posts" element={<AdminPosts />} />
+
+              <Route path="*" element={<NotFound />} />
+              <Route path="500" element={<ServerError />} />
+            </Route>
+          </Route>
 
           {/* PUBLIC SITE ROUTES */}
           <Route element={<UserLayout />}>
@@ -58,23 +95,6 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/500" element={<ServerError />} />
           </Route>
-
-
-          {/* AUTHOR ROUTES */}
-          <Route path="/author" element={<AuthorLayout />}>
-            <Route index element={<AuthorDashboard />} />
-            <Route path="posts" element={<AuthorPosts />} />
-            <Route path="profile" element={<AuthorProfile />} />
-          </Route>
-
-
-          {/* ADMIN ROUTES */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="users" element={<AdminUsers />} />
-            <Route path="posts" element={<AdminPosts />} />
-          </Route>
-
         </Routes>
       </BrowserRouter>
     </Suspense>

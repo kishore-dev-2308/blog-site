@@ -102,7 +102,7 @@ export default function Sidebar({ active, setActive }) {
             {/* SETTINGS + LOGOUT */}
             <Box>
 
-                <ListItemButton
+                {/* <ListItemButton
                     sx={{
                         py: 1.2,
                         borderRadius: "10px",
@@ -115,7 +115,7 @@ export default function Sidebar({ active, setActive }) {
                         <SettingsOutlined />
                     </ListItemIcon>
                     <ListItemText primary="Settings" />
-                </ListItemButton>
+                </ListItemButton> */}
 
                 <Button
                     startIcon={<Logout />}

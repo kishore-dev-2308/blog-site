@@ -20,7 +20,24 @@ model User {
   password     String
   profileImage String?
   role         Int     @default(3) // 1=Admin, 2=Author, 3=Reader
-  blogs        Blog[]
+
+  blogs    Blog[]
+  sessions Session[]
+}
+
+model Session {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String   @db.ObjectId
+  refreshTokenHash String
+  ip               String?
+  userAgent        String?
+  lastUsedAt       DateTime @default(now())
+  expiresAt        DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
 }
 
 model Category {

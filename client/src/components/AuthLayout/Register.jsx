@@ -1,11 +1,16 @@
 import { useFormik } from "formik";
 import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import apiPublic from "../../api/apiPublic";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -28,8 +33,32 @@ const Register = () => {
                 .required("Confirm password is required"),
             terms: Yup.bool().oneOf([true], "You must accept terms & conditions"),
         }),
-        onSubmit: (values) => {
-            console.log("Register Data:", values);
+        onSubmit: async (values) => {
+            try {
+                setError("");
+
+                const response = await apiPublic.post(
+                    "/auth/register",
+                    {
+                        ...values
+                    },
+                );
+
+                if (!response.data.success) {
+                    setError(
+                        response.data.message || "Registration failed"
+                    );
+                    return;
+                }
+                toast.success("Registration successful 🎉");
+                navigate("/login");
+
+            } catch (err) {
+                setError(
+                    err?.response?.data?.message || "Registration failed"
+                );
+                console.error("Login error:", err);
+            }
         },
     });
 
@@ -92,8 +121,8 @@ const Register = () => {
                             id="password"
                             name="password"
                             className={`form-control rounded-pill pe-5 ${formik.touched.password && formik.errors.password
-                                    ? "is-invalid"
-                                    : ""
+                                ? "is-invalid"
+                                : ""
                                 }`}
                             placeholder="Enter your password"
                             value={formik.values.password}
@@ -123,8 +152,8 @@ const Register = () => {
                             id="confirmPassword"
                             name="confirmPassword"
                             className={`form-control rounded-pill pe-5 ${formik.touched.confirmPassword && formik.errors.confirmPassword
-                                    ? "is-invalid"
-                                    : ""
+                                ? "is-invalid"
+                                : ""
                                 }`}
                             placeholder="Re-enter your password"
                             value={formik.values.confirmPassword}

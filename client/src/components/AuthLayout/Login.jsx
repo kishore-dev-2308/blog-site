@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Eye, EyeOff } from "lucide-react";
-
+import apiPublic from "../../api/apiPublic";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../../store/authSlice";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -18,8 +25,38 @@ const Login = () => {
                 .required("Email is required"),
             password: Yup.string().required("Password is required"),
         }),
-        onSubmit: (values) => {
-            console.log("Login Data:", values);
+        onSubmit: async (values) => {
+            try {
+                setError("");
+
+                const response = await apiPublic.post(
+                    "/auth/login",
+                    {
+                        email: values.email,
+                        password: values.password,
+                        device: navigator.userAgent,
+                    },
+                );
+
+                if (!response.data.success) {
+                    setError(
+                        response.data.message || "Invalid email or password"
+                    );
+                    return;
+                }
+
+                dispatch(setUser(response.data.user));
+                toast.success("Login successful 🎉");
+                if (response.data.user.role === 1) navigate("/admin");
+                else if (response.data.user.role === 2) navigate("/author");
+                else navigate("/");
+
+            } catch (err) {
+                setError(
+                    err?.response?.data?.message || "Invalid email or password"
+                );
+                console.error("Login error:", err);
+            }
         },
     });
 
