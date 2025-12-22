@@ -36,7 +36,7 @@ const Register = () => {
         onSubmit: async (values) => {
             try {
                 setError("");
-
+                const toastId = toast.loading("Logging in...");
                 const response = await apiPublic.post(
                     "/auth/register",
                     {
@@ -50,13 +50,24 @@ const Register = () => {
                     );
                     return;
                 }
-                toast.success("Registration successful 🎉");
+                toast.update(toastId, {
+                    render: "Registration successful 🎉",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 3000,
+                });
                 navigate("/login");
 
             } catch (err) {
                 setError(
                     err?.response?.data?.message || "Registration failed"
                 );
+                toast.update(toastId, {
+                    render: "Something went wrong. Please try again.",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 3000,
+                });
                 console.error("Login error:", err);
             }
         },

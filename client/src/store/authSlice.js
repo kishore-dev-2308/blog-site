@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: null,
   isAuthenticated: false,
+  isBootstrapped: false,
 };
 
 const authSlice = createSlice({
@@ -12,10 +13,12 @@ const authSlice = createSlice({
     setUser(state, action) {
       state.user = action.payload;
       state.isAuthenticated = true;
+      state.isBootstrapped = true;
     },
     clearUser(state) {
       state.user = null;
       state.isAuthenticated = false;
+      state.isBootstrapped = true;
     },
   },
 });

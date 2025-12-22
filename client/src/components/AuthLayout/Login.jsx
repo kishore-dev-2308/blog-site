@@ -26,9 +26,9 @@ const Login = () => {
             password: Yup.string().required("Password is required"),
         }),
         onSubmit: async (values) => {
+            const toastId = toast.loading("Logging in...");
             try {
                 setError("");
-
                 const response = await apiPublic.post(
                     "/auth/login",
                     {
@@ -46,7 +46,13 @@ const Login = () => {
                 }
 
                 dispatch(setUser(response.data.user));
-                toast.success("Login successful 🎉");
+                toast.update(toastId, {
+                    render: "Login successful 🎉",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 3000,
+                });
+
                 if (response.data.user.role === 1) navigate("/admin");
                 else if (response.data.user.role === 2) navigate("/author");
                 else navigate("/");
@@ -55,6 +61,13 @@ const Login = () => {
                 setError(
                     err?.response?.data?.message || "Invalid email or password"
                 );
+                toast.update(toastId, {
+                    render: "Something went wrong. Please try again.",
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 3000,
+                });
+
                 console.error("Login error:", err);
             }
         },

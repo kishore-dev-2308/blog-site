@@ -11,6 +11,7 @@ const AUTH_ENDPOINTS = [
   "/auth/login",
   "/auth/refresh",
   "/auth/logout",
+  "/auth/me",
 ];
 
 let isRefreshing = false;

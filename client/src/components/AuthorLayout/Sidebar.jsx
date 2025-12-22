@@ -17,16 +17,49 @@ import {
     Logout,
 } from "@mui/icons-material";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";  
+import apiPrivate from "../../api/apiPrivate";                
+import { useDispatch } from "react-redux";
+import { clearUser } from "../../store/authSlice";           
+import { toast } from "react-toastify";                      
 
 export default function Sidebar({ active, setActive }) {
     const navigate = useNavigate();
+    const location = useLocation(); 
+
+    const dispatch = useDispatch();
 
     const menus = [
         { key: "dashboard", label: "Dashboard", url: "/author", icon: <DashboardOutlined /> },
         { key: "posts", label: "Posts", url: "/author/posts", icon: <ArticleOutlined /> },
         { key: "profile", label: "Profile", url: "/author/profile", icon: <PersonOutline /> },
     ];
+
+    const handleLogout = async () => {
+        const toastId = toast.loading("Logging out...");
+
+        try {
+            await apiPrivate.post("/auth/logout", {}, { withCredentials: true });
+
+            dispatch(clearUser());
+
+            toast.update(toastId, {
+                render: "Logged out successfully 👋",
+                type: "success",
+                isLoading: false,
+                autoClose: 2000,
+            });
+
+            navigate("/login");
+        } catch (err) {
+            toast.update(toastId, {
+                render: "Logout failed. Please try again!",
+                type: "error",
+                isLoading: false,
+                autoClose: 2000,
+            });
+        }
+    };
 
     return (
         <Box
@@ -39,7 +72,6 @@ export default function Sidebar({ active, setActive }) {
             bgcolor="#fff"
         >
             <Box>
-
                 <Box display="flex" alignItems="center" gap={1.5} mb={4}>
                     <Avatar sx={{ bgcolor: "#E5F0FF", width: 40, height: 40 }}>
                         <Typography fontWeight={700} fontSize={14} color="#1A73E8">
@@ -68,22 +100,23 @@ export default function Sidebar({ active, setActive }) {
                                     borderRadius: "10px",
                                     bgcolor: isActive ? "#E9F3FF" : "transparent",
                                     color: isActive ? "#1A73E8" : "#424242",
-                                    "&:hover": { bgcolor: "#E9F3FF" }
+                                    "&:hover": { bgcolor: "#E9F3FF" },
                                 }}
                             >
                                 <ListItemIcon
                                     sx={{
                                         minWidth: 40,
-                                        color: isActive ? "#1A73E8" : "#424242"
+                                        color: isActive ? "#1A73E8" : "#424242",
                                     }}
                                 >
                                     {menu.icon}
                                 </ListItemIcon>
+
                                 <ListItemText
                                     primary={menu.label}
                                     primaryTypographyProps={{
                                         fontSize: 15,
-                                        fontWeight: isActive ? 700 : 500
+                                        fontWeight: isActive ? 700 : 500,
                                     }}
                                 />
                             </ListItemButton>
@@ -96,13 +129,14 @@ export default function Sidebar({ active, setActive }) {
                 <Button
                     startIcon={<Logout />}
                     fullWidth
+                    onClick={handleLogout}
                     sx={{
                         bgcolor: "#FFECEC",
                         color: "#D64545",
                         fontWeight: 700,
                         py: 1,
                         borderRadius: "10px",
-                        "&:hover": { bgcolor: "#FFD9D9" }
+                        "&:hover": { bgcolor: "#FFD9D9" },
                     }}
                 >
                     Logout

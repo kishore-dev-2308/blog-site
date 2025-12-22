@@ -13,7 +13,6 @@ import { cookieOptions } from "../utils/cookies.js";
 
 const prisma = new PrismaClient();
 
-/* ================= REGISTER ================= */
 export const register = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
@@ -37,7 +36,6 @@ export const register = async (req, res) => {
     }
 };
 
-/* ================= LOGIN ================= */
 export const login = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
@@ -88,7 +86,6 @@ export const login = async (req, res) => {
 };
 
 
-/* ================= REFRESH (ROTATION) ================= */
 export const refresh = async (req, res) => {
     const incoming = req.cookies.refreshToken;
     if (!incoming) return res.sendStatus(401);
@@ -119,7 +116,6 @@ export const refresh = async (req, res) => {
         return res.status(403).json({ message: "Session revoked" });
     }
 
-    // 🔥 Fetch role again
     const user = await prisma.user.findUnique({
         where: { id: payload.userId },
         select: { role: true },
@@ -157,13 +153,13 @@ export const refresh = async (req, res) => {
 };
 
 
-/* ================= LOGOUT ================= */
 export const logout = async (req, res) => {
     const incoming = req.cookies.refreshToken;
 
     if (incoming) {
         const payload = jwt.decode(incoming);
         if (payload?.userId) {
+            console.log("Logging out user:", payload.userId);
             const sessions = await prisma.session.findMany({
                 where: { userId: payload.userId },
             });
@@ -182,3 +178,18 @@ export const logout = async (req, res) => {
     return res.json({ ok: true });
 };
 
+export const currentUser = async (req, res) => {
+    const userId = req.user.userId;
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { id: true, name: true, email: true, role: true },
+        });
+        if (!user) return res.status(404).json({ message: "User not found" });
+        return res.json({ user });
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+};

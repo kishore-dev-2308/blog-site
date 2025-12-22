@@ -10,7 +10,7 @@ import categotyRoutes from "./routes/categoryRoutes.js";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import path from "path";
-
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
@@ -22,6 +22,7 @@ app.use(cors({
 }));
 app.use(helmet());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 

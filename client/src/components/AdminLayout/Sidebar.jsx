@@ -18,11 +18,17 @@ import {
     Logout,
 } from "@mui/icons-material";
 
+
 import { useNavigate, useLocation } from "react-router-dom";
+import apiPrivate from "../../api/apiPrivate";      
+import { useDispatch } from "react-redux";
+import { clearUser } from "../../store/authSlice";
+import { toast } from "react-toastify";           
 
 export default function Sidebar({ active, setActive }) {
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
     const menus = [
         { key: "dashboard", label: "Dashboard", url: "/admin", icon: <DashboardOutlined /> },
@@ -30,6 +36,27 @@ export default function Sidebar({ active, setActive }) {
         { key: "posts", label: "Manage Blogs", url: "/admin/posts", icon: <ArticleOutlined /> },
         { key: "reports", label: "Reports", url: "/admin/reports", icon: <AssessmentOutlined /> },
     ];
+
+    const handleLogout = async () => {
+        try {
+            const toastId = toast.loading("Logging out...");
+
+            await apiPrivate.post("/auth/logout", {}, { withCredentials: true });
+
+            dispatch(clearUser());
+
+            toast.update(toastId, {
+                render: "Logged out successfully 👋",
+                type: "success",
+                isLoading: false,
+                autoClose: 2000,
+            });
+
+            navigate("/login");
+        } catch (err) {
+            toast.error("Logout failed. Try again!");
+        }
+    };
 
     return (
         <Box
@@ -42,7 +69,6 @@ export default function Sidebar({ active, setActive }) {
             bgcolor="#fff"
         >
 
-            {/* LOGO SECTION */}
             <Box>
                 <Box display="flex" alignItems="center" mb={4} px={1} gap={1.5}>
                     <Avatar sx={{ bgcolor: "#E5F0FF", width: 42, height: 42 }}>
@@ -57,7 +83,6 @@ export default function Sidebar({ active, setActive }) {
                     </Box>
                 </Box>
 
-                {/* MENU LIST */}
                 <List>
                     {menus.map(menu => {
                         const isActive = location.pathname === menu.url;
@@ -99,24 +124,7 @@ export default function Sidebar({ active, setActive }) {
                 </List>
             </Box>
 
-            {/* SETTINGS + LOGOUT */}
             <Box>
-
-                {/* <ListItemButton
-                    sx={{
-                        py: 1.2,
-                        borderRadius: "10px",
-                        mb: 0.7,
-                        "&:hover": { bgcolor: "#F5F6FA" }
-                    }}
-                    onClick={() => navigate("/admin/settings")}
-                >
-                    <ListItemIcon sx={{ minWidth: 36 }}>
-                        <SettingsOutlined />
-                    </ListItemIcon>
-                    <ListItemText primary="Settings" />
-                </ListItemButton> */}
-
                 <Button
                     startIcon={<Logout />}
                     fullWidth
@@ -129,6 +137,7 @@ export default function Sidebar({ active, setActive }) {
                         "&:hover": { bgcolor: "#FFD9D9" },
                         mt: 1
                     }}
+                    onClick={handleLogout}  
                 >
                     Logout
                 </Button>

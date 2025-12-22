@@ -1,19 +1,24 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 
-// --- PUBLIC PAGES ---
+import apiPrivate from "./api/apiPrivate";
+import { setUser, clearUser } from "./store/authSlice";
+
+/* ================= LAZY IMPORTS ================= */
+
+// --- AUTH ---
 const Login = lazy(() => import("./components/AuthLayout/Login"));
 const Register = lazy(() => import("./components/AuthLayout/Register"));
 const AuthLayout = lazy(() => import("./components/AuthLayout/AuthLayout"));
 
+// --- PUBLIC ---
 const Home = lazy(() => import("./pages/Home"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const Contact = lazy(() => import("./pages/Contact.jsx"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy.jsx"));
 const Categories = lazy(() => import("./pages/Categories.jsx"));
-
-// --- USER ---
 const UserLayout = lazy(() => import("./components/userLayout/userLayout"));
 
 // --- AUTHOR ---
@@ -28,73 +33,88 @@ const AdminDashboard = lazy(() => import("./components/AdminLayout/Dashboaed.jsx
 const AdminUsers = lazy(() => import("./components/AdminLayout/Users.jsx"));
 const AdminPosts = lazy(() => import("./components/AdminLayout/Posts.jsx"));
 
+// --- COMMON ---
 const NotFound = lazy(() => import("./components/Common/NotFound.jsx"));
 const ServerError = lazy(() => import("./components/Common/ServerError.jsx"));
 const ProtectedRoute = lazy(() => import("./components/Common/ProtectedRoute.jsx"));
 
-
+/* ================= APP ================= */
 
 function App() {
+  const { isBootstrapped } = useSelector((s) => s.auth);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isBootstrapped) return; 
+    const checkAuth = async () => {
+      try {
+        const { data } = await apiPrivate.get("/auth/me");
+        dispatch(setUser(data));
+      } catch {
+        dispatch(clearUser());
+      }
+    };
+
+    checkAuth();
+  }, [isBootstrapped, dispatch]);
+
   return (
-    <Suspense fallback={
-      <div style={{ textAlign: "center", padding: "40px", fontSize: "18px" }}>
-        Loading...
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div style={{ textAlign: "center", padding: "40px", fontSize: "18px" }}>
+          Loading...
+        </div>
+      }
+    >
       <ToastContainer
         position="top-right"
         autoClose={3000}
-        hideProgressBar={false}
         newestOnTop
         closeOnClick
         pauseOnHover
       />
-      <BrowserRouter>
 
+      <BrowserRouter>
         <Routes>
 
-          {/* AUTH ROUTES */}
+          {/* ================= AUTH ROUTES ================= */}
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Route>
 
-          {/* AUTHOR ROUTES */}
+          {/* ================= AUTHOR ROUTES ================= */}
           <Route element={<ProtectedRoute allowedRoles={[2]} />}>
             <Route path="/author" element={<AuthorLayout />}>
               <Route index element={<AuthorDashboard />} />
               <Route path="posts" element={<AuthorPosts />} />
               <Route path="profile" element={<AuthorProfile />} />
-
-              <Route path="*" element={<NotFound />} />
-              <Route path="500" element={<ServerError />} />
             </Route>
           </Route>
 
-
-          {/* ADMIN ROUTES */}
+          {/* ================= ADMIN ROUTES ================= */}
           <Route element={<ProtectedRoute allowedRoles={[1]} />}>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="users" element={<AdminUsers />} />
               <Route path="posts" element={<AdminPosts />} />
-
-              <Route path="*" element={<NotFound />} />
-              <Route path="500" element={<ServerError />} />
             </Route>
           </Route>
 
-          {/* PUBLIC SITE ROUTES */}
+          {/* ================= PUBLIC ROUTES ================= */}
           <Route element={<UserLayout />}>
-            <Route path="/" index element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-
-            <Route path="*" element={<NotFound />} />
-            <Route path="/500" element={<ServerError />} />
           </Route>
+
+          {/* ================= ERROR ROUTES ================= */}
+          <Route path="/500" element={<ServerError />} />
+          <Route path="*" element={<NotFound />} />
+
         </Routes>
       </BrowserRouter>
     </Suspense>
