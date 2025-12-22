@@ -25,6 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+app.set("trust proxy", 1);
 
 const limiter = rateLimit({
     windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
