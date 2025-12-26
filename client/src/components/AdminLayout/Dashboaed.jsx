@@ -53,7 +53,7 @@ export default function AdminDashboard() {
             {/* STATS SECTION */}
             <Grid container spacing={3} mb={4}>
                 {stats.map((s, i) => (
-                    <Grid item xs={12} sm={6} md={4} key={i}>
+                    <Grid item size={{ xs: 12, sm: 6, md: 4 }} key={i}>
                         <Paper
                             elevation={0}
                             sx={{

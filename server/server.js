@@ -16,13 +16,21 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 
+app.use(cookieParser());
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: false,
+    crossOriginResourcePolicy: false,
+    hsts: false,
+  })
+);
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.set("trust proxy", 1);
@@ -35,7 +43,6 @@ const limiter = rateLimit({
 app.use(limiter);
 
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use("/api/auth", authRoutes);
 app.use("/api/profile",userRoutes);

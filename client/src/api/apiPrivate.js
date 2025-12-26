@@ -5,6 +5,11 @@ const apiPrivate = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
   timeout: 15000,
+  headers: {
+    "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+    Pragma: "no-cache",
+    Expires: "0",
+  }
 });
 
 const AUTH_ENDPOINTS = [

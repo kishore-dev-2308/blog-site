@@ -10,21 +10,21 @@ export const storeBlog = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         if (req.file) {
-            deletefile(`/uploads/${req.file.filename}`)
+            deletefile(`uploads/${req.file.filename}`);
         }
         return res.status(400).json({ errors: errors.array() });
     }
 
     try {
-        const userId = req.user.id;
 
+        let userId = req.user.userId;
         let { title, content, categoryId } = req.body;
-        const coverImage = req.file ? `/uploads/${req.file.filename}` : undefined;
+        const coverImage = req.file ? `/uploads/${req.file.filename}` : "";
         const slug = await generateUniqueSlug(title);
 
-        if (typeof content === "string") {
-            content = JSON.parse(content);
-        }
+        // if (typeof content === "string") {
+        //     content = JSON.parse(content);
+        // }
         const result = await prisma.$transaction(async (tx) => {
             if (req.user.role === 3) {
                 await tx.user.update({
@@ -58,7 +58,7 @@ export const storeBlog = async (req, res) => {
     } catch (error) {
         logger.error(error);
         if (req.file) {
-            deletefile(`/uploads/${req.file.filename}`)
+            deletefile(`uploads/${req.file.filename}`);
         }
         res.status(500).json({ message: "Some thing went wrong" });
     }
@@ -122,7 +122,7 @@ export const updateBlog = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         if (req.file) {
-            deletefile(`/uploads/${req.file.filename}`)
+            deletefile(`uploads/${req.file.filename}`);
         }
         return res.status(400).json({ errors: errors.array() });
     }

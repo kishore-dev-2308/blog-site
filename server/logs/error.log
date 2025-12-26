@@ -1,0 +1,181 @@
+[2025-12-25 21:25:40] [31merror[39m: Unexpected token '<', "<p>tetetet"... is not valid JSON
+[2025-12-26 20:04:07] [31merror[39m: Unexpected token '<', "<p>test</p>" is not valid JSON
+[2025-12-26 20:08:48] [31merror[39m: 
+Invalid `prisma.blog.create()` invocation:
+
+{
+  data: {
+    title: "asdasda",
+    slug: "asdasda",
+    categoryId: "1",
+    content: "<p>testetetet</p>",
+    coverImage: undefined,
+    authorId: undefined,
++   category: {
++     create: CategoryCreateWithoutBlogsInput | CategoryUncheckedCreateWithoutBlogsInput,
++     connectOrCreate: CategoryCreateOrConnectWithoutBlogsInput,
++     connect: CategoryWhereUniqueInput
++   }
+  }
+}
+
+Argument `category` is missing.
+[2025-12-26 20:22:29] [31merror[39m: 
+Invalid `prisma.blog.create()` invocation:
+
+{
+  data: {
+    title: "teetstst",
+    slug: "teetstst",
+    categoryId: "69195774d722b34bc95e9db0",
+    content: "<p>testxtsdtte</p>",
+    coverImage: undefined,
+    authorId: undefined,
++   category: {
++     create: CategoryCreateWithoutBlogsInput | CategoryUncheckedCreateWithoutBlogsInput,
++     connectOrCreate: CategoryCreateOrConnectWithoutBlogsInput,
++     connect: CategoryWhereUniqueInput
++   }
+  }
+}
+
+Argument `category` is missing.
+[2025-12-26 20:25:24] [31merror[39m: 
+Invalid `prisma.blog.create()` invocation:
+
+{
+  data: {
+    title: "asdasda",
+    slug: "asdasda",
+    categoryId: "69195774d722b34bc95e9db0",
+    content: "<p>dfdfdfdfdfdf</p>",
+    coverImage: "",
+    authorId: undefined,
++   category: {
++     create: CategoryCreateWithoutBlogsInput | CategoryUncheckedCreateWithoutBlogsInput,
++     connectOrCreate: CategoryCreateOrConnectWithoutBlogsInput,
++     connect: CategoryWhereUniqueInput
++   }
+  }
+}
+
+Argument `category` is missing.
+[2025-12-26 20:27:37] [31merror[39m: 
+Invalid `prisma.blog.create()` invocation:
+
+{
+  data: {
+    title: "asdasda",
+    slug: "asdasda",
+    categoryId: "69195774d722b34bc95e9db1",
+    content: "<p>trest</p>",
+    coverImage: "",
+    authorId: undefined,
++   category: {
++     create: CategoryCreateWithoutBlogsInput | CategoryUncheckedCreateWithoutBlogsInput,
++     connectOrCreate: CategoryCreateOrConnectWithoutBlogsInput,
++     connect: CategoryWhereUniqueInput
++   }
+  }
+}
+
+Argument `category` is missing.
+[2025-12-26 20:31:45] [31merror[39m: 
+Invalid `prisma.blog.create()` invocation:
+
+{
+  data: {
+    title: "fsdsdf",
+    slug: "fsdsdf",
+    categoryId: "69195774d722b34bc95e9db0",
+    content: "<p>fsdfsdsdfs</p>",
+    coverImage: "",
+    authorId: undefined,
+    category: {
+      connect: {
+        id: "69195774d722b34bc95e9db0"
+      }
+    },
++   author: {
++     create: UserCreateWithoutBlogsInput | UserUncheckedCreateWithoutBlogsInput,
++     connectOrCreate: UserCreateOrConnectWithoutBlogsInput,
++     connect: UserWhereUniqueInput
++   }
+  }
+}
+
+Argument `author` is missing.
+[2025-12-26 20:33:03] [31merror[39m: 
+Invalid `prisma.blog.create()` invocation:
+
+{
+  data: {
+    title: "dsfsdf",
+    slug: "dsfsdf",
+    categoryId: "69195774d722b34bc95e9db0",
+    content: "<p>fsfsfsdfsdf</p>",
+    coverImage: "/uploads/1766761383673-377201166.png",
+    authorId: undefined,
+    category: {
+      connect: {
+        id: "69195774d722b34bc95e9db0"
+      }
+    },
++   author: {
++     create: UserCreateWithoutBlogsInput | UserUncheckedCreateWithoutBlogsInput,
++     connectOrCreate: UserCreateOrConnectWithoutBlogsInput,
++     connect: UserWhereUniqueInput
++   }
+  }
+}
+
+Argument `author` is missing.
+[2025-12-26 20:36:08] [31merror[39m: 
+Invalid `prisma.blog.create()` invocation:
+
+{
+  data: {
+    title: "fsdsdf",
+    slug: "fsdsdf",
+    categoryId: "69195774d722b34bc95e9db0",
+    ~~~~~~~~~~
+    content: "<p>kksidjfsiufposidf</p>",
+    coverImage: "/uploads/1766761563321-136912337.png",
+    authorId: undefined,
+    category: {
+      connect: {
+        id: "69195774d722b34bc95e9db0"
+      }
+    },
+    author: {
+      connect: {
+        id: undefined
+      }
+    },
+?   id?: String,
+?   createdAt?: DateTime,
+?   updatedAt?: DateTime
+  }
+}
+
+Unknown argument `categoryId`. Did you mean `category`? Available options are marked with ?.
+[2025-12-26 20:39:37] [31merror[39m: 
+Invalid `prisma.blog.create()` invocation:
+
+{
+  data: {
+    title: "test",
+    slug: "test",
+    categoryId: "69195774d722b34bc95e9db1",
+    content: "<p>test</p>",
+    coverImage: "/uploads/1766761775199-589184244.png",
+    authorId: undefined,
++   category: {
++     create: CategoryCreateWithoutBlogsInput | CategoryUncheckedCreateWithoutBlogsInput,
++     connectOrCreate: CategoryCreateOrConnectWithoutBlogsInput,
++     connect: CategoryWhereUniqueInput
++   }
+  }
+}
+
+Argument `category` is missing.

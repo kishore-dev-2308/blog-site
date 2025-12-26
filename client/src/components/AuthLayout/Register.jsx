@@ -37,7 +37,7 @@ const Register = () => {
             try {
                 setError("");
                 const toastId = toast.loading("Logging in...");
-                const response = await apiPublic.post(
+                const response = await apiPrivate.post(
                     "/auth/register",
                     {
                         ...values

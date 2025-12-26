@@ -26,6 +26,7 @@ const AuthorLayout = lazy(() => import("./components/AuthorLayout/AuthorLayout.j
 const AuthorDashboard = lazy(() => import("./components/AuthorLayout/Dashboard.jsx"));
 const AuthorPosts = lazy(() => import("./components/AuthorLayout/Posts.jsx"));
 const AuthorProfile = lazy(() => import("./components/AuthorLayout/Profile.jsx"));
+const CreateBlog = lazy(() => import("./components/AuthorLayout/CreateBlog.jsx"));
 
 // --- ADMIN ---
 const AdminLayout = lazy(() => import("./components/AdminLayout/AdminLayout.jsx"));
@@ -88,8 +89,11 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={[2]} />}>
             <Route path="/author" element={<AuthorLayout />}>
               <Route index element={<AuthorDashboard />} />
-              <Route path="posts" element={<AuthorPosts />} />
               <Route path="profile" element={<AuthorProfile />} />
+              <Route path="posts">
+                <Route index element={<AuthorPosts />} />
+                <Route path="create" element={<CreateBlog />} />
+              </Route>
             </Route>
           </Route>
 

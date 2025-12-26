@@ -66,8 +66,8 @@ export const login = async (req, res) => {
                 userAgent: req.get("User-Agent") || "",
                 expiresAt: new Date(Date.now() + ms(process.env.REFRESH_TOKEN_EXPIRES || "30d")),
             },
-        });
-
+        }); 
+        console.log("Setting cookies with options:", cookieOptions);
         res.cookie("accessToken", accessToken, {
             ...cookieOptions,
             maxAge: ms(process.env.ACCESS_TOKEN_EXPIRES || "15m"),

@@ -1,37 +1,33 @@
-import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 dotenv.config();
 
 export const auth = (req, res, next) => {
     const token = req.cookies?.accessToken;
-
-    if (!token) {
-        return res.status(401).json({ message: "Unauthorized" });
-    }
+    if (!token) return res.sendStatus(401);
 
     try {
-        const decoded = jwt.verify(
-            token,
-            process.env.ACCESS_TOKEN_SECRET
-        );
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         req.user = decoded;
         next();
     } catch (err) {
-        return res.status(401).json({ message: "Invalid or expired token" });
+        return res.sendStatus(401);
     }
-}
+};
 
-export const authorizeRoles = (...allowedRoles) => {
+
+export const authorizeRoles = (...roles) => {
     return (req, res, next) => {
-        if (!req.user) {
-            return res.status(401).json({ message: "Unauthorized" });
-        }
+        if (!req.user) return res.sendStatus(401);
 
-        if (!allowedRoles.includes(req.user.role)) {
-            return res.status(403).json({ message: "Forbidden: Access denied" });
+        const role = Number(req.user.role);
+
+        if (!roles.includes(role)) {
+            return res.sendStatus(403);
         }
 
         next();
     };
 };
+

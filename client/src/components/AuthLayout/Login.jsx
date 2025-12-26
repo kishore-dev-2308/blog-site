@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setUser } from "../../store/authSlice";
+import apiPrivate from "../../api/apiPrivate";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +30,7 @@ const Login = () => {
             const toastId = toast.loading("Logging in...");
             try {
                 setError("");
-                const response = await apiPublic.post(
+                const response = await apiPrivate.post(
                     "/auth/login",
                     {
                         email: values.email,
