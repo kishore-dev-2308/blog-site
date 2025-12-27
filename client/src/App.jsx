@@ -27,6 +27,8 @@ const AuthorDashboard = lazy(() => import("./components/AuthorLayout/Dashboard.j
 const AuthorPosts = lazy(() => import("./components/AuthorLayout/Posts.jsx"));
 const AuthorProfile = lazy(() => import("./components/AuthorLayout/Profile.jsx"));
 const CreateBlog = lazy(() => import("./components/AuthorLayout/CreateBlog.jsx"));
+const EditBlog = lazy(() => import("./components/AuthorLayout/EditBlog.jsx"));
+const ViewBlog = lazy(() => import("./components/AuthorLayout/ViewBlog.jsx"));
 
 // --- ADMIN ---
 const AdminLayout = lazy(() => import("./components/AdminLayout/AdminLayout.jsx"));
@@ -93,6 +95,8 @@ function App() {
               <Route path="posts">
                 <Route index element={<AuthorPosts />} />
                 <Route path="create" element={<CreateBlog />} />
+                <Route path="view/:id" element={<ViewBlog />} />
+                <Route path="edit/:id" element={<EditBlog />} />
               </Route>
             </Route>
           </Route>

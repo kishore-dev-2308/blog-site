@@ -67,7 +67,6 @@ function Posts() {
                     </Typography>
                 </Box>
 
-                {/* FIXED NAVIGATION */}
                 <Button
                     startIcon={<AddBoxOutlined />}
                     variant="contained"
@@ -123,12 +122,16 @@ function Posts() {
                                     <TableCell>{row.date}</TableCell>
                                     <TableCell>{row.views}</TableCell>
                                     <TableCell align="right">
-                                        <IconButton size="small">
+                                        <IconButton size="small" onClick={() => {
+                                            navigate(`/author/posts/view/${row.id}`)
+                                        }}>
                                             <Visibility />
                                         </IconButton>
                                         <IconButton
                                             size="small"
-                                        // onClick={                                            }
+                                            onClick={() => {
+                                                navigate(`/author/posts/edit/${row.id}`)
+                                            }}
                                         >
                                             <Edit />
                                         </IconButton>

@@ -1,63 +1,71 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
-    Box,
-    Button,
-    TextField,
-    Typography,
-    MenuItem,
-    Card,
-    CardMedia,
-    Stack,
-    Grid,
+    Box, Button, TextField, Typography,
+    MenuItem, Card, CardMedia, Stack, Grid
 } from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { RichTextEditor } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Image from "@tiptap/extension-image";
 import Underline from "@tiptap/extension-underline";
+import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 
-import BreadcrumbsTrail from "../Common/BreadcrumbsTrail";
-import { createBlog } from "../../services/blogService";
+import Breadcrumbs from "../Common/BreadcrumbsTrail";
 import apiPrivate from "../../api/apiPrivate";
+import { fetchBlogById, updateBlog } from "../../services/blogService";
 
-export default function CreateBlog() {
+export default function EditBlog() {
+    const { id } = useParams();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
     const [title, setTitle] = useState("");
     const [categoryId, setCategoryId] = useState("");
-    const [content, setContent] = useState("");
-    const [imagePreview, setImagePreview] = useState("");
     const [coverImage, setCoverImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState("");
     const [categories, setCategories] = useState([]);
 
-    // --------------------- TIPTAP EDITOR ---------------------
     const editor = useEditor({
         extensions: [
             StarterKit,
             Underline,
             Link.configure({
                 openOnClick: false,
-                HTMLAttributes: {
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                },
+                HTMLAttributes: { target: "_blank", rel: "noopener noreferrer" },
             }),
-            Image.configure({
-                allowBase64: true,
-                inline: true,
-            }),
+            Image.configure({ allowBase64: true }),
         ],
         content: "",
         onUpdate({ editor }) {
-            setContent(editor.getHTML());
         },
     });
+
+    const { data: blog, isLoading } = useQuery({
+        queryKey: ["blog", id],
+        queryFn: () => fetchBlogById(id),
+    });
+
+    const loadCategories = useCallback(async () => {
+        const res = await apiPrivate.get("/category/get-list");
+        setCategories(res.data.data || res.data.categories || res.data);
+    }, []);
+
+    useEffect(() => {
+        loadCategories();
+    }, [loadCategories]);
+
+    useEffect(() => {
+        if (blog && editor) {
+            setTitle(blog.title);
+            setCategoryId(blog.categoryId);
+            setImagePreview(import.meta.env.VITE_SERVER_MEDIA_URL + blog.coverImage);
+            editor.commands.setContent(blog.content);
+        }
+    }, [blog, editor]);
 
     const handleImageInput = (e) => {
         const file = e.target.files[0];
@@ -66,15 +74,8 @@ export default function CreateBlog() {
         setImagePreview(URL.createObjectURL(file));
     };
 
-    const addImageToEditor = () => {
-        const url = window.prompt("Enter image URL:");
-        if (url && editor) {
-            editor.chain().focus().setImage({ src: url }).run();
-        }
-    };
-
-    const mutation = useMutation({
-        mutationFn: createBlog,
+    const updateMutation = useMutation({
+        mutationFn: updateBlog,
         onSuccess: () => {
             queryClient.invalidateQueries(["blogs"]);
             navigate("/author/posts");
@@ -90,60 +91,38 @@ export default function CreateBlog() {
         const fd = new FormData();
         fd.append("title", title);
         fd.append("categoryId", categoryId);
-        fd.append("content", content);
+        fd.append("content", editor.getHTML());
         if (coverImage) fd.append("coverImage", coverImage);
 
-        mutation.mutate(fd);
+        updateMutation.mutate(fd);
     };
 
-    const getCategories = useCallback(async () => {
-        try {
-            const res = await apiPrivate.get("/category/get-list");
-            setCategories(res.data.categories || res.data);
-        } catch (err) {
-            console.error("Failed to fetch categories:", err);
-        }
-    }, []);
-
-    useEffect(() => {
-        getCategories();
-    }, [getCategories]);
+    if (isLoading) return <Typography>Loading...</Typography>;
 
     return (
         <>
-            <BreadcrumbsTrail
+            <Breadcrumbs
                 items={[
                     { label: "Dashboard", href: "/author/dashboard" },
                     { label: "Posts", href: "/author/posts" },
-                    { label: "View Blog" },
+                    { label: "Edit Blog" },
                 ]}
             />
 
-            <Typography
-                variant="h4"
-                fontWeight={600}
-                mb={3}
-                sx={{
-                    fontSize: { xs: "1.75rem", sm: "2rem", md: "2.125rem" },
-                }}
-            >
-                Create New Blog
+            <Typography variant="h4" fontWeight={600} mb={3}>
+                Edit Blog
             </Typography>
 
-            <Box
-                component="form"
-                onSubmit={handleSubmit}
-                sx={{ display: "flex", flexDirection: "column", gap: 3 }}
-            >
+            <Box component="form" onSubmit={handleSubmit} display="flex" flexDirection="column" gap={3}>
+
                 <Grid container spacing={2}>
                     <Grid item size={{ xs: 12, md: 8 }}>
                         <TextField
                             label="Blog Title"
                             fullWidth
+                            required
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            required
-                            size="medium"
                         />
                     </Grid>
 
@@ -152,10 +131,9 @@ export default function CreateBlog() {
                             label="Category"
                             select
                             fullWidth
+                            required
                             value={categoryId}
                             onChange={(e) => setCategoryId(e.target.value)}
-                            required
-                            size="medium"
                         >
                             {categories.map((cat) => (
                                 <MenuItem key={cat.id} value={cat.id}>
@@ -167,9 +145,7 @@ export default function CreateBlog() {
                 </Grid>
 
                 <Box>
-                    <Typography mb={1} fontWeight={500}>
-                        Content
-                    </Typography>
+                    <Typography fontWeight={500} mb={1}>Content</Typography>
 
                     <RichTextEditor editor={editor}>
                         <RichTextEditor.Toolbar fixed stickyOffset={60}>
@@ -195,7 +171,12 @@ export default function CreateBlog() {
                             </RichTextEditor.ControlsGroup>
 
                             <RichTextEditor.ControlsGroup>
-                                <RichTextEditor.Control onClick={addImageToEditor}>
+                                <RichTextEditor.Control
+                                    onClick={() => {
+                                        const url = window.prompt("Enter image URL:");
+                                        if (url) editor.chain().focus().setImage({ src: url }).run();
+                                    }}
+                                >
                                     🖼️
                                 </RichTextEditor.Control>
                             </RichTextEditor.ControlsGroup>
@@ -206,9 +187,7 @@ export default function CreateBlog() {
                 </Box>
 
                 <Box>
-                    <Typography fontWeight={500} mb={1}>
-                        Cover Image
-                    </Typography>
+                    <Typography fontWeight={500} mb={1}>Cover Image</Typography>
 
                     <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
                         {imagePreview && (
@@ -224,27 +203,18 @@ export default function CreateBlog() {
                     </Stack>
 
                     <Button variant="contained" component="label" sx={{ mt: 2 }}>
-                            Upload Image
-                            <input
-                                type="file"
-                                accept="image/*"
-                                hidden
-                                onChange={handleImageInput}
-                            />
-                        </Button>
+                        Upload Image
+                        <input type="file" hidden accept="image/*" onChange={handleImageInput} />
+                    </Button>
                 </Box>
 
                 <Box display="flex" justifyContent="end" gap={2}>
-                    <Button
-                        type="button"
-                        variant="outlined"
-                        size="large"
-                        onClick={() => navigate('/author/posts')}
-                    >
+                    <Button variant="outlined" onClick={() => navigate("/author/posts")}>
                         Cancel
                     </Button>
-                    <Button type="submit" variant="contained" size="large">
-                        Publish Blog
+
+                    <Button type="submit" variant="contained">
+                        Update Blog
                     </Button>
                 </Box>
             </Box>

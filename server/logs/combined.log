@@ -193,3 +193,108 @@ Argument `category` is missing.
 [2025-12-26 20:39:38] [32minfo[39m: ✅ Deleted File: uploads/1766761775199-589184244.png
 [2025-12-26 20:45:31] [32minfo[39m: Blog created by user 694184f0fe40fc5cb12ccc3d with ID undefined
 [2025-12-26 21:40:27] [32minfo[39m: Blog created by user 694184f0fe40fc5cb12ccc3d with ID undefined
+[2025-12-27 19:05:47] [32minfo[39m: Blog created by user 694184f0fe40fc5cb12ccc3d with ID undefined
+[2025-12-27 23:03:50] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+{
+  where: {
+    id: "694fe0b3f0756cf7fd925f5e"
+  },
+  select: {
+  ~~~~~~
+    title: true,
+    content: true,
+    coverImage: true,
+    authorId: true,
+    categoryId: true
+  },
+  include: {
+  ~~~~~~~
+    category: {
+      select: {
+        name: true
+      }
+    }
+  }
+}
+
+Please either use `include` or `select`, but not both at the same time.
+[2025-12-27 23:04:04] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+{
+  where: {
+    id: "694fe0b3f0756cf7fd925f5e"
+  },
+  select: {
+  ~~~~~~
+    title: true,
+    content: true,
+    coverImage: true,
+    authorId: true,
+    categoryId: true
+  },
+  include: {
+  ~~~~~~~
+    category: {
+      select: {
+        name: true
+      }
+    }
+  }
+}
+
+Please either use `include` or `select`, but not both at the same time.
+[2025-12-27 23:04:52] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+{
+  where: {
+    id: "694fe0b3f0756cf7fd925f5e"
+  },
+  select: {
+    title: true,
+    content: true,
+    coverImage: true,
+    authorId: true,
+    categoryId: true
+  },
+  category: {
+  ~~~~~~~~
+    select: {
+      name: true
+    }
+  },
+? orderBy?: BlogOrderByWithRelationInput[] | BlogOrderByWithRelationInput,
+? cursor?: BlogWhereUniqueInput,
+? take?: Int,
+? skip?: Int,
+? distinct?: BlogScalarFieldEnum | BlogScalarFieldEnum[]
+}
+
+Unknown argument `category`. Available options are marked with ?.
+[2025-12-27 23:06:33] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+{
+  where: {
+    id: "694fe0b3f0756cf7fd925f5e"
+  },
+  select: {
+  ~~~~~~
+    title: true,
+    content: true,
+    coverImage: true,
+    authorId: true,
+    categoryId: true
+  },
+  include: {
+  ~~~~~~~
+    category: true
+  }
+}
+
+Please either use `include` or `select`, but not both at the same time.
+[2025-12-27 23:38:46] [32minfo[39m: Blog created by user 694184f0fe40fc5cb12ccc3d with ID undefined
+[2025-12-27 23:40:37] [32minfo[39m: Blog created by user 694184f0fe40fc5cb12ccc3d with ID undefined

@@ -86,7 +86,8 @@ export default function Sidebar({ active, setActive }) {
 
                 <List>
                     {menus.map(menu => {
-                        const isActive = location.pathname === menu.url;
+                        // const isActive = location.pathname === menu.url;
+                        const isActive = location.pathname.includes(menu.key);
                         return (
                             <ListItemButton
                                 key={menu.key}

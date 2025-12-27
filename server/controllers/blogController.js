@@ -85,6 +85,7 @@ export const editBlog = async (req, res) => {
                     coverImage: true,
                     authorId: true,
                     categoryId: true,
+                    category: true
                 }
             });
         }
@@ -99,6 +100,7 @@ export const editBlog = async (req, res) => {
                     categoryId: true,
                     coverImage: true,
                     authorId: true,
+                    category: true
                 }
             });
         }
@@ -110,7 +112,7 @@ export const editBlog = async (req, res) => {
             res.status(404).json({ message: "Blog not found" });
         }
 
-        res.status(200).json(blog);
+        res.status(200).json({ 'data': blog });
 
     } catch (error) {
         logger.error(error);

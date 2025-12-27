@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import apiPrivate from "../api/apiPrivate";
 
 export const fetchBlogs = async () => {
@@ -6,16 +7,51 @@ export const fetchBlogs = async () => {
 };
 
 export const createBlog = async (formData) => {
+  const toastId = toast.loading("Publishing...");
   const res = await apiPrivate.post("/blog/store", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+
+  if (res.status === 201) {
+    toast.update(toastId, {
+      render: "Blog created successfully!",
+      type: "success",
+      isLoading: false,
+      autoClose: 2000,
+    });
+  }
+  else {
+    toast.update(toastId, {
+      render: "Failed to create blog. Please try again.",
+      type: "error",
+      isLoading: false,
+      autoClose: 2000,
+    });
+  }
   return res.data;
 };
 
 export const updateBlog = async ({ id, formData }) => {
+  const toastId = toast.loading("Updating...");
   const res = await apiPrivate.put(`/blog/update/${id}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+  if (res.status === 200) {
+    toast.update(toastId, {
+      render: "Blog updated successfully!",
+      type: "success",
+      isLoading: false,
+      autoClose: 2000,
+    });
+  }
+  else {
+    toast.update(toastId, {
+      render: "Failed to update blog. Please try again.",
+      type: "error",
+      isLoading: false,
+      autoClose: 2000,
+    });
+  }
   return res.data;
 };
 
