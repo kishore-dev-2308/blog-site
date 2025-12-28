@@ -174,9 +174,9 @@ export const updateBlog = async (req, res) => {
         const coverImage = req.file ? `/uploads/${req.file.filename}` : blog.coverImage;
         const slug = await generateUniqueSlug(title, blogId);
 
-        if (typeof content === "string") {
-            content = JSON.parse(content);
-        }
+        // if (typeof content === "string") {
+        //     content = JSON.parse(content);
+        // }
         const result = await prisma.$transaction(async (tx) => {
 
             const blog = tx.blog.update({
@@ -249,6 +249,42 @@ export const listBlog = async (req, res) => {
             total,
             page: Number(page),
             pages: Math.ceil(total / Number(limit)),
+            blogs,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+}
+
+export const recentBlogs = async (req, res) => {
+    try {
+        const user = req.user;
+
+        let where = {};
+
+        if (user.role === 2) {
+            where.authorId = user.id;
+        }
+
+        const [blogs, total] = await Promise.all([
+            prisma.blog.findMany({
+                where,
+                include: {
+                    author: {
+                        select: { name: true },
+                    },
+                    category: {
+                        select: { name: true }
+                    }
+                },
+                orderBy: { createdAt: "desc" },
+                take: 5,
+            }),
+            prisma.blog.count({ where }),
+        ]);
+
+        res.json({
             blogs,
         });
     } catch (err) {

@@ -298,3 +298,11 @@ Invalid `prisma.blog.findFirst()` invocation:
 Please either use `include` or `select`, but not both at the same time.
 [2025-12-27 23:38:46] [32minfo[39m: Blog created by user 694184f0fe40fc5cb12ccc3d with ID undefined
 [2025-12-27 23:40:37] [32minfo[39m: Blog created by user 694184f0fe40fc5cb12ccc3d with ID undefined
+[2025-12-28 18:00:32] [31merror[39m: Unexpected token '<', "<p>fsfsdfs"... is not valid JSON
+[2025-12-28 18:01:09] [32minfo[39m: Blog created by user undefined with ID undefined
+[2025-12-28 18:01:56] [32minfo[39m: Blog created by user undefined with ID undefined
+[2025-12-28 18:06:11] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+
+Inconsistent column data: Malformed ObjectID: invalid character 'r' was found at index 0 in the provided hex string: "recent-blogs".

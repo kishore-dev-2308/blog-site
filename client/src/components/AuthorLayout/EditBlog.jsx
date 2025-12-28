@@ -62,7 +62,9 @@ export default function EditBlog() {
         if (blog && editor) {
             setTitle(blog.title);
             setCategoryId(blog.categoryId);
-            setImagePreview(import.meta.env.VITE_SERVER_MEDIA_URL + blog.coverImage);
+            if (blog.coverImage) {
+                setImagePreview(import.meta.env.VITE_SERVER_MEDIA_URL + blog.coverImage);
+            }
             editor.commands.setContent(blog.content);
         }
     }, [blog, editor]);
@@ -75,13 +77,14 @@ export default function EditBlog() {
     };
 
     const updateMutation = useMutation({
-        mutationFn: updateBlog,
+        mutationFn: (formData) => updateBlog({ id, formData }),
         onSuccess: () => {
             queryClient.invalidateQueries(["blogs"]);
+            queryClient.invalidateQueries(["blog", id]);
             navigate("/author/posts");
         },
         onError: (err) => {
-            console.error("Blog create error:", err);
+            console.error("Blog update error:", err);
         },
     });
 
@@ -98,7 +101,10 @@ export default function EditBlog() {
     };
 
     if (isLoading) return <Typography>Loading...</Typography>;
+    console.log(blog, 'blogdata');
 
+    if (isLoading) return <Typography>Loading...</Typography>;
+    if (!blog) return <Typography>No blog found</Typography>;
     return (
         <>
             <Breadcrumbs

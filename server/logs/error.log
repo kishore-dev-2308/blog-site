@@ -281,3 +281,9 @@ Invalid `prisma.blog.findFirst()` invocation:
 }
 
 Please either use `include` or `select`, but not both at the same time.
+[2025-12-28 18:00:32] [31merror[39m: Unexpected token '<', "<p>fsfsdfs"... is not valid JSON
+[2025-12-28 18:06:11] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+
+Inconsistent column data: Malformed ObjectID: invalid character 'r' was found at index 0 in the provided hex string: "recent-blogs".

@@ -17,15 +17,15 @@ import {
     Logout,
 } from "@mui/icons-material";
 
-import { useNavigate, useLocation } from "react-router-dom";  
-import apiPrivate from "../../api/apiPrivate";                
+import { useNavigate, useLocation } from "react-router-dom";
+import apiPrivate from "../../api/apiPrivate";
 import { useDispatch } from "react-redux";
-import { clearUser } from "../../store/authSlice";           
-import { toast } from "react-toastify";                      
+import { clearUser } from "../../store/authSlice";
+import { toast } from "react-toastify";
 
 export default function Sidebar({ active, setActive }) {
     const navigate = useNavigate();
-    const location = useLocation(); 
+    const location = useLocation();
 
     const dispatch = useDispatch();
 
@@ -87,7 +87,7 @@ export default function Sidebar({ active, setActive }) {
                 <List>
                     {menus.map(menu => {
                         // const isActive = location.pathname === menu.url;
-                        const isActive = location.pathname.includes(menu.key);
+                        const isActive = (menu.key === 'dashboard' && location.pathname === '/author') || location.pathname.includes(menu.key);
                         return (
                             <ListItemButton
                                 key={menu.key}

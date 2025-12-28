@@ -33,10 +33,10 @@ export const createBlog = async (formData) => {
 
 export const updateBlog = async ({ id, formData }) => {
   const toastId = toast.loading("Updating...");
-  const res = await apiPrivate.put(`/blog/update/${id}`, formData, {
+  const res = await apiPrivate.post(`/blog/${id}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
-  if (res.status === 200) {
+  if (res.status === 201) {
     toast.update(toastId, {
       render: "Blog updated successfully!",
       type: "success",
@@ -57,5 +57,29 @@ export const updateBlog = async ({ id, formData }) => {
 
 export const fetchBlogById = async (id) => {
   const res = await apiPrivate.get(`/blog/${id}`);
-  return res.data.blog;
+
+  if (res.status !== 200) {
+    toast.update(toastId, {
+      render: "Failed to get blog details. Please try again.",
+      type: "error",
+      isLoading: false,
+      autoClose: 2000,
+    });
+  }
+
+  return res.data.data;
 };
+
+export const fetchRecentBlogs = async () => {
+  const res = await apiPrivate.get("/blog/recent-blogs");
+
+  if (res.status !== 200) {
+    toast.update(toastId, {
+      render: "Failed to fetch recent blogs. Please try again.",
+      type: "error",
+      isLoading: false,
+      autoClose: 2000,
+    });
+  }
+  return res.data.blogs;
+}

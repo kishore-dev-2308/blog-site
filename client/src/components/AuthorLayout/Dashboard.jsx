@@ -15,6 +15,8 @@ import {
   ArticleOutlined,
   AddBoxOutlined,
 } from "@mui/icons-material";
+import { fetchRecentBlogs } from "../../services/blogService";
+import { useQuery } from "@tanstack/react-query";
 
 export default function AuthorDashboard() {
   const stats = [
@@ -41,23 +43,30 @@ export default function AuthorDashboard() {
     },
   ];
 
-  const recentPosts = [
-    {
-      title: "The Future of AI in Web Development",
-      views: "1,250",
-      date: "Oct 15, 2024",
-    },
-    {
-      title: "Using React Server Components",
-      views: "980",
-      date: "Nov 10, 2024",
-    },
-    {
-      title: "Node.js Performance Tips",
-      views: "720",
-      date: "Dec 21, 2024",
-    },
-  ];
+  // const recentPosts = [
+  //   {
+  //     title: "The Future of AI in Web Development",
+  //     views: "1,250",
+  //     date: "Oct 15, 2024",
+  //   },
+  //   {
+  //     title: "Using React Server Components",
+  //     views: "980",
+  //     date: "Nov 10, 2024",
+  //   },
+  //   {
+  //     title: "Node.js Performance Tips",
+  //     views: "720",
+  //     date: "Dec 21, 2024",
+  //   },
+  // ];
+
+  const { data: recentblogs, isLoading } = useQuery({
+    queryKey: ["recentblogs"],
+    queryFn: fetchRecentBlogs,
+    staleTime: 5 * 60 * 1000, 
+  });
+  if (isLoading) return <Typography>Loading blogs…</Typography>;
 
   return (
     <Box>
@@ -81,7 +90,7 @@ export default function AuthorDashboard() {
       </Box>
 
       <Grid container spacing={3} mb={4}>
-        {stats.map((item, index) => (
+        {stats?.map((item, index) => (
           <Grid item xs={12} sm={6} lg={4} key={index}>
             <Paper
               elevation={0}
@@ -135,7 +144,7 @@ export default function AuthorDashboard() {
           Recent Posts
         </Typography>
 
-        {recentPosts.map((post, index) => (
+        {recentblogs?.map((post, index) => (
           <Box key={index}>
             <Box display="flex" justifyContent="space-between" mb={1.5}>
               <Box>
@@ -150,7 +159,7 @@ export default function AuthorDashboard() {
               <Typography fontWeight={700}>{post.views} views</Typography>
             </Box>
 
-            {index < recentPosts.length - 1 && <Divider sx={{ my: 1.8 }} />}
+            {index < recentblogs.length - 1 && <Divider sx={{ my: 1.8 }} />}
           </Box>
         ))}
       </Paper>
