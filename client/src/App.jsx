@@ -25,7 +25,6 @@ const UserLayout = lazy(() => import("./components/userLayout/userLayout"));
 const AuthorLayout = lazy(() => import("./components/AuthorLayout/AuthorLayout.jsx"));
 const AuthorDashboard = lazy(() => import("./components/AuthorLayout/Dashboard.jsx"));
 const AuthorPosts = lazy(() => import("./components/AuthorLayout/Posts.jsx"));
-const AuthorProfile = lazy(() => import("./components/AuthorLayout/Profile.jsx"));
 const CreateBlog = lazy(() => import("./components/AuthorLayout/CreateBlog.jsx"));
 const EditBlog = lazy(() => import("./components/AuthorLayout/EditBlog.jsx"));
 const ViewBlog = lazy(() => import("./components/AuthorLayout/ViewBlog.jsx"));
@@ -40,6 +39,7 @@ const AdminPosts = lazy(() => import("./components/AdminLayout/Posts.jsx"));
 const NotFound = lazy(() => import("./components/Common/NotFound.jsx"));
 const ServerError = lazy(() => import("./components/Common/ServerError.jsx"));
 const ProtectedRoute = lazy(() => import("./components/Common/ProtectedRoute.jsx"));
+const Profile = lazy(() => import("./components/Common/profile/Profile.jsx"));
 
 /* ================= APP ================= */
 
@@ -91,7 +91,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={[2]} />}>
             <Route path="/author" element={<AuthorLayout />}>
               <Route index element={<AuthorDashboard />} />
-              <Route path="profile" element={<AuthorProfile />} />
+              <Route path="profile" element={<Profile />} />
               <Route path="posts">
                 <Route index element={<AuthorPosts />} />
                 <Route path="create" element={<CreateBlog />} />

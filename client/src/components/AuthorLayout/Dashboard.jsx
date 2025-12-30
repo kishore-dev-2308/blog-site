@@ -17,8 +17,10 @@ import {
 } from "@mui/icons-material";
 import { fetchRecentBlogs } from "../../services/blogService";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthorDashboard() {
+  const navigate = useNavigate();
   const stats = [
     {
       label: "Total Views",
@@ -64,7 +66,7 @@ export default function AuthorDashboard() {
   const { data: recentblogs, isLoading } = useQuery({
     queryKey: ["recentblogs"],
     queryFn: fetchRecentBlogs,
-    staleTime: 5 * 60 * 1000, 
+    staleTime: 5 * 60 * 1000,
   });
   if (isLoading) return <Typography>Loading blogs…</Typography>;
 
@@ -81,9 +83,9 @@ export default function AuthorDashboard() {
         </Box>
 
         <Button
-          variant="contained"
           startIcon={<AddBoxOutlined />}
-          sx={{ textTransform: "none", borderRadius: "8px" }}
+          variant="contained"
+          onClick={() => navigate("/author/posts/create")}
         >
           Create New Blog
         </Button>

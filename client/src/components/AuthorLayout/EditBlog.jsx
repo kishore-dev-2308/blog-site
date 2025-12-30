@@ -109,7 +109,6 @@ export default function EditBlog() {
         <>
             <Breadcrumbs
                 items={[
-                    { label: "Dashboard", href: "/author/dashboard" },
                     { label: "Posts", href: "/author/posts" },
                     { label: "Edit Blog" },
                 ]}

@@ -113,7 +113,6 @@ export default function CreateBlog() {
         <>
             <BreadcrumbsTrail
                 items={[
-                    { label: "Dashboard", href: "/author/dashboard" },
                     { label: "Posts", href: "/author/posts" },
                     { label: "View Blog" },
                 ]}

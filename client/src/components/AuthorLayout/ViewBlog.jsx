@@ -20,7 +20,6 @@ export default function ViewBlog() {
         <Box>
             <BreadcrumbsTrail
                 items={[
-                    { label: "Dashboard", href: "/author/dashboard" },
                     { label: "Posts", href: "/author/posts" },
                     { label: "Create Blog" },
                 ]}

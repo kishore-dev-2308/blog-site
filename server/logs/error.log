@@ -287,3 +287,467 @@ Invalid `prisma.blog.findFirst()` invocation:
 
 
 Inconsistent column data: Malformed ObjectID: invalid character 'r' was found at index 0 in the provided hex string: "recent-blogs".
+[2025-12-30 22:32:11] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:32:12] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:32:34] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:32:35] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:35:09] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:35:10] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:36:45] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:36:46] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:38:07] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:38:08] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:39:01] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:39:02] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:40:25] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:40:26] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:40:54] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2025-12-30 22:40:55] [31merror[39m: Profile fetch failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   role?: IntFilter | Int,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  },
+  select: {
+    profileImage: true
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.

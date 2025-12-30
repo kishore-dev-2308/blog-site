@@ -12,10 +12,21 @@ const prisma = new PrismaClient();
 
 export const getProfile = async (req, res) => {
     try {
-        const { id } = req.user;
+        const id = req.user.userId;
         const user = await prisma.user.findFirst({
             where: { id },
-            select: { id: true, name: true, email: true, role: true, password: false, profileImage: true }
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                profileImage: true,
+                bio: true,
+                facebook: true,
+                instagram: true,
+                twitter: true,
+                linkedin: true,
+                github: true
+            }
         });
 
         if (!user) {
@@ -37,8 +48,10 @@ export const updateProfile = async (req, res) => {
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
     try {
-        const { name } = req.body;
-        const { id } = req.user;
+        const { name, bio = null, facebook = null, instagram = null, twitter = null, linkedin = null, github = null } = req.body;
+        const id = req.user.userId;
+
+
         const profileImage = req.file ? `/uploads/${req.file.filename}` : undefined;
         const user = await prisma.user.findUnique({
             where: { id: id },
@@ -66,9 +79,26 @@ export const updateProfile = async (req, res) => {
             where: { id: id },
             data: {
                 name,
+                bio,
+                facebook,
+                instagram,
+                twitter,
+                linkedin,
+                github,
                 ...(newProfileImage && { profileImage: newProfileImage }),
             },
-            select: { id: true, name: true, email: true, profileImage: true },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                profileImage: true,
+                bio: true,
+                facebook: true,
+                instagram: true,
+                twitter: true,
+                linkedin: true,
+                github: true
+            }
         });
 
         logger.info(`User ${id} updated profile`);
