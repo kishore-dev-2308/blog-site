@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import apiPrivate from "./api/apiPrivate";
 import { setUser, clearUser } from "./store/authSlice";
+import AppLoader from "./components/Common/AppLoader.jsx";
 
 /* ================= LAZY IMPORTS ================= */
 
@@ -31,7 +32,7 @@ const ViewBlog = lazy(() => import("./components/AuthorLayout/ViewBlog.jsx"));
 
 // --- ADMIN ---
 const AdminLayout = lazy(() => import("./components/AdminLayout/AdminLayout.jsx"));
-const AdminDashboard = lazy(() => import("./components/AdminLayout/Dashboaed.jsx"));
+const AdminDashboard = lazy(() => import("./components/AdminLayout/Dashboard.jsx"));
 const AdminUsers = lazy(() => import("./components/AdminLayout/Users.jsx"));
 const AdminPosts = lazy(() => import("./components/AdminLayout/Posts.jsx"));
 
@@ -65,9 +66,10 @@ function App() {
   return (
     <Suspense
       fallback={
-        <div style={{ textAlign: "center", padding: "40px", fontSize: "18px" }}>
-          Loading...
-        </div>
+        // <div style={{ textAlign: "center", padding: "40px", fontSize: "18px" }}>
+        //   Loading...
+        // </div>
+        <AppLoader />
       }
     >
       <ToastContainer
@@ -105,6 +107,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={[1]} />}>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
+              <Route path="profile" element={<Profile />} />
               <Route path="users" element={<AdminUsers />} />
               <Route path="posts" element={<AdminPosts />} />
             </Route>

@@ -95,7 +95,7 @@ const Header = () => {
                                     mr: 3,
                                 }}
                             >
-                                TechStream
+                                <img src="/logo-new.png" alt="site-logo" style={{ width: "180px" }} />
                             </Typography>
 
                             <Box className="d-none d-lg-flex gap-4">

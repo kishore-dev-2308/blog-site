@@ -59,6 +59,7 @@ model Blog {
   slug       String
   content    Json
   coverImage String?
+  isPublished Boolean @default(false)
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId String   @db.ObjectId
   author     User     @relation(fields: [authorId], references: [id])

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import apiPublic from "../../api/apiPublic";
 import { toast } from "react-toastify";
+import apiPrivate from "../../api/apiPrivate";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -34,9 +35,9 @@ const Register = () => {
             terms: Yup.bool().oneOf([true], "You must accept terms & conditions"),
         }),
         onSubmit: async (values) => {
+            const toastId = toast.loading("processing...");
             try {
                 setError("");
-                const toastId = toast.loading("Logging in...");
                 const response = await apiPrivate.post(
                     "/auth/register",
                     {

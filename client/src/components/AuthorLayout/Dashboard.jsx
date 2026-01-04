@@ -18,6 +18,7 @@ import {
 import { fetchRecentBlogs } from "../../services/blogService";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import AppLoader from "../Common/AppLoader";
 
 export default function AuthorDashboard() {
   const navigate = useNavigate();
@@ -45,30 +46,12 @@ export default function AuthorDashboard() {
     },
   ];
 
-  // const recentPosts = [
-  //   {
-  //     title: "The Future of AI in Web Development",
-  //     views: "1,250",
-  //     date: "Oct 15, 2024",
-  //   },
-  //   {
-  //     title: "Using React Server Components",
-  //     views: "980",
-  //     date: "Nov 10, 2024",
-  //   },
-  //   {
-  //     title: "Node.js Performance Tips",
-  //     views: "720",
-  //     date: "Dec 21, 2024",
-  //   },
-  // ];
-
   const { data: recentblogs, isLoading } = useQuery({
     queryKey: ["recentblogs"],
     queryFn: fetchRecentBlogs,
     staleTime: 5 * 60 * 1000,
   });
-  if (isLoading) return <Typography>Loading blogs…</Typography>;
+  if (isLoading) return <AppLoader />;
 
   return (
     <Box>

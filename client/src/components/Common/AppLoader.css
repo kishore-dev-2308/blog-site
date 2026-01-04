@@ -1,0 +1,46 @@
+.app-loader-overlay {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.app-loader-inline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.loader-logo {
+    max-width: 280px;   /* controls width */
+    width: 100%;
+    height: auto;       /* keeps aspect ratio */
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0% {
+        transform: scale(0.96);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.96);
+        opacity: 0.7;
+    }
+}

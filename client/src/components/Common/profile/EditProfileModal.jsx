@@ -152,7 +152,7 @@ export default function EditProfileModal({ open, onClose, initialData, onSave })
                         <Box>
                             {preview && (
                                 <img
-                                    src={preview}
+                                    src={preview||""}
                                     alt="Preview"
                                     style={{
                                         width: 80,

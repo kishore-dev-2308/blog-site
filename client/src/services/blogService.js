@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import apiPrivate from "../api/apiPrivate";
+import { setUser } from "../store/authSlice";
 
 export const fetchBlogs = async () => {
   const res = await apiPrivate.get("/blog/list");
@@ -43,6 +44,8 @@ export const updateBlog = async ({ id, formData }) => {
       isLoading: false,
       autoClose: 2000,
     });
+
+    dispatch(setUser(res.data.user));
   }
   else {
     toast.update(toastId, {
@@ -59,7 +62,7 @@ export const fetchBlogById = async (id) => {
   const res = await apiPrivate.get(`/blog/${id}`);
 
   if (res.status !== 200) {
-    toast.update(toastId, {
+    toast.error({
       render: "Failed to get blog details. Please try again.",
       type: "error",
       isLoading: false,
@@ -74,7 +77,7 @@ export const fetchRecentBlogs = async () => {
   const res = await apiPrivate.get("/blog/recent-blogs");
 
   if (res.status !== 200) {
-    toast.update(toastId, {
+    toast.error({
       render: "Failed to fetch recent blogs. Please try again.",
       type: "error",
       isLoading: false,
@@ -83,3 +86,25 @@ export const fetchRecentBlogs = async () => {
   }
   return res.data.blogs;
 }
+
+export const deleteBlog = async (id) => {
+  const toastId = toast.loading("Deleting blog...");
+  const res = await apiPrivate.delete(`/blog/${id}`);
+  if (res.status !== 200) {
+    toast.update(toastId, {
+      render: "Failed to delete blog. Please try again.",
+      type: "error",
+      isLoading: false,
+      autoClose: 2000,
+    });
+  }
+  else {
+    toast.update(toastId, {
+      render: "Blog deleted successfully!",
+      type: "success",
+      isLoading: false,
+      autoClose: 2000,
+    });
+  }
+  return res.data;
+};

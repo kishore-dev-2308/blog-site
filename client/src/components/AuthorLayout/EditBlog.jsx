@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import {
     Box, Button, TextField, Typography,
-    MenuItem, Card, CardMedia, Stack, Grid
+    MenuItem, Card, CardMedia, Stack, Grid,
+    Radio, RadioGroup, FormControlLabel
 } from "@mui/material";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -17,6 +18,8 @@ import Link from "@tiptap/extension-link";
 import Breadcrumbs from "../Common/BreadcrumbsTrail";
 import apiPrivate from "../../api/apiPrivate";
 import { fetchBlogById, updateBlog } from "../../services/blogService";
+import AppLoader from "../Common/AppLoader";
+
 
 export default function EditBlog() {
     const { id } = useParams();
@@ -28,6 +31,7 @@ export default function EditBlog() {
     const [coverImage, setCoverImage] = useState(null);
     const [imagePreview, setImagePreview] = useState("");
     const [categories, setCategories] = useState([]);
+    const [isPublished, setIsPublished] = useState(false);
 
     const editor = useEditor({
         extensions: [
@@ -62,6 +66,7 @@ export default function EditBlog() {
         if (blog && editor) {
             setTitle(blog.title);
             setCategoryId(blog.categoryId);
+            setIsPublished(blog.isPublished ? 1 : 0);
             if (blog.coverImage) {
                 setImagePreview(import.meta.env.VITE_SERVER_MEDIA_URL + blog.coverImage);
             }
@@ -94,16 +99,14 @@ export default function EditBlog() {
         const fd = new FormData();
         fd.append("title", title);
         fd.append("categoryId", categoryId);
+        fd.append("isPublished", isPublished);
         fd.append("content", editor.getHTML());
         if (coverImage) fd.append("coverImage", coverImage);
 
         updateMutation.mutate(fd);
     };
 
-    if (isLoading) return <Typography>Loading...</Typography>;
-    console.log(blog, 'blogdata');
-
-    if (isLoading) return <Typography>Loading...</Typography>;
+    if (isLoading) return <AppLoader />;
     if (!blog) return <Typography>No blog found</Typography>;
     return (
         <>
@@ -148,6 +151,30 @@ export default function EditBlog() {
                         </TextField>
                     </Grid>
                 </Grid>
+                <Box>
+                    <Typography fontWeight={500} mb={1}>
+                        Publish Status
+                    </Typography>
+
+                    <RadioGroup
+                        row
+                        value={isPublished ? "published" : "draft"}
+                        onChange={(e) => setIsPublished(e.target.value === "published" ? 1 : 0)}
+                    >
+                        <FormControlLabel
+                            value="published"
+                            control={<Radio color="success" />}
+                            label="Published"
+                        />
+
+                        <FormControlLabel
+                            value="draft"
+                            control={<Radio color="warning" />}
+                            label="Draft"
+                        />
+                    </RadioGroup>
+                </Box>
+
 
                 <Box>
                     <Typography fontWeight={500} mb={1}>Content</Typography>

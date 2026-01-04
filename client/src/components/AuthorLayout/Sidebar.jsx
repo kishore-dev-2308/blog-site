@@ -2,7 +2,6 @@ import React from "react";
 import {
     Box,
     Avatar,
-    Typography,
     List,
     ListItemButton,
     ListItemIcon,
@@ -19,11 +18,12 @@ import {
 
 import { useNavigate, useLocation } from "react-router-dom";
 import apiPrivate from "../../api/apiPrivate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../store/authSlice";
 import { toast } from "react-toastify";
 
 export default function Sidebar({ active, setActive }) {
+    const { isAuthenticated, user } = useSelector((s) => s.auth);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -34,6 +34,8 @@ export default function Sidebar({ active, setActive }) {
         { key: "posts", label: "Posts", url: "/author/posts", icon: <ArticleOutlined /> },
         { key: "profile", label: "Profile", url: "/author/profile", icon: <PersonOutline /> },
     ];
+
+
 
     const handleLogout = async () => {
         const toastId = toast.loading("Logging out...");
@@ -72,17 +74,33 @@ export default function Sidebar({ active, setActive }) {
             bgcolor="#fff"
         >
             <Box>
-                <Box display="flex" alignItems="center" gap={1.5} mb={4}>
-                    <Avatar sx={{ bgcolor: "#E5F0FF", width: 40, height: 40 }}>
-                        <Typography fontWeight={700} fontSize={14} color="#1A73E8">
-                            B
-                        </Typography>
-                    </Avatar>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    mb={4}
+                >
+                    <Avatar
+                        sx={{ width: 50, height: 50 }}
+                        src={
+                            user?.profileImage
+                                ? import.meta.env.VITE_SERVER_MEDIA_URL + user.profileImage
+                                : undefined
+                        }
+                    />
 
-                    <Typography fontSize={20} fontWeight={700}>
-                        BlogFlow
-                    </Typography>
+                    <Box display="flex" alignItems="center">
+                        <img
+                            src="/logo-new.png"
+                            alt="TechStream"
+                            style={{
+                                width: "180px",
+                                display: "block"
+                            }}
+                        />
+                    </Box>
                 </Box>
+
 
                 <List>
                     {menus.map(menu => {

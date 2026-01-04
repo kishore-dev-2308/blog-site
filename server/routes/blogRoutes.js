@@ -1,7 +1,7 @@
 import express from "express";
 import { auth, authorizeRoles } from "../middleware/authMiddleware.js";
 import { body } from "express-validator";
-import { editBlog, listBlog, storeBlog, updateBlog, recentBlogs } from "../controllers/blogController.js";
+import { editBlog, listBlog, storeBlog, updateBlog, recentBlogs, deleteBlog } from "../controllers/blogController.js";
 import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
@@ -18,5 +18,6 @@ router.post('/:id', auth, authorizeRoles(1, 2), upload.single("coverImage"), [
     body("content").notEmpty().withMessage("Content is required"),
     body("categoryId").notEmpty().withMessage("Please select category"),
 ], updateBlog);
+router.delete('/:id', auth, authorizeRoles(1, 2), deleteBlog);
 
 export default router;

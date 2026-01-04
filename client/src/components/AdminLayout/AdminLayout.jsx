@@ -24,7 +24,6 @@ export default function AdminLayout() {
     return (
         <Box display="flex" height="100vh" bgcolor="#FBFCFE">
 
-            {/* SIDEBAR */}
             {!isMobile && (
                 <Box
                     sx={{
@@ -42,10 +41,8 @@ export default function AdminLayout() {
                 <Sidebar active={active} setActive={setActive} />
             </Drawer>
 
-            {/* RIGHT SIDE: CONTENT + FOOTER */}
             <Box display="flex" flexDirection="column" flex={1}>
 
-                {/* MAIN CONTENT WITH SCROLLING */}
                 <Box flex={1} overflow="auto" p={isMobile ? 2 : 4}>
                     {isMobile && (
                         <IconButton onClick={toggleSidebar} sx={{ mb: 2 }}>
@@ -56,7 +53,6 @@ export default function AdminLayout() {
                     <Outlet />
                 </Box>
 
-                {/* FOOTER ALWAYS FIXED */}
                 <Box py={2} textAlign="center" borderTop="1px solid #e5e7eb" bgcolor="#fff">
                     <Typography fontSize={12} color="#757575">
                         © 2024 BlogFlow Dashboard. All rights reserved.

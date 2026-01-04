@@ -42,6 +42,7 @@ export const storeBlog = async (req, res) => {
                     content,
                     coverImage,
                     authorId: userId,
+                    isPublished: true,
                 }
             });
 
@@ -85,6 +86,7 @@ export const editBlog = async (req, res) => {
                     coverImage: true,
                     authorId: true,
                     categoryId: true,
+                    isPublished: true,
                     category: true
                 }
             });
@@ -100,6 +102,7 @@ export const editBlog = async (req, res) => {
                     categoryId: true,
                     coverImage: true,
                     authorId: true,
+                    isPublished: true,
                     category: true
                 }
             });
@@ -131,7 +134,7 @@ export const updateBlog = async (req, res) => {
     try {
         const userId = req.user.id;
         const blogId = req.params.id
-        let { title, content, categoryId } = req.body;
+        let { title, content, categoryId, isPublished } = req.body;
         let blog = {};
         if (req.user.role === 2) {
             blog = await prisma.blog.findFirst({
@@ -189,6 +192,7 @@ export const updateBlog = async (req, res) => {
                     content,
                     categoryId,
                     coverImage,
+                    isPublished : isPublished === "1" || isPublished === 1 ? true : false,
                     authorId: userId,
                 }
             });
@@ -290,5 +294,87 @@ export const recentBlogs = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });
+    }
+}
+
+export const publishBlog = async (req, res) => {
+    try {
+        const blogId = req.params.id;
+        const updatedBlog = await prisma.blog.update({
+            where: { id: blogId },
+            data: { isPublished: true },
+        });
+        res.status(200).json({ message: "Blog published successfully", blog: updatedBlog });
+    } catch (error) {
+        logger.error(error);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+}
+
+export const unPublishBlog = async (req, res) => {
+    try {
+        const blogId = req.params.id;
+        const updatedBlog = await prisma.blog.update({
+            where: { id: blogId },
+            data: { isPublished: false },
+        });
+        res.status(200).json({ message: "Blog unpublished successfully", blog: updatedBlog });
+    } catch (error) {
+        logger.error(error);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+}
+
+export const deleteBlog = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const blogId = req.params.id
+        let blog = {};
+        if (req.user.role === 2) {
+            blog = await prisma.blog.findFirst({
+                where: {
+                    authorId: userId
+                },
+                where: {
+                    id: blogId
+                },
+                select: {
+                    id: true
+                }
+            });
+        }
+        else if (req.user.role === 1) {
+            blog = await prisma.blog.findFirst({
+                where: {
+                    id: blogId
+                },
+                select: {
+                    id: true
+                }
+            });
+        }
+        else {
+            res.status(403).json({ message: "Forbidden" });
+        }
+        if (!blog) {
+            res.status(404).json({ message: "Blog not found" });
+        }
+        const blogToDelete = await prisma.blog.findUnique({
+            where: { id: blogId },
+            select: { coverImage: true },
+        });
+        if (blogToDelete && blogToDelete.coverImage) {
+            const imagePath = blogToDelete.coverImage.replace(/^\//, '');
+            deletefile(imagePath);
+        }
+        await prisma.blog.delete({
+            where: {
+                id: blogId
+            }
+        });
+        res.status(200).json({ message: "Blog deleted successfully" });
+    } catch (error) {
+        logger.error(error);
+        res.status(500).json({ message: "Something went wrong" });
     }
 }

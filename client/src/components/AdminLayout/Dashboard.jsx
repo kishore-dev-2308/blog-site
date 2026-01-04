@@ -10,6 +10,9 @@ import {
     TableRow,
     TableBody
 } from "@mui/material";
+import { fetchRecentBlogs } from "../../services/blogService";
+import { useQuery } from "@tanstack/react-query";
+import formatDate from "../../utiles/formateDate";
 
 export default function AdminDashboard() {
 
@@ -18,6 +21,12 @@ export default function AdminDashboard() {
         { label: "Total Blogs", value: "430" },
         { label: "Total Categories", value: "12" },
     ];
+
+    const { data: recentblogs, isLoading } = useQuery({
+        queryKey: ["recentblogs"],
+        queryFn: fetchRecentBlogs,
+        staleTime: 5 * 60 * 1000,
+    });
 
     const posts = [
         {
@@ -42,7 +51,6 @@ export default function AdminDashboard() {
 
     return (
         <Box>
-            {/* TITLE */}
             <Typography fontWeight={800} fontSize={28} mb={1}>
                 Dashboard
             </Typography>
@@ -50,7 +58,6 @@ export default function AdminDashboard() {
                 Track your performance, users, blogs & categories.
             </Typography>
 
-            {/* STATS SECTION */}
             <Grid container spacing={3} mb={4}>
                 {stats.map((s, i) => (
                     <Grid item size={{ xs: 12, sm: 6, md: 4 }} key={i}>
@@ -74,7 +81,6 @@ export default function AdminDashboard() {
                 ))}
             </Grid>
 
-            {/* GRAPH CARD */}
             <Paper
                 elevation={0}
                 sx={{
@@ -99,7 +105,6 @@ export default function AdminDashboard() {
                     </span>
                 </Typography>
 
-                {/* Fake graph bars */}
                 <Box display="flex" gap={2} alignItems="flex-end" mt={4}>
                     <Box sx={{ width: 55, height: 30, bgcolor: "#E2E8F0", borderRadius: 2 }} />
                     <Box sx={{ width: 55, height: 55, bgcolor: "#E2E8F0", borderRadius: 2 }} />
@@ -121,7 +126,6 @@ export default function AdminDashboard() {
                 </Box>
             </Paper>
 
-            {/* RECENT BLOG POSTS */}
             <Typography fontWeight={800} mb={1}>
                 Recent Blog Posts
             </Typography>
@@ -145,12 +149,12 @@ export default function AdminDashboard() {
                     </TableHead>
 
                     <TableBody>
-                        {posts.map((row, i) => (
-                            <TableRow key={i}>
+                        {recentblogs?.map((row, i) => (
+                            <TableRow key={row.id}>
                                 <TableCell>{row.title}</TableCell>
-                                <TableCell>{row.author}</TableCell>
-                                <TableCell>{row.category}</TableCell>
-                                <TableCell>{row.date}</TableCell>
+                                <TableCell>{row.author.name}</TableCell>
+                                <TableCell>{row.category.name}</TableCell>
+                                <TableCell>{formatDate(row.createdAt)}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

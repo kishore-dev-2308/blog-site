@@ -27,9 +27,12 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { fetchBlogs, createBlog, updateBlog } from "../../services/blogService";
+import { fetchBlogs, createBlog, updateBlog, deleteBlog } from "../../services/blogService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import formateDate from "../../utiles/formateDate";
+import Swal from "sweetalert2";
+import AppLoader from "../Common/AppLoader";
 
 function Posts() {
     const theme = useTheme();
@@ -46,7 +49,38 @@ function Posts() {
         staleTime: 5 * 60 * 1000,
     });
 
-    if (isLoading) return <Typography>Loading blogs…</Typography>;
+    const handleDelete = async (blogId) => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                await deleteBlogMutation.mutateAsync(blogId);
+            } catch (error) {
+                toast.error("Failed to delete blog");
+            }
+        }
+    };
+
+
+    const deleteBlogMutation = useMutation({
+        mutationFn: (blogId) => deleteBlog(blogId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["blogs"] });
+        },
+        onError: (error) => {
+            console.error("Error deleting blog:", error);
+        }
+    });
+
+    if (isLoading) return <AppLoader />;
 
     const filteredBlogs = blogs?.filter((blog) => {
         if (filter !== "All" && blog.status !== filter) return false;
@@ -104,7 +138,6 @@ function Posts() {
                                 <TableCell>Title</TableCell>
                                 <TableCell>Status</TableCell>
                                 <TableCell>Date</TableCell>
-                                <TableCell>Views</TableCell>
                                 <TableCell align="right">Actions</TableCell>
                             </TableRow>
                         </TableHead>
@@ -115,12 +148,11 @@ function Posts() {
                                     <TableCell>
                                         <Chip
                                             size="small"
-                                            label={row.status}
-                                            color={row.status === "Published" ? "success" : "warning"}
+                                            label={row.isPublished ? "Published" : "Draft"}
+                                            color={row.isPublished ? "success" : "warning"}
                                         />
                                     </TableCell>
-                                    <TableCell>{row.date}</TableCell>
-                                    <TableCell>{row.views}</TableCell>
+                                    <TableCell>{formateDate(row.createdAt)}</TableCell>
                                     <TableCell align="right">
                                         <IconButton size="small" onClick={() => {
                                             navigate(`/author/posts/view/${row.id}`)
@@ -135,7 +167,9 @@ function Posts() {
                                         >
                                             <Edit />
                                         </IconButton>
-                                        <IconButton size="small" color="error">
+                                        <IconButton size="small" color="error" onClick={
+                                            () => handleDelete(row.id)
+                                        }>
                                             <Delete />
                                         </IconButton>
                                     </TableCell>

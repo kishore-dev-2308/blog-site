@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBlogById } from "../../services/blogService";
 import BreadcrumbsTrail from "../Common/BreadcrumbsTrail";
+import AppLoader from "../Common/AppLoader";
 
 export default function ViewBlog() {
     const { id } = useParams();
@@ -13,7 +14,7 @@ export default function ViewBlog() {
         staleTime: 5 * 60 * 1000,
     });
 
-    if (isLoading) return <Typography>Loading...</Typography>;
+    if (isLoading) return <AppLoader />;
     if (!blog) return <Typography>No blog found</Typography>;
 
     return (

@@ -7,11 +7,12 @@ import {
     Button
 } from "@mui/material";
 
-import { Edit, Twitter, LinkedIn, Facebook } from "@mui/icons-material";
+import { Edit, Twitter, LinkedIn, Facebook, Instagram, GitHub } from "@mui/icons-material";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import EditProfileModal from "./EditProfileModal";
 import { fetchProfile, updateProfile } from "./userService";
+import AppLoader from "../AppLoader";
 
 export default function Profile() {
     const queryClient = useQueryClient();
@@ -30,7 +31,7 @@ export default function Profile() {
         }
     });
 
-    if (isLoading) return <Typography>Loading...</Typography>;
+    if (isLoading) return <AppLoader />;
 
     return (
         <Box>
@@ -105,40 +106,37 @@ export default function Profile() {
                 <Box display="flex" gap={2} flexWrap="wrap">
                     {profileData?.twitter && (
                         <Button
-                            startIcon={<Twitter />}
                             variant="outlined"
                             size="small"
                             sx={{ borderRadius: "20px", px: 2 }}
                             href={profileData.twitter}
                             target="_blank"
                         >
-                            Twitter
+                            <Twitter />
                         </Button>
                     )}
 
                     {profileData?.linkedin && (
                         <Button
-                            startIcon={<LinkedIn />}
                             variant="outlined"
                             size="small"
                             sx={{ borderRadius: "20px", px: 2 }}
                             href={profileData.linkedin}
                             target="_blank"
                         >
-                            LinkedIn
+                            <LinkedIn />
                         </Button>
                     )}
 
                     {profileData?.facebook && (
                         <Button
-                            startIcon={<Facebook />}
                             variant="outlined"
                             size="small"
                             sx={{ borderRadius: "20px", px: 2 }}
                             href={profileData.facebook}
                             target="_blank"
                         >
-                            Facebook
+                            <Facebook />
                         </Button>
                     )}
 
@@ -150,7 +148,7 @@ export default function Profile() {
                             href={profileData.instagram}
                             target="_blank"
                         >
-                            Instagram
+                            <Instagram />
                         </Button>
                     )}
 
@@ -162,7 +160,7 @@ export default function Profile() {
                             href={profileData.github}
                             target="_blank"
                         >
-                            GitHub
+                            <GitHub />
                         </Button>
                     )}
                 </Box>
@@ -174,7 +172,7 @@ export default function Profile() {
                 onClose={() => setOpen(false)}
                 initialData={{
                     ...profileData,
-                    profileImageURL: profileData.profileImage
+                    profileImageURL: profileData?.profileImage
                         ? import.meta.env.VITE_SERVER_MEDIA_URL + profileData.profileImage
                         : ""
                 }}

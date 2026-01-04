@@ -20,21 +20,23 @@ import {
 
 
 import { useNavigate, useLocation } from "react-router-dom";
-import apiPrivate from "../../api/apiPrivate";      
-import { useDispatch } from "react-redux";
+import apiPrivate from "../../api/apiPrivate";
+import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../store/authSlice";
-import { toast } from "react-toastify";           
+import { toast } from "react-toastify";
 
 export default function Sidebar({ active, setActive }) {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+    const { isAuthenticated, user } = useSelector((s) => s.auth);
 
     const menus = [
         { key: "dashboard", label: "Dashboard", url: "/admin", icon: <DashboardOutlined /> },
         { key: "users", label: "Manage Users", url: "/admin/users", icon: <GroupOutlined /> },
         { key: "posts", label: "Manage Blogs", url: "/admin/posts", icon: <ArticleOutlined /> },
         { key: "reports", label: "Reports", url: "/admin/reports", icon: <AssessmentOutlined /> },
+        { key: "profile", label: "Profile", url: "/admin/profile", icon: <SettingsOutlined /> },
     ];
 
     const handleLogout = async () => {
@@ -70,16 +72,30 @@ export default function Sidebar({ active, setActive }) {
         >
 
             <Box>
-                <Box display="flex" alignItems="center" mb={4} px={1} gap={1.5}>
-                    <Avatar sx={{ bgcolor: "#E5F0FF", width: 42, height: 42 }}>
-                        <Typography fontWeight={700} fontSize={15} color="#1A73E8">
-                            A
-                        </Typography>
-                    </Avatar>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
+                    mb={4}
+                >
+                    <Avatar
+                        sx={{ width: 50, height: 50 }}
+                        src={
+                            user?.profileImage
+                                ? import.meta.env.VITE_SERVER_MEDIA_URL + user.profileImage
+                                : undefined
+                        }
+                    />
 
-                    <Box>
-                        <Typography fontSize={19} fontWeight={800}>Admin Panel</Typography>
-                        <Typography fontSize={12} color="#787878">Blog Management</Typography>
+                    <Box display="flex" alignItems="center">
+                        <img
+                            src="/logo-new.png"
+                            alt="TechStream"
+                            style={{
+                                width: "180px",
+                                display: "block"
+                            }}
+                        />
                     </Box>
                 </Box>
 
@@ -137,7 +153,7 @@ export default function Sidebar({ active, setActive }) {
                         "&:hover": { bgcolor: "#FFD9D9" },
                         mt: 1
                     }}
-                    onClick={handleLogout}  
+                    onClick={handleLogout}
                 >
                     Logout
                 </Button>

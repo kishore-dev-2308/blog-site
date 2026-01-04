@@ -78,7 +78,7 @@ export const login = async (req, res) => {
             maxAge: ms(process.env.REFRESH_TOKEN_EXPIRES || "30d"),
         });
 
-        return res.json({ success: true, message: "Login successful", user: { id: user.id, name: user.name, email: user.email, role: user.role } });
+        return res.json({ success: true, message: "Login successful", user: { id: user.id, name: user.name, email: user.email, role: user.role, profileImage: user.profileImage } });
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: "Something went wrong" });
