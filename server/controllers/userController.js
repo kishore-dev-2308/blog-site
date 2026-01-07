@@ -97,7 +97,8 @@ export const updateProfile = async (req, res) => {
                 instagram: true,
                 twitter: true,
                 linkedin: true,
-                github: true
+                github: true,
+                role: true
             }
         });
 

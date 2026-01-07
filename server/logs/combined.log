@@ -999,3 +999,68 @@ Argument `isPublished`: Invalid value provided. Expected Boolean or BoolFieldUpd
 [2026-01-04 19:23:01] [32minfo[39m: Blog created by user undefined with ID undefined
 [2026-01-04 19:23:43] [32minfo[39m: Blog created by user undefined with ID undefined
 [2026-01-04 19:23:55] [32minfo[39m: Blog created by user undefined with ID undefined
+[2026-01-04 19:51:43] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-04 19:51:54] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:21:44] [32minfo[39m: Profile fetched for skishore@authorselvi.com
+[2026-01-05 21:24:48] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:25:10] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:25:23] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1761754298977-584052077.jpg
+[2026-01-05 21:25:23] [33mwarn[39m: ⚠️ Could File (D:\kishore_project\blog_site\server\uploads\1761754298977-584052077.jpg): ENOENT: no such file or directory, access 'D:\kishore_project\blog_site\server\uploads\1761754298977-584052077.jpg'
+[2026-01-05 21:25:23] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2026-01-05 21:25:23] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:25:42] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1767628523103-25455090.jpeg
+[2026-01-05 21:25:42] [32minfo[39m: ✅ Deleted File: D:\kishore_project\blog_site\server\uploads\1767628523103-25455090.jpeg
+[2026-01-05 21:25:42] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2026-01-05 21:25:42] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:25:48] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:26:39] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:26:40] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:26:43] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:27:11] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:27:20] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:27:21] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:27:39] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:27:40] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:27:44] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2026-01-05 21:27:44] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:27:59] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:28:18] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:28:26] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:28:28] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:28:32] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:28:34] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:28:40] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:28:44] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:28:54] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:29:07] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:29:11] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:29:15] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:29:18] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:29:54] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:30:11] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:30:13] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:30:27] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:30:29] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:30:30] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:30:35] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:30:41] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2026-01-05 21:30:41] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:30:46] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:31:19] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:31:22] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:33:26] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:33:33] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1767628541976-695644031.png
+[2026-01-05 21:33:33] [32minfo[39m: ✅ Deleted File: D:\kishore_project\blog_site\server\uploads\1767628541976-695644031.png
+[2026-01-05 21:33:34] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2026-01-05 21:33:34] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:37:25] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:37:36] [32minfo[39m: Attempting to delete old image: D:\kishore_project\blog_site\server\uploads\1767629013641-702985171.jpeg
+[2026-01-05 21:37:36] [32minfo[39m: ✅ Deleted File: D:\kishore_project\blog_site\server\uploads\1767629013641-702985171.jpeg
+[2026-01-05 21:37:36] [32minfo[39m: User 68fba7f7c6b66457df1faa4f updated profile
+[2026-01-05 21:37:37] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:37:47] [32minfo[39m: Profile fetched for kishore@gmail.com
+[2026-01-05 21:40:06] [32minfo[39m: Profile fetched for kishorsse@gmail.com
+[2026-01-05 21:40:27] [32minfo[39m: User 6941789347d466e90f0389da updated profile
+[2026-01-05 21:40:27] [32minfo[39m: Profile fetched for kishorsse@gmail.com
+[2026-01-05 21:40:34] [32minfo[39m: Profile fetched for kishorsse@gmail.com
+[2026-01-07 20:21:14] [32minfo[39m: Profile fetched for kishore@gmail.com
