@@ -12,11 +12,17 @@ import {
     ListItemButton,
     ListItemText,
     Box,
+    Avatar,
+    Menu,
+    MenuItem,
+    Divider
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import LogoutIcon from "@mui/icons-material/Logout";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PersonIcon from "@mui/icons-material/Person";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import apiPrivate from "../api/apiPrivate";
@@ -26,33 +32,32 @@ import { toast } from "react-toastify";
 
 const Header = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { isAuthenticated } = useSelector((s) => s.auth);
+    const { isAuthenticated, user } = useSelector((s) => s.auth);
 
-    const handleToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+    const handleToggle = () => setMobileOpen((prev) => !prev);
+    const handleMenuOpen = (e) => setAnchorEl(e.currentTarget);
+    const handleMenuClose = () => setAnchorEl(null);
 
     const handleLogout = async () => {
+        handleMenuClose();
         const toastId = toast.loading("Logging out...");
-
         try {
             await apiPrivate.post("/auth/logout", {}, { withCredentials: true });
-
             dispatch(clearUser());
-
             toast.update(toastId, {
-                render: "Logged out successfully 👋",
+                render: "Logged out successfully",
                 type: "success",
                 isLoading: false,
                 autoClose: 2000,
             });
-
             navigate("/login");
-        } catch (err) {
+        } catch {
             toast.update(toastId, {
                 render: "Logout failed",
                 type: "error",
@@ -69,53 +74,42 @@ const Header = () => {
         { label: "Contact", path: "/contact" },
     ];
 
+    const getDashboardPath = () => {
+        if (user?.role === 1) return "/admin";
+        if (user?.role === 2) return "/author";
+        return null;
+    };
+
+    const getProfilePath = () => {
+        if (user?.role === 1) return "/admin/profile";
+        if (user?.role === 2) return "/author/profile";
+        return "/profile";
+    }
+
     return (
         <>
-            <AppBar
-                position="fixed"
-                color="default"
-                elevation={1}
-                sx={{
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                    backgroundColor: "#fff",
-                }}
-            >
+            <AppBar position="fixed" color="default" elevation={1} sx={{ bgcolor: "#fff" }}>
                 <Container maxWidth="lg">
-                    <Toolbar disableGutters className="d-flex justify-content-between" sx={{ py: 1 }}>
-                        
-                        <Box className="d-flex align-items-center gap-2">
-                            <Typography
-                                variant="h6"
-                                component={Link}
-                                to="/"
-                                sx={{
-                                    fontWeight: "bold",
-                                    color: "#137fec",
-                                    textDecoration: "none",
-                                    mr: 3,
-                                }}
-                            >
-                                <img src="/logo-new.png" alt="site-logo" style={{ width: "180px" }} />
-                            </Typography>
+                    <Toolbar disableGutters sx={{ py: 1, justifyContent: "space-between" }}>
 
-                            <Box className="d-none d-lg-flex gap-4">
+                        <Box display="flex" alignItems="center" gap={3}>
+                            <Link to="/">
+                                <img src="/logo-new.png" alt="logo" style={{ width: 180 }} />
+                            </Link>
+
+                            <Box display={{ xs: "none", lg: "flex" }} gap={3}>
                                 {navLinks.map((link) => {
                                     const isActive = location.pathname === link.path;
-
                                     return (
                                         <Button
                                             key={link.label}
                                             component={Link}
                                             to={link.path}
-                                            size="small"
                                             sx={{
                                                 color: isActive ? "#137fec" : "#333",
                                                 fontWeight: isActive ? 700 : 400,
-                                                borderBottom: isActive
-                                                    ? "2px solid #137fec"
-                                                    : "2px solid transparent",
+                                                borderBottom: isActive ? "2px solid #137fec" : "none",
                                                 borderRadius: 0,
-                                                pb: 0.5,
                                             }}
                                         >
                                             {link.label}
@@ -125,35 +119,67 @@ const Header = () => {
                             </Box>
                         </Box>
 
-                        <Box className="d-flex align-items-center gap-2">
-                            
-                            <Box className="d-none d-sm-flex align-items-center bg-light px-2 rounded-pill">
+                        <Box display="flex" alignItems="center" gap={2}>
+
+                            <Box display={{ xs: "none", sm: "flex" }} alignItems="center" px={2} py={0.5} bgcolor="#f5f5f5" borderRadius={20}>
                                 <SearchIcon sx={{ color: "gray" }} />
-                                <InputBase placeholder="Search..." sx={{ ml: 1, flex: 1 }} />
+                                <InputBase placeholder="Search..." sx={{ ml: 1 }} />
                             </Box>
 
                             {!isAuthenticated ? (
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    component={Link}
-                                    to="/login"
-                                >
+                                <Button variant="outlined" component={Link} to="/login">
                                     Login
                                 </Button>
                             ) : (
-                                <Button
-                                    variant="outlined"
-                                    size="small"
-                                    color="error"
-                                    startIcon={<LogoutIcon />}
-                                    onClick={handleLogout}
-                                >
-                                    Logout
-                                </Button>
+                                <>
+                                    <IconButton onClick={handleMenuOpen}>
+                                        <Avatar
+                                            src={
+                                                user?.profileImage
+                                                    ? import.meta.env.VITE_SERVER_MEDIA_URL + user.profileImage
+                                                    : undefined
+                                            }
+                                        />
+                                    </IconButton>
+
+                                    <Menu
+                                        anchorEl={anchorEl}
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleMenuClose}
+                                    >
+                                        {getDashboardPath() && (
+                                            <MenuItem
+                                                onClick={() => {
+                                                    navigate(getDashboardPath());
+                                                    handleMenuClose();
+                                                }}
+                                            >
+                                                <DashboardIcon sx={{ mr: 1 }} />
+                                                Dashboard
+                                            </MenuItem>
+                                        )}
+
+                                        <MenuItem
+                                            onClick={() => {
+                                                navigate(getProfilePath());
+                                                handleMenuClose();
+                                            }}
+                                        >
+                                            <PersonIcon sx={{ mr: 1 }} />
+                                            Profile
+                                        </MenuItem>
+
+                                        <Divider />
+
+                                        <MenuItem onClick={handleLogout}>
+                                            <LogoutIcon sx={{ mr: 1 }} />
+                                            Logout
+                                        </MenuItem>
+                                    </Menu>
+                                </>
                             )}
 
-                            <IconButton onClick={handleToggle} className="d-lg-none">
+                            <IconButton onClick={handleToggle} sx={{ display: { lg: "none" } }}>
                                 <MenuIcon />
                             </IconButton>
                         </Box>
@@ -164,53 +190,48 @@ const Header = () => {
             <Drawer anchor="right" open={mobileOpen} onClose={handleToggle}>
                 <Box sx={{ width: 240, mt: 8 }}>
                     <List>
-                        {navLinks.map((link) => {
-                            const isActive = location.pathname === link.path;
-
-                            return (
-                                <ListItemButton
-                                    key={link.label}
-                                    component={Link}
-                                    to={link.path}
-                                    onClick={handleToggle}
-                                    sx={{
-                                        backgroundColor: isActive ? "#e8f3ff" : "transparent",
-                                        borderLeft: isActive
-                                            ? "4px solid #137fec"
-                                            : "4px solid transparent",
-                                        color: isActive ? "#137fec" : "#333",
-                                        "&:hover": {
-                                            backgroundColor: "#f0f7ff",
-                                        },
-                                    }}
-                                >
-                                    <ListItemText
-                                        primary={link.label}
-                                        primaryTypographyProps={{
-                                            fontWeight: isActive ? 700 : 400,
-                                        }}
-                                    />
-                                </ListItemButton>
-                            );
-                        })}
+                        {navLinks.map((link) => (
+                            <ListItemButton
+                                key={link.label}
+                                component={Link}
+                                to={link.path}
+                                onClick={handleToggle}
+                            >
+                                <ListItemText primary={link.label} />
+                            </ListItemButton>
+                        ))}
 
                         {isAuthenticated && (
-                            <ListItemButton
-                                onClick={() => {
-                                    handleLogout();
-                                    handleToggle();
-                                }}
-                                sx={{
-                                    mt: 1,
-                                    bgcolor: "#ffecec",
-                                    borderLeft: "4px solid #d64545",
-                                    color: "#d64545",
-                                    "&:hover": { bgcolor: "#ffd9d9" },
-                                }}
-                            >
-                                <LogoutIcon sx={{ mr: 1 }} />
-                                <ListItemText primary="Logout" />
-                            </ListItemButton>
+                            <>
+                                <Divider sx={{ my: 1 }} />
+
+                                {getDashboardPath() && (
+                                    <ListItemButton
+                                        onClick={() => {
+                                            navigate(getDashboardPath());
+                                            handleToggle();
+                                        }}
+                                    >
+                                        <DashboardIcon sx={{ mr: 1 }} />
+                                        <ListItemText primary="Dashboard" />
+                                    </ListItemButton>
+                                )}
+
+                                <ListItemButton
+                                    onClick={() => {
+                                        navigate("/profile");
+                                        handleToggle();
+                                    }}
+                                >
+                                    <PersonIcon sx={{ mr: 1 }} />
+                                    <ListItemText primary="Profile" />
+                                </ListItemButton>
+
+                                <ListItemButton onClick={handleLogout}>
+                                    <LogoutIcon sx={{ mr: 1 }} />
+                                    <ListItemText primary="Logout" />
+                                </ListItemButton>
+                            </>
                         )}
                     </List>
                 </Box>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import {
     Box,
     Typography,
@@ -13,11 +13,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import EditProfileModal from "./EditProfileModal";
 import { fetchProfile, updateProfile } from "./userService";
 import AppLoader from "../AppLoader";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../store/authSlice";
 
 export default function Profile() {
     const queryClient = useQueryClient();
     const [open, setOpen] = React.useState(false);
-
+    const dispatch = useDispatch();
     const { data: profileData, isLoading } = useQuery({
         queryKey: ["profile"],
         queryFn: fetchProfile
@@ -25,7 +27,8 @@ export default function Profile() {
 
     const updateMutation = useMutation({
         mutationFn: updateProfile,
-        onSuccess: () => {
+        onSuccess: (user) => {
+            dispatch(setUser(user));
             queryClient.invalidateQueries(["profile"]);
             setOpen(false);
         }

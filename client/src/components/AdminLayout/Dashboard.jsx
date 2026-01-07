@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import {
     Box,
     Typography,
@@ -13,14 +13,18 @@ import {
 import { fetchRecentBlogs } from "../../services/blogService";
 import { useQuery } from "@tanstack/react-query";
 import formatDate from "../../utiles/formateDate";
+import apiPrivate from "../../api/apiPrivate";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function AdminDashboard() {
+    const { isAuthenticated, user } = useSelector((s) => s.auth);
 
-    const stats = [
-        { label: "Total Users", value: "1,250" },
-        { label: "Total Blogs", value: "430" },
-        { label: "Total Categories", value: "12" },
-    ];
+    const [stats, setStats] = useState([
+        { label: "Total Users", value: 0 },
+        { label: "Total Blogs", value: 0 },
+        { label: "Total Categories", value: 0 },
+    ]);
 
     const { data: recentblogs, isLoading } = useQuery({
         queryKey: ["recentblogs"],
@@ -28,26 +32,22 @@ export default function AdminDashboard() {
         staleTime: 5 * 60 * 1000,
     });
 
-    const posts = [
-        {
-            title: "Getting Started with Tailwind CSS",
-            author: "Jane Doe",
-            category: "Web Development",
-            date: "2023-10-26",
-        },
-        {
-            title: "A Guide to Responsive Design",
-            author: "John Smith",
-            category: "UI/UX",
-            date: "2023-10-25",
-        },
-        {
-            title: "Mastering React Hooks",
-            author: "Alex Johnson",
-            category: "React",
-            date: "2023-10-24",
-        },
-    ];
+    const getDashboardStats = useCallback(async () => {
+        try {
+            const response = await apiPrivate.get("/dashboard/stats");
+            if (response.status != 200) {
+                console.error("Failed to fetch dashboard stats");
+                return;
+            }
+            setStats(response.data.stats);
+        } catch (error) {
+            console.error("Error fetching dashboard stats:", error);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        getDashboardStats();
+    }, [getDashboardStats]);
 
     return (
         <Box>
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
                 ))}
             </Grid>
 
-            <Paper
+            {/* <Paper
                 elevation={0}
                 sx={{
                     borderRadius: 3,
@@ -124,7 +124,7 @@ export default function AdminDashboard() {
                     <span>Week 3</span>
                     <span style={{ fontWeight: 700 }}>Week 4</span>
                 </Box>
-            </Paper>
+            </Paper> */}
 
             <Typography fontWeight={800} mb={1}>
                 Recent Blog Posts

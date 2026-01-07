@@ -116,6 +116,7 @@ function App() {
           {/* ================= PUBLIC ROUTES ================= */}
           <Route element={<UserLayout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/categories" element={<Categories />} />
