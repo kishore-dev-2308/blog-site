@@ -1,152 +1,185 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
+    Button,
     Typography,
     TextField,
-    Button,
-    Divider,
-    Avatar,
+    Select,
+    MenuItem,
     Chip,
     IconButton,
-    Pagination,
     Paper,
+    Table,
+    TableBody,
+    TableHead,
+    TableRow,
+    TableCell,
+    Pagination
 } from "@mui/material";
-
 import {
+    Visibility,
     Edit as EditIcon,
     Delete as DeleteIcon,
     Search as SearchIcon,
-    PostAdd as PostAddIcon,
+    Edit,
+    Delete,
+    AddBoxOutlined,
 } from "@mui/icons-material";
 
+import { fetchBlogs } from "../../services/blogService";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import formateDate from "../../utiles/formateDate";
+import { useNavigate } from "react-router-dom";
+import AppLoader from "../Common/AppLoader";
+
 export default function AdminPosts() {
+    const [page, setPage] = useState(1);
+    const [filter, setFilter] = useState("All");
+    const [search, setSearch] = useState("");
+    const [debouncedSearch, setDebouncedSearch] = useState("");
+    const navigate = useNavigate();
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebouncedSearch(search);
+            setPage(1);
+        }, 400);
 
-    const blogs = [
-        {
-            title: "The Future of AI in Web Development",
-            author: "John Doe",
-            category: "Technology",
-            status: "Published",
-            date: "Jan 15, 2024",
-            views: "1,250",
-            avatar: "https://i.pravatar.cc/40?img=1"
-        },
-        {
-            title: "Using React Server Components",
-            author: "Jane Smith",
-            category: "UI/UX",
-            status: "Draft",
-            date: "Jan 10, 2024",
-            views: "-",
-            avatar: "https://i.pravatar.cc/40?img=2"
-        },
-        {
-            title: "Node.js Performance Tips",
-            author: "Mike Johnson",
-            category: "Backend",
-            status: "Published",
-            date: "Jan 08, 2024",
-            views: "980",
-            avatar: "https://i.pravatar.cc/40?img=3"
-        },
-    ];
+        return () => clearTimeout(timeout);
+    }, [search]);
 
+    const { data: blogs, isLoading } = useQuery({
+        queryKey: ["blogs", page, debouncedSearch],
+        queryFn: () => fetchBlogs({ page, search: debouncedSearch }),
+        keepPreviousData: true
+    });
+
+    const deleteBlogMutation = useMutation({
+        mutationFn: (id) => deleteBlog(id),
+        onSuccess: () => {
+            toast.success("Blog deleted successfully");
+            queryClient.invalidateQueries(["blogs"]);
+        },
+    });
+
+    const handleDelete = async (id) => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "This action cannot be undone!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Delete",
+        });
+
+        if (result.isConfirmed) {
+            deleteBlogMutation.mutate(id);
+        }
+    };
+
+    const limit = blogs?.limit || 10;
+
+    if (isLoading) return <AppLoader />;
     return (
-        <Box>
+        <>
             <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
                 <Typography fontSize={26} fontWeight={800}>
-                    Manage Blogs
+                    Manage Posts
                 </Typography>
 
                 <Button
                     variant="contained"
-                    startIcon={<PostAddIcon />}
-                    sx={{ borderRadius: "8px", px: 2, py: 1 }}
+                    startIcon={<AddBoxOutlined />}
+                    onClick={() => navigate("/admin/posts/create")}
                 >
-                    Add New Blog
+                    Create Blog
                 </Button>
             </Box>
-
-            <Box mb={3}>
+            <Box display="flex" gap={2} mb={3}>
                 <TextField
                     fullWidth
-                    placeholder="Search blogs by title or category..."
-                    InputProps={{
-                        startAdornment: <SearchIcon sx={{ mr: 1, opacity: 0.6 }} />
-                    }}
+                    size="small"
+                    placeholder="Search posts..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
                 />
+
+                <Select
+                    size="small"
+                    value={filter}
+                    onChange={(e) => {
+                        setFilter(e.target.value);
+                        setPage(1);
+                    }}
+                >
+                    <MenuItem value="All">All</MenuItem>
+                    <MenuItem value="Published">Published</MenuItem>
+                    <MenuItem value="Draft">Draft</MenuItem>
+                </Select>
             </Box>
 
             <Paper elevation={0} sx={{ borderRadius: 3, border: "1px solid #e5e7eb" }}>
                 <Box p={2}>
+                    <Paper>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Title</TableCell>
+                                    <TableCell>Status</TableCell>
+                                    <TableCell>Author</TableCell>
+                                    <TableCell>Date</TableCell>
+                                    <TableCell align="right">Actions</TableCell>
+                                </TableRow>
+                            </TableHead>
 
-                    <Box display="grid" gridTemplateColumns="2fr 1fr 1fr 1fr 80px" pb={1}>
-                        <Typography sx={{ fontSize: 14, fontWeight: 600 }}>Title</Typography>
-                        <Typography sx={{ fontSize: 14, fontWeight: 600 }}>Author</Typography>
-                        <Typography sx={{ fontSize: 14, fontWeight: 600 }}>Category</Typography>
-                        <Typography sx={{ fontSize: 14, fontWeight: 600 }}>Date Published</Typography>
-                        <Typography sx={{ fontSize: 14, fontWeight: 600 }}>Actions</Typography>
-                    </Box>
+                            <TableBody>
+                                {blogs?.blogs?.map((blog) => (
+                                    <TableRow key={blog.id}>
+                                        <TableCell>{blog.title}</TableCell>
 
-                    <Divider sx={{ mb: 1 }} />
+                                        <TableCell>
+                                            <Chip
+                                                label={blog.isPublished ? "Published" : "Draft"}
+                                                color={blog.isPublished ? "success" : "warning"}
+                                                size="small"
+                                            />
+                                        </TableCell>
 
-                    {blogs.map((blog, i) => (
-                        <Box
-                            key={i}
-                            display="grid"
-                            gridTemplateColumns="2fr 1fr 1fr 1fr 80px"
-                            alignItems="center"
-                            py={1.5}
-                            sx={{
-                                "&:not(:last-child)": {
-                                    borderBottom: "1px solid #f3f4f6"
-                                }
-                            }}
-                        >
-                            <Box display="flex" alignItems="center" gap={1.5}>
-                                <Avatar src={blog.avatar} />
-                                <Box>
-                                    <Typography fontWeight={600}>{blog.title}</Typography>
-                                </Box>
-                            </Box>
+                                        <TableCell>{blog.author?.name}</TableCell>
+                                        <TableCell>{formateDate(blog.createdAt)}</TableCell>
 
-                            <Typography fontSize={14} color="#444">
-                                {blog.author}
-                            </Typography>
+                                        <TableCell align="right">
+                                            <IconButton onClick={() => navigate(`/admin/posts/view/${blog.id}`)}>
+                                                <Visibility />
+                                            </IconButton>
+                                            <IconButton onClick={() => navigate(`/admin/posts/edit/${blog.id}`)}>
+                                                <Edit />
+                                            </IconButton>
+                                            <IconButton color="error" onClick={() => handleDelete(blog.id)}>
+                                                <Delete />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </Paper>
 
-                            <Chip
-                                label={blog.category}
-                                size="small"
-                                sx={{
-                                    bgcolor: "#F0F7FF",
-                                    color: "#1A73E8",
-                                    fontWeight: 600,
-                                }}
-                            />
-
-                            <Typography fontSize={14} color="#555">
-                                {blog.date}
-                            </Typography>
-                            <Box display="flex" gap={1}>
-                                <IconButton size="small">
-                                    <EditIcon fontSize="small" />
-                                </IconButton>
-                                <IconButton size="small">
-                                    <DeleteIcon fontSize="small" color="error" />
-                                </IconButton>
-                            </Box>
-                        </Box>
-                    ))}
 
                     <Box display="flex" justifyContent="space-between" alignItems="center" pt={2}>
                         <Typography fontSize={13} color="#757575">
-                            Showing 1 to 3 of 18 results
+                            Showing {(page - 1) * limit + 1} to {Math.min(page * limit, blogs?.total || 0)} of {blogs?.total || 0} results
                         </Typography>
 
-                        <Pagination count={6} page={1} shape="rounded" />
+                        <Pagination
+                            count={blogs?.pages || 1}
+                            page={page}
+                            onChange={(e, value) => setPage(value)}
+                            shape="rounded"
+                        />
                     </Box>
                 </Box>
             </Paper>
-        </Box>
+        </>
     );
 }

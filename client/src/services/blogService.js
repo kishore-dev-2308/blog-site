@@ -2,9 +2,9 @@ import { toast } from "react-toastify";
 import apiPrivate from "../api/apiPrivate";
 import { setUser } from "../store/authSlice";
 
-export const fetchBlogs = async () => {
-  const res = await apiPrivate.get("/blog/list");
-  return res.data.blogs;
+export const fetchBlogs = async ({ page = 1, search = "", filter = "All" }) => {
+  const res = await apiPrivate.get(`/blog/list?page=${page}&search=${search}&filter=${filter}`);
+  return res.data;
 };
 
 export const createBlog = async (formData) => {

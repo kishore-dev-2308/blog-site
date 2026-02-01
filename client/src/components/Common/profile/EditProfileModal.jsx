@@ -11,6 +11,7 @@ import {
     Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function EditProfileModal({ open, onClose, initialData, onSave }) {
     const [name, setName] = useState("");
@@ -23,7 +24,7 @@ export default function EditProfileModal({ open, onClose, initialData, onSave })
 
     const [profileImage, setProfileImage] = useState(null);
     const [preview, setPreview] = useState("");
-
+    const { isAuthenticated, user } = useSelector((s) => s.auth);
     const [errors, setErrors] = useState({
         image: "",
         facebook: "",
@@ -152,7 +153,7 @@ export default function EditProfileModal({ open, onClose, initialData, onSave })
                         <Box>
                             {preview && (
                                 <img
-                                    src={preview||""}
+                                    src={preview || ""}
                                     alt="Preview"
                                     style={{
                                         width: 80,
@@ -179,61 +180,72 @@ export default function EditProfileModal({ open, onClose, initialData, onSave })
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <TextField
-                                label="Bio"
-                                multiline
-                                minRows={3}
-                                value={bio}
-                                onChange={(e) => setBio(e.target.value)}
-                            />
+                            {
+                                [1, 2].includes(user?.role) && (
+                                    <TextField
+                                        label="Bio"
+                                        multiline
+                                        minRows={3}
+                                        value={bio}
+                                        onChange={(e) => setBio(e.target.value)}
+                                    />
+                                )
+                            }
                         </Stack>
                     </Box>
+                    {
+                        /* Basic Info & Social Links for author */
+                        [1, 2].includes(user?.role) && (
+                            <>
+                                <Divider />
 
-                    <Divider />
+                                <Box>
+                                    <Typography fontWeight={600} fontSize={15} mb={1}>
+                                        Social Links
+                                    </Typography>
 
-                    <Box>
-                        <Typography fontWeight={600} fontSize={15} mb={1}>
-                            Social Links
-                        </Typography>
+                                    <Stack spacing={2}>
+                                        <TextField
+                                            label="Facebook"
+                                            value={facebook}
+                                            error={!!errors.facebook}
+                                            helperText={errors.facebook}
+                                            onChange={(e) => setFacebook(e.target.value)}
+                                        />
+                                        <TextField
+                                            label="Instagram"
+                                            value={instagram}
+                                            error={!!errors.instagram}
+                                            helperText={errors.instagram}
+                                            onChange={(e) => setInstagram(e.target.value)}
+                                        />
+                                        <TextField
+                                            label="Twitter"
+                                            value={twitter}
+                                            error={!!errors.twitter}
+                                            helperText={errors.twitter}
+                                            onChange={(e) => setTwitter(e.target.value)}
+                                        />
+                                        <TextField
+                                            label="LinkedIn"
+                                            value={linkedin}
+                                            error={!!errors.linkedin}
+                                            helperText={errors.linkedin}
+                                            onChange={(e) => setLinkedin(e.target.value)}
+                                        />
+                                        <TextField
+                                            label="GitHub"
+                                            value={github}
+                                            error={!!errors.github}
+                                            helperText={errors.github}
+                                            onChange={(e) => setGithub(e.target.value)}
+                                        />
+                                    </Stack>
+                                </Box>
+                            </>
+                        )
+                    }
 
-                        <Stack spacing={2}>
-                            <TextField
-                                label="Facebook"
-                                value={facebook}
-                                error={!!errors.facebook}
-                                helperText={errors.facebook}
-                                onChange={(e) => setFacebook(e.target.value)}
-                            />
-                            <TextField
-                                label="Instagram"
-                                value={instagram}
-                                error={!!errors.instagram}
-                                helperText={errors.instagram}
-                                onChange={(e) => setInstagram(e.target.value)}
-                            />
-                            <TextField
-                                label="Twitter"
-                                value={twitter}
-                                error={!!errors.twitter}
-                                helperText={errors.twitter}
-                                onChange={(e) => setTwitter(e.target.value)}
-                            />
-                            <TextField
-                                label="LinkedIn"
-                                value={linkedin}
-                                error={!!errors.linkedin}
-                                helperText={errors.linkedin}
-                                onChange={(e) => setLinkedin(e.target.value)}
-                            />
-                            <TextField
-                                label="GitHub"
-                                value={github}
-                                error={!!errors.github}
-                                helperText={errors.github}
-                                onChange={(e) => setGithub(e.target.value)}
-                            />
-                        </Stack>
-                    </Box>
                 </Stack>
             </DialogContent>
 

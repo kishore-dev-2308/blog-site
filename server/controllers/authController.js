@@ -10,6 +10,8 @@ import {
     verifyHashedToken,
 } from "../utils/tokens.js";
 import { cookieOptions } from "../utils/cookies.js";
+import { createTransporter } from "../utils/mailer.js";
+import { verifyEmailTemplate } from "../mails/templates/verifyEmail.js";
 
 const prisma = new PrismaClient();
 
@@ -26,12 +28,40 @@ export const register = async (req, res) => {
 
         const hashed = await bcrypt.hash(password, 10);
 
-        await prisma.user.create({
-            data: { name, email, password: hashed },
+        const user = await prisma.user.create({
+            data: { name, email, password: hashed, isVerified: false, },
         });
 
-        res.status(200).json({ success: true, message: "Registration successful" });
+
+        const token = jwt.sign(
+            { userId: user.id },
+            process.env.JWT_SECRET,
+            { expiresIn: "24h" }
+        );
+
+        const verifyLink = `${process.env.CLIENT_URL}/verify-email/${token}`;
+
+        try {
+            const transporter = createTransporter();
+
+            await transporter.sendMail({
+                from: `"Techstream" <${process.env.EMAIL_USER}>`,
+                to: user.email,
+                subject: "Verify your email",
+                html: verifyEmailTemplate({
+                    name: user.name,
+                    link: verifyLink,
+                }),
+            });
+        } catch (error) {
+            console.error("Error sending verification email:", error);
+        }
+
+
+        res.status(200).json({ success: true, message: "Registration successful | Verification email sent" });
     } catch (err) {
+        console.error(err);
+        user.delete();
         res.status(500).json({ success: false, message: "Something went wrong" });
     }
 };
@@ -45,10 +75,18 @@ export const login = async (req, res) => {
 
     try {
         const user = await prisma.user.findUnique({ where: { email } });
-        if (!user) return res.sendStatus(401);
+        if (!user) return res.status(403).json({ success: false, message: "Account not found" });
+
+        if (user.role !== 1 && user.isVerified === false) {
+            return res.status(403).json({ success: false, message: "Please verify your email before logging in." });
+        }
 
         const valid = await bcrypt.compare(password, user.password);
-        if (!valid) return res.sendStatus(401);
+        if (!valid) return res.status(403).json({ success: false, message: "Invalid credentials" });
+
+        if (user.isActive === false) {
+            return res.status(403).json({ success: false, message: "Account is deactivated. Please contact support." });
+        }
 
         const accessToken = createAccessToken({
             userId: user.id,
@@ -66,8 +104,8 @@ export const login = async (req, res) => {
                 userAgent: req.get("User-Agent") || "",
                 expiresAt: new Date(Date.now() + ms(process.env.REFRESH_TOKEN_EXPIRES || "30d")),
             },
-        }); 
-        console.log("Setting cookies with options:", cookieOptions);
+        });
+        // console.log("Setting cookies with options:", cookieOptions);
         res.cookie("accessToken", accessToken, {
             ...cookieOptions,
             maxAge: ms(process.env.ACCESS_TOKEN_EXPIRES || "15m"),
@@ -159,7 +197,7 @@ export const logout = async (req, res) => {
     if (incoming) {
         const payload = jwt.decode(incoming);
         if (payload?.userId) {
-            console.log("Logging out user:", payload.userId);
+            // console.log("Logging out user:", payload.userId);
             const sessions = await prisma.session.findMany({
                 where: { userId: payload.userId },
             });
@@ -191,5 +229,22 @@ export const currentUser = async (req, res) => {
     catch (err) {
         console.error(err);
         return res.status(500).json({ message: "Something went wrong" });
+    }
+};
+
+export const verifyEmail = async (req, res) => {
+    const { token } = req.body;
+
+    try {
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = payload.userId;
+        await prisma.user.update({
+            where: { id: userId },
+            data: { isVerified: true },
+        });
+        return res.json({ success: true, message: "Email verified successfully" });
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ success: false, message: "Invalid or expired token" });
     }
 };

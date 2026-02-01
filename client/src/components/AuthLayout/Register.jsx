@@ -52,12 +52,14 @@ const Register = () => {
                     return;
                 }
                 toast.update(toastId, {
-                    render: "Registration successful 🎉",
+                    render: "Registration successful 🎉 | Verification email sent",
                     type: "success",
                     isLoading: false,
                     autoClose: 3000,
                 });
-                navigate("/login");
+                // navigate("/login");
+                navigate(`/verify-email-sent?email=${form.email}`);
+
 
             } catch (err) {
                 setError(

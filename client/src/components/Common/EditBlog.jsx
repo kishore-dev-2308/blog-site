@@ -15,14 +15,16 @@ import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 
-import Breadcrumbs from "../Common/BreadcrumbsTrail";
+import Breadcrumbs from "./BreadcrumbsTrail";
 import apiPrivate from "../../api/apiPrivate";
 import { fetchBlogById, updateBlog } from "../../services/blogService";
-import AppLoader from "../Common/AppLoader";
+import AppLoader from "./AppLoader";
+import { useSelector } from "react-redux";
 
 
 export default function EditBlog() {
     const { id } = useParams();
+    const { isAuthenticated, user } = useSelector((s) => s.auth);
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
@@ -112,13 +114,13 @@ export default function EditBlog() {
         <>
             <Breadcrumbs
                 items={[
-                    { label: "Posts", href: "/author/posts" },
-                    { label: "Edit Blog" },
+                    { label: "Posts", href: user?.role === 1 ? "/admin/posts" : "/author/posts" },
+                    { label: "Edit" },
                 ]}
             />
 
             <Typography variant="h4" fontWeight={600} mb={3}>
-                Edit Blog
+                Edit Post
             </Typography>
 
             <Box component="form" onSubmit={handleSubmit} display="flex" flexDirection="column" gap={3}>
@@ -241,7 +243,7 @@ export default function EditBlog() {
                 </Box>
 
                 <Box display="flex" justifyContent="end" gap={2}>
-                    <Button variant="outlined" onClick={() => navigate("/author/posts")}>
+                    <Button variant="outlined" onClick={() => navigate(user?.role === 1 ? "/admin/posts" : "/author/posts")}>
                         Cancel
                     </Button>
 

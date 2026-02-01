@@ -169,6 +169,20 @@ const Header = () => {
                                             Profile
                                         </MenuItem>
 
+                                        {
+                                            user?.role === 3 && (
+                                                <MenuItem
+                                                    onClick={() => {
+                                                        navigate("/request-author-access");
+                                                        handleMenuClose();
+                                                    }}
+                                                >
+                                                    <DashboardIcon sx={{ mr: 1 }} />
+                                                    Become Author
+                                                </MenuItem>
+                                            )
+                                        }
+
                                         <Divider />
 
                                         <MenuItem onClick={handleLogout}>

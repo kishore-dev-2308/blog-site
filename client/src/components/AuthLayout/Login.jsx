@@ -63,7 +63,7 @@ const Login = () => {
                     err?.response?.data?.message || "Invalid email or password"
                 );
                 toast.update(toastId, {
-                    render: "Something went wrong. Please try again.",
+                    render: err?.response?.data?.message || "Something went wrong. Please try again.",
                     type: "error",
                     isLoading: false,
                     autoClose: 3000,

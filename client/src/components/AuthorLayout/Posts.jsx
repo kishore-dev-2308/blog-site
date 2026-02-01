@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Button,
@@ -14,7 +14,7 @@ import {
     TableHead,
     TableRow,
     TableCell,
-    useMediaQuery
+    Pagination
 } from "@mui/material";
 
 import {
@@ -24,105 +24,96 @@ import {
     Delete,
 } from "@mui/icons-material";
 
-import { useTheme } from "@mui/material/styles";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { fetchBlogs, createBlog, updateBlog, deleteBlog } from "../../services/blogService";
+import { fetchBlogs, deleteBlog } from "../../services/blogService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import formateDate from "../../utiles/formateDate";
 import Swal from "sweetalert2";
 import AppLoader from "../Common/AppLoader";
+import formateDate from "../../utiles/formateDate";
 
 function Posts() {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
-    const navigate = useNavigate();   // FIXED
 
+    const [page, setPage] = useState(1);
     const [filter, setFilter] = useState("All");
     const [search, setSearch] = useState("");
+    const [debouncedSearch, setDebouncedSearch] = useState("");
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebouncedSearch(search);
+            setPage(1);
+        }, 400);
+
+        return () => clearTimeout(timeout);
+    }, [search]);
 
     const { data: blogs, isLoading } = useQuery({
-        queryKey: ["blogs"],
-        queryFn: fetchBlogs,
-        staleTime: 5 * 60 * 1000,
+        queryKey: ["blogs", page, debouncedSearch, filter],
+        queryFn: () => fetchBlogs({ page, search: debouncedSearch, filter }),
+        keepPreviousData: true,
     });
 
-    const handleDelete = async (blogId) => {
+    const deleteBlogMutation = useMutation({
+        mutationFn: (id) => deleteBlog(id),
+        onSuccess: () => {
+            toast.success("Blog deleted successfully");
+            queryClient.invalidateQueries(["blogs"]);
+        },
+    });
+
+    const handleDelete = async (id) => {
         const result = await Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
+            title: "Are you sure?",
+            text: "This action cannot be undone!",
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Delete",
         });
 
         if (result.isConfirmed) {
-            try {
-                await deleteBlogMutation.mutateAsync(blogId);
-            } catch (error) {
-                toast.error("Failed to delete blog");
-            }
+            deleteBlogMutation.mutate(id);
         }
     };
 
-
-    const deleteBlogMutation = useMutation({
-        mutationFn: (blogId) => deleteBlog(blogId),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["blogs"] });
-        },
-        onError: (error) => {
-            console.error("Error deleting blog:", error);
-        }
-    });
-
     if (isLoading) return <AppLoader />;
-
-    const filteredBlogs = blogs?.filter((blog) => {
-        if (filter !== "All" && blog.status !== filter) return false;
-        if (search && !blog.title.toLowerCase().includes(search.toLowerCase()))
-            return false;
-        return true;
-    });
 
     return (
         <>
-            <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap" mb={3} gap={2}>
-                <Box>
-                    <Typography fontWeight={800} fontSize={isMobile ? 22 : 32}>
-                        Manage Your Posts
-                    </Typography>
-                    <Typography fontSize={14} color="#757575">
-                        View and update your posts
-                    </Typography>
-                </Box>
+            <Box display="flex" justifyContent="space-between" mb={3}>
+                <Typography fontSize={28} fontWeight={700}>
+                    Manage Your Posts
+                </Typography>
 
                 <Button
-                    startIcon={<AddBoxOutlined />}
                     variant="contained"
+                    startIcon={<AddBoxOutlined />}
                     onClick={() => navigate("/author/posts/create")}
                 >
-                    Create New Blog
+                    Create Blog
                 </Button>
             </Box>
 
-            <Box display="flex" flexDirection={isMobile ? "column" : "row"} gap={2} mb={4}>
+            <Box display="flex" gap={2} mb={3}>
                 <TextField
                     fullWidth
                     size="small"
-                    placeholder="Search..."
+                    placeholder="Search posts..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
+
                 <Select
-                    fullWidth
                     size="small"
                     value={filter}
-                    onChange={(e) => setFilter(e.target.value)}
+                    onChange={(e) => {
+                        setFilter(e.target.value);
+                        setPage(1);
+                    }}
                 >
                     <MenuItem value="All">All</MenuItem>
                     <MenuItem value="Published">Published</MenuItem>
@@ -131,54 +122,56 @@ function Posts() {
             </Box>
 
             <Paper>
-                <Box sx={{ overflowX: "auto" }}>
-                    <Table size="small">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Title</TableCell>
-                                <TableCell>Status</TableCell>
-                                <TableCell>Date</TableCell>
-                                <TableCell align="right">Actions</TableCell>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Title</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Date</TableCell>
+                            <TableCell align="right">Actions</TableCell>
+                        </TableRow>
+                    </TableHead>
+
+                    <TableBody>
+                        {blogs?.blogs?.map((blog) => (
+                            <TableRow key={blog.id}>
+                                <TableCell>{blog.title}</TableCell>
+
+                                <TableCell>
+                                    <Chip
+                                        label={blog.isPublished ? "Published" : "Draft"}
+                                        color={blog.isPublished ? "success" : "warning"}
+                                        size="small"
+                                    />
+                                </TableCell>
+
+                                <TableCell>{formateDate(blog.createdAt)}</TableCell>
+
+                                <TableCell align="right">
+                                    <IconButton onClick={() => navigate(`/author/posts/view/${blog.id}`)}>
+                                        <Visibility />
+                                    </IconButton>
+                                    <IconButton onClick={() => navigate(`/author/posts/edit/${blog.id}`)}>
+                                        <Edit />
+                                    </IconButton>
+                                    <IconButton color="error" onClick={() => handleDelete(blog.id)}>
+                                        <Delete />
+                                    </IconButton>
+                                </TableCell>
                             </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {filteredBlogs?.map((row, i) => (
-                                <TableRow key={i}>
-                                    <TableCell>{row.title}</TableCell>
-                                    <TableCell>
-                                        <Chip
-                                            size="small"
-                                            label={row.isPublished ? "Published" : "Draft"}
-                                            color={row.isPublished ? "success" : "warning"}
-                                        />
-                                    </TableCell>
-                                    <TableCell>{formateDate(row.createdAt)}</TableCell>
-                                    <TableCell align="right">
-                                        <IconButton size="small" onClick={() => {
-                                            navigate(`/author/posts/view/${row.id}`)
-                                        }}>
-                                            <Visibility />
-                                        </IconButton>
-                                        <IconButton
-                                            size="small"
-                                            onClick={() => {
-                                                navigate(`/author/posts/edit/${row.id}`)
-                                            }}
-                                        >
-                                            <Edit />
-                                        </IconButton>
-                                        <IconButton size="small" color="error" onClick={
-                                            () => handleDelete(row.id)
-                                        }>
-                                            <Delete />
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Box>
+                        ))}
+                    </TableBody>
+                </Table>
             </Paper>
+
+            <Box display="flex" justifyContent="flex-end" mt={3}>
+                <Pagination
+                    count={blogs?.pages || 1}
+                    page={page}
+                    onChange={(e, value) => setPage(value)}
+                    shape="rounded"
+                />
+            </Box>
         </>
     );
 }

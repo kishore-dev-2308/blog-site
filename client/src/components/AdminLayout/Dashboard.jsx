@@ -16,6 +16,7 @@ import formatDate from "../../utiles/formateDate";
 import apiPrivate from "../../api/apiPrivate";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import AppLoader from "../Common/AppLoader";
 
 export default function AdminDashboard() {
     const { isAuthenticated, user } = useSelector((s) => s.auth);
@@ -49,6 +50,8 @@ export default function AdminDashboard() {
         getDashboardStats();
     }, [getDashboardStats]);
 
+    if (isLoading) return <AppLoader />;
+
     return (
         <Box>
             <Typography fontWeight={800} fontSize={28} mb={1}>
@@ -80,51 +83,6 @@ export default function AdminDashboard() {
                     </Grid>
                 ))}
             </Grid>
-
-            {/* <Paper
-                elevation={0}
-                sx={{
-                    borderRadius: 3,
-                    border: "1px solid #E5E7EB",
-                    bgcolor: "#fff",
-                    p: 3,
-                    mb: 4,
-                }}
-            >
-                <Typography fontWeight={700} mb={0.3}>
-                    User Signups
-                </Typography>
-                <Typography fontSize={13} color="#666" mb={2}>
-                    Last 30 Days
-                </Typography>
-
-                <Typography fontSize={30} fontWeight={800}>
-                    +50 this month{" "}
-                    <span style={{ color: "#22c55e", fontSize: 14, fontWeight: 600 }}>
-                        +5.2%
-                    </span>
-                </Typography>
-
-                <Box display="flex" gap={2} alignItems="flex-end" mt={4}>
-                    <Box sx={{ width: 55, height: 30, bgcolor: "#E2E8F0", borderRadius: 2 }} />
-                    <Box sx={{ width: 55, height: 55, bgcolor: "#E2E8F0", borderRadius: 2 }} />
-                    <Box sx={{ width: 55, height: 80, bgcolor: "#E2E8F0", borderRadius: 2 }} />
-                    <Box sx={{ width: 55, height: 95, bgcolor: "#3B82F6", borderRadius: 2 }} />
-                </Box>
-
-                <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    color="#444"
-                    mt={1}
-                    fontSize={13}
-                >
-                    <span>Week 1</span>
-                    <span>Week 2</span>
-                    <span>Week 3</span>
-                    <span style={{ fontWeight: 700 }}>Week 4</span>
-                </Box>
-            </Paper> */}
 
             <Typography fontWeight={800} mb={1}>
                 Recent Blog Posts

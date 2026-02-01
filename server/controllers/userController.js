@@ -19,6 +19,7 @@ export const getProfile = async (req, res) => {
                 id: true,
                 name: true,
                 email: true,
+                role: true,
                 profileImage: true,
                 bio: true,
                 facebook: true,
@@ -111,3 +112,59 @@ export const updateProfile = async (req, res) => {
         return res.status(401).json({ message: "Something went wrong" });
     }
 }
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const { page = 1, limit = 10, search = "" } = req.query;
+        const skip = (Number(page) - 1) * Number(limit);
+        const [users, total] = await Promise.all([
+            prisma.user.findMany({
+                where: {
+                    role: { not: 1 }
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    profileImage: true,
+                    isVerified: true,
+                    isActive: true,
+                    role: true,
+                    createdAt: true
+                },
+                orderBy: { id: "desc" },
+                skip,
+                take: Number(limit),
+            }),
+            prisma.user.count({ where: { role: { not: 1 } } }),
+        ]);
+
+        res.json({
+            total,
+            page: Number(page),
+            pages: Math.ceil(total / Number(limit)),
+            users,
+        });
+    } catch (error) {
+        logger.error(`users list: ${error.message}`);
+        return res.status(500).json({ message: "Unable to get users list" });
+    }
+}
+
+export const updateUserStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { isActive } = req.body;
+        
+        const user = await prisma.user.update({
+            where: { id: id },
+            data: { isActive },
+        });
+
+        res.status(200).json({ message: "User status updated", user });
+    }
+    catch (error) {
+        logger.error(`Update user status failed: ${error.message}`);
+        return res.status(500).json({ message: "Unable to update user status" });
+    }
+};

@@ -4,6 +4,8 @@ import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
+import authorRequestRoutes from "./routes/authorRequestRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
 import homeRoutes from "./routes/homeRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
@@ -19,8 +21,8 @@ const prisma = new PrismaClient();
 
 app.use(cookieParser());
 app.use(cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true
+  origin: process.env.CLIENT_URL,
+  credentials: true
 }));
 app.use(
   helmet({
@@ -37,8 +39,8 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.set("trust proxy", 1);
 
 const limiter = rateLimit({
-    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
-    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100
 });
 
 app.use(limiter);
@@ -47,8 +49,10 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/profile",userRoutes);
-app.use("/api/blog",blogRoutes);
-app.use("/api/home",homeRoutes);
-app.use("/api/category",categotyRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/author-requests", authorRequestRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/blog", blogRoutes);
+app.use("/api/home", homeRoutes);
+app.use("/api/category", categotyRoutes);
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

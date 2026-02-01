@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Container,
@@ -10,251 +10,48 @@ import {
     List,
     ListItemButton,
     ListItemText,
+    CircularProgress,
 } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import ArticleCard from "../components/ArticleCard";
-
-const categories = [
-    "All",
-    "Technology",
-    "Design",
-    "AI",
-    "Development",
-    "Health",
-    "Travel",
-    "Science",
-    "Finance",
-    "Lifestyle",
-];
-
-const posts = [
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 1,
-        category: "Technology",
-        title: "The Future of AI in Web Development",
-        author: "John Doe",
-        date: "Jan 15, 2025",
-        image:
-            "https://images.unsplash.com/photo-1581090700227-1e37b190418e?w=800&q=80",
-    },
-    {
-        id: 2,
-        category: "AI",
-        title: "How AI Will Change Everything",
-        author: "Sarah Lee",
-        date: "Jan 10, 2025",
-        image:
-            "https://images.unsplash.com/photo-1667372114972-dc705bdb6cc5?w=800&q=80",
-    },
-    {
-        id: 3,
-        category: "Design",
-        title: "Minimal UI Design Principles",
-        author: "Ravi Kumar",
-        date: "Jan 08, 2025",
-        image:
-            "https://images.unsplash.com/photo-1603209341834-4e4c6c3978b9?w=800&q=80",
-    },
-    {
-        id: 4,
-        category: "Technology",
-        title: "React 19 — What’s New?",
-        author: "Alex Kim",
-        date: "Jan 12, 2025",
-        image:
-            "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
-    },
-];
+import { getBlogByCategory, getCategories } from "../services/homeService";
 
 function CategoriesPage() {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [search, setSearch] = useState("");
+    const [debouncedSearch, setDebouncedSearch] = useState("");
     const [page, setPage] = useState(1);
 
     const itemsPerPage = 6;
 
-    const filtered = posts.filter((p) => {
-        const matchesCategory =
-            selectedCategory === "All" || p.category === selectedCategory;
-        const matchesSearch = p.title.toLowerCase().includes(search.toLowerCase());
-        return matchesCategory && matchesSearch;
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearch(search);
+            setPage(1);
+        }, 500);
+
+        return () => clearTimeout(handler);
+    }, [search]);
+
+    const { data: categories = [], isLoading: isCategoriesLoading } = useQuery({
+        queryKey: ["categories"],
+        queryFn: getCategories,
+        staleTime: 1000 * 60 * 10,
     });
 
-    const pageCount = Math.ceil(filtered.length / itemsPerPage);
-    const paginated = filtered.slice(
-        (page - 1) * itemsPerPage,
-        page * itemsPerPage
-    );
+    const { data, isLoading } = useQuery({
+        queryKey: ["blogs", page, debouncedSearch, selectedCategory],
+        queryFn: () =>
+            getBlogByCategory({
+                page,
+                search: debouncedSearch.trim(),
+                categoryId: selectedCategory === "All" ? "" : selectedCategory,
+            }),
+        keepPreviousData: true,
+    });
+
+    const posts = data?.blogs || [];
+    const pageCount = data?.pages || 1;
 
     return (
         <Container sx={{ py: { xs: 3, md: 6 } }}>
@@ -270,10 +67,7 @@ function CategoriesPage() {
                 fullWidth
                 placeholder="Search articles..."
                 value={search}
-                onChange={(e) => {
-                    setSearch(e.target.value);
-                    setPage(1);
-                }}
+                onChange={(e) => setSearch(e.target.value)}
                 sx={{
                     mb: 4,
                     background: "#fafafa",
@@ -291,15 +85,25 @@ function CategoriesPage() {
                     "&::-webkit-scrollbar": { height: 4 },
                 }}
             >
+                <Chip
+                    label="All"
+                    onClick={() => {
+                        setSelectedCategory("All");
+                        setPage(1);
+                    }}
+                    color={selectedCategory === "All" ? "primary" : "default"}
+                    sx={{ flexShrink: 0, fontWeight: 600 }}
+                />
+
                 {categories.map((cat) => (
                     <Chip
-                        key={cat}
-                        label={cat}
+                        key={cat.id}
+                        label={cat.name}
                         onClick={() => {
-                            setSelectedCategory(cat);
+                            setSelectedCategory(cat.id);
                             setPage(1);
                         }}
-                        color={selectedCategory === cat ? "primary" : "default"}
+                        color={selectedCategory === cat.id ? "primary" : "default"}
                         sx={{ flexShrink: 0, fontWeight: 600 }}
                     />
                 ))}
@@ -318,37 +122,60 @@ function CategoriesPage() {
                     }}
                 >
                     <List>
-                        {categories.map((cat) => (
-                            <ListItemButton
-                                key={cat}
-                                selected={selectedCategory === cat}
-                                onClick={() => {
-                                    setSelectedCategory(cat);
-                                    setPage(1);
-                                }}
-                                sx={{
-                                    borderRadius: 2,
-                                    mb: 1,
-                                    "&.Mui-selected": {
-                                        backgroundColor: "primary.main",
-                                        color: "white",
-                                        "&:hover": {
-                                            backgroundColor: "primary.dark",
+                        <ListItemButton
+                            selected={selectedCategory === "All"}
+                            onClick={() => {
+                                setSelectedCategory("All");
+                                setPage(1);
+                            }}
+                            sx={{
+                                borderRadius: 2,
+                                mb: 1,
+                                "&.Mui-selected": {
+                                    backgroundColor: "primary.main",
+                                    color: "white",
+                                },
+                            }}
+                        >
+                            <ListItemText primary="All" />
+                        </ListItemButton>
+
+                        {isCategoriesLoading ? (
+                            <Box display="flex" justifyContent="center" mt={2}>
+                                <CircularProgress size={24} />
+                            </Box>
+                        ) : (
+                            categories.map((cat) => (
+                                <ListItemButton
+                                    key={cat.id}
+                                    selected={selectedCategory === cat.id}
+                                    onClick={() => {
+                                        setSelectedCategory(cat.id);
+                                        setPage(1);
+                                    }}
+                                    sx={{
+                                        borderRadius: 2,
+                                        mb: 1,
+                                        "&.Mui-selected": {
+                                            backgroundColor: "primary.main",
+                                            color: "white",
                                         },
-                                    },
-                                }}
-                            >
-                                <ListItemText
-                                    primary={cat}
-                                    primaryTypographyProps={{ fontWeight: 600 }}
-                                />
-                            </ListItemButton>
-                        ))}
+                                    }}
+                                >
+                                    <ListItemText primary={cat.name} />
+                                </ListItemButton>
+                            ))
+                        )}
+
                     </List>
                 </Box>
 
                 <Box flex={1} minWidth={0}>
-                    {paginated.length === 0 ? (
+                    {isLoading ? (
+                        <Box display="flex" justifyContent="center" mt={6}>
+                            <CircularProgress />
+                        </Box>
+                    ) : posts.length === 0 ? (
                         <Typography
                             variant="h6"
                             textAlign="center"
@@ -359,7 +186,7 @@ function CategoriesPage() {
                         </Typography>
                     ) : (
                         <Grid container spacing={3}>
-                            {paginated.map((post) => (
+                            {posts.map((post) => (
                                 <Grid item size={{ xs: 12, sm: 6, md: 4 }} key={post.id}>
                                     <ArticleCard {...post} />
                                 </Grid>
@@ -382,7 +209,6 @@ function CategoriesPage() {
             </Box>
         </Container>
     );
-
 }
 
 export default CategoriesPage;

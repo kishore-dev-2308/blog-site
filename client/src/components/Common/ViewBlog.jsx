@@ -2,12 +2,13 @@ import { Box, Typography, Card, CardMedia, Chip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBlogById } from "../../services/blogService";
-import BreadcrumbsTrail from "../Common/BreadcrumbsTrail";
-import AppLoader from "../Common/AppLoader";
+import BreadcrumbsTrail from "./BreadcrumbsTrail";
+import AppLoader from "./AppLoader";
+import { useSelector } from "react-redux";
 
 export default function ViewBlog() {
     const { id } = useParams();
-
+    const { isAuthenticated, user } = useSelector((s) => s.auth);
     const { data: blog, isLoading } = useQuery({
         queryKey: ["blog", id],
         queryFn: () => fetchBlogById(id),
@@ -21,8 +22,8 @@ export default function ViewBlog() {
         <Box>
             <BreadcrumbsTrail
                 items={[
-                    { label: "Posts", href: "/author/posts" },
-                    { label: "Create Blog" },
+                    { label: "Posts", href: user?.role === 1 ? "/admin/posts" : "/author/posts" },
+                    { label: "View Post" },
                 ]}
             />
             <Typography variant="h4" fontWeight={700} mb={2}>

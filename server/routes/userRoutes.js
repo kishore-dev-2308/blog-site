@@ -1,14 +1,11 @@
 import express from "express";
 import { body } from "express-validator";
-import { auth } from "../middleware/authMiddleware.js";
-import { getProfile, updateProfile } from "../controllers/userController.js";
-import upload from "../middleware/uploadMiddleware.js";
+import { auth, authorizeRoles } from "../middleware/authMiddleware.js";
+import { getAllUsers, updateUserStatus} from "../controllers/userController.js";
 
 const router = express.Router();
 
-router.get("/", auth, getProfile);
-router.post("/update", auth, upload.single("profileImage"), [
-    body("name").notEmpty().withMessage("Name is required"),
-], updateProfile);
+router.get("/get-list", auth, authorizeRoles(1), getAllUsers);
+router.put("/update-status/:id", auth, authorizeRoles(1), updateUserStatus);
 
 export default router;

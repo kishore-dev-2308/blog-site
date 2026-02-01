@@ -791,3 +791,942 @@ Invalid `prisma.blog.update()` invocation:
 }
 
 Argument `isPublished`: Invalid value provided. Expected Boolean or BoolFieldUpdateOperationsInput, provided String.
+[2026-01-09 22:30:51] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:30:52] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:30:53] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:30:55] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:30:55] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:30:59] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:31:00] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:32:05] [31merror[39m: users list: con is not defined
+[2026-01-09 22:32:09] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:32:10] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:32:11] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  orderBy: {
+    createdAt: "desc",
+    ~~~~~~~~~
+?   id?: SortOrder,
+?   name?: SortOrder,
+?   email?: SortOrder,
+?   password?: SortOrder,
+?   profileImage?: SortOrder,
+?   isActive?: SortOrder,
+?   isBlocked?: SortOrder,
+?   role?: SortOrder,
+?   bio?: SortOrder,
+?   facebook?: SortOrder,
+?   instagram?: SortOrder,
+?   twitter?: SortOrder,
+?   linkedin?: SortOrder,
+?   github?: SortOrder,
+?   blogs?: BlogOrderByRelationAggregateInput,
+?   sessions?: SessionOrderByRelationAggregateInput
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown argument `createdAt`. Available options are marked with ?.
+[2026-01-09 22:40:20] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  select: {
+    id: true,
+    name: true,
+    email: true,
+    profileImage: true,
+    isPublished: true,
+    ~~~~~~~~~~~
+    createdAt: true,
+?   password?: true,
+?   isActive?: true,
+?   isBlocked?: true,
+?   role?: true,
+?   bio?: true,
+?   facebook?: true,
+?   instagram?: true,
+?   twitter?: true,
+?   linkedin?: true,
+?   github?: true,
+?   blogs?: true,
+?   sessions?: true,
+?   _count?: true
+  },
+  orderBy: {
+    id: "desc"
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown field `isPublished` for select statement on model `User`. Available options are marked with ?.
+[2026-01-10 19:48:19] [31merror[39m: Update user status failed: 
+Invalid `prisma.user.update()` invocation:
+
+{
+  where: {
+    id: NaN
+  },
+  data: {
+    isActive: {
+      client: {},
+      ~~~~~~
+?     set?: Boolean
+    }
+  }
+}
+
+Unknown argument `client`. Available options are marked with ?.
+[2026-01-10 19:49:22] [31merror[39m: Update user status failed: 
+Invalid `prisma.user.update()` invocation:
+
+{
+  where: {
+    id: NaN
+  },
+  data: {
+    isActive: {
+      client: {},
+      ~~~~~~
+?     set?: Boolean
+    }
+  }
+}
+
+Unknown argument `client`. Available options are marked with ?.
+[2026-01-10 19:57:08] [31merror[39m: Update user status failed: 
+Invalid `prisma.user.update()` invocation:
+
+{
+  where: {
+    id: NaN
+  },
+  data: {
+    isActive: {
+      client: {},
+      ~~~~~~
+?     set?: Boolean
+    }
+  }
+}
+
+Unknown argument `client`. Available options are marked with ?.
+[2026-01-10 19:58:46] [31merror[39m: Update user status failed: 
+Invalid `prisma.user.update()` invocation:
+
+{
+  where: {
++   id: String
+  },
+  data: {
+    isActive: false
+  }
+}
+
+Argument `id` is missing.
+[2026-01-10 20:05:35] [31merror[39m: Update user status failed: 
+Invalid `prisma.user.update()` invocation:
+
+{
+  where: {
+    id: "695a753de2f3f469df262e16"
+  },
+  data: {
+    isActive: 0
+              ~
+  }
+}
+
+Argument `isActive`: Invalid value provided. Expected Boolean or BoolFieldUpdateOperationsInput, provided Int.
+[2026-01-15 22:43:54] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  select: {
+    id: true,
+    name: true,
+    email: true,
+    profileImage: true,
+    isActive: true,
+    crearedAt: true,
+    ~~~~~~~~~
+?   password?: true,
+?   role?: true,
+?   bio?: true,
+?   facebook?: true,
+?   instagram?: true,
+?   twitter?: true,
+?   linkedin?: true,
+?   github?: true,
+?   blogs?: true,
+?   sessions?: true,
+?   _count?: true
+  },
+  orderBy: {
+    id: "desc"
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown field `crearedAt` for select statement on model `User`. Available options are marked with ?.
+[2026-01-15 22:46:32] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+{
+  where: {
+    role: {
+      not: 1
+    }
+  },
+  select: {
+    id: true,
+    name: true,
+    email: true,
+    profileImage: true,
+    isActive: true,
+    crearedAt: true,
+    ~~~~~~~~~
+?   password?: true,
+?   role?: true,
+?   bio?: true,
+?   facebook?: true,
+?   instagram?: true,
+?   twitter?: true,
+?   linkedin?: true,
+?   github?: true,
+?   createdAt?: true,
+?   updatedAt?: true,
+?   blogs?: true,
+?   sessions?: true,
+?   _count?: true
+  },
+  orderBy: {
+    id: "desc"
+  },
+  skip: 0,
+  take: 10
+}
+
+Unknown field `crearedAt` for select statement on model `User`. Available options are marked with ?.
+[2026-01-15 22:47:02] [31merror[39m: users list: 
+Invalid `prisma.user.findMany()` invocation:
+
+
+Error converting field "createdAt" of expected non-nullable type "DateTime", found incompatible value of "null".
+[2026-01-16 19:37:57] [31merror[39m: 
+Invalid `prisma.blog.findMany()` invocation:
+
+{
+  where: {
+    categoryId: 1,
+                ~
+    isPublished: true
+  },
+  include: {
+    author: {
+      select: {
+        name: true
+      }
+    },
+    category: {
+      select: {
+        name: true
+      }
+    }
+  },
+  orderBy: {
+    createdAt: "desc"
+  }
+}
+
+Argument `categoryId`: Invalid value provided. Expected StringFilter or String, provided Int.
+[2026-01-16 19:42:10] [31merror[39m: 
+Invalid `prisma.blog.findMany()` invocation:
+
+
+Inconsistent column data: Malformed ObjectID: provided hex string representation must be exactly 12 bytes, instead got: "1", length 1.
+[2026-01-16 19:42:59] [31merror[39m: 
+Invalid `prisma.blog.findMany()` invocation:
+
+{
+  where: {
+    categoryId: 69195774,
+                ~~~~~~~~
+    isPublished: true
+  },
+  include: {
+    author: {
+      select: {
+        name: true
+      }
+    },
+    category: {
+      select: {
+        name: true
+      }
+    }
+  },
+  orderBy: {
+    createdAt: "desc"
+  }
+}
+
+Argument `categoryId`: Invalid value provided. Expected StringFilter or String, provided Int.
+[2026-01-16 19:43:11] [31merror[39m: 
+Invalid `prisma.blog.findMany()` invocation:
+
+{
+  where: {
+    categoryId: 69195774,
+                ~~~~~~~~
+    isPublished: true
+  },
+  include: {
+    author: {
+      select: {
+        name: true
+      }
+    },
+    category: {
+      select: {
+        name: true
+      }
+    }
+  },
+  orderBy: {
+    createdAt: "desc"
+  }
+}
+
+Argument `categoryId`: Invalid value provided. Expected StringFilter or String, provided Int.
+[2026-01-25 14:05:14] [31merror[39m: users list: isVerified is not defined
+[2026-01-26 11:10:10] [31merror[39m: Author request failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   isActive?: BoolFilter | Boolean,
+?   role?: IntFilter | Int,
+?   isVerified?: BoolFilter | Boolean,
+?   resetToken?: StringNullableFilter | String | Null,
+?   resetTokenExpiry?: DateTimeNullableFilter | DateTime | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   createdAt?: DateTimeNullableFilter | DateTime | Null,
+?   updatedAt?: DateTimeNullableFilter | DateTime | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2026-01-27 19:10:53] [31merror[39m: Author request failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   isActive?: BoolFilter | Boolean,
+?   role?: IntFilter | Int,
+?   isVerified?: BoolFilter | Boolean,
+?   resetToken?: StringNullableFilter | String | Null,
+?   resetTokenExpiry?: DateTimeNullableFilter | DateTime | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   createdAt?: DateTimeNullableFilter | DateTime | Null,
+?   updatedAt?: DateTimeNullableFilter | DateTime | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2026-01-27 19:20:23] [31merror[39m: Author request failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   isActive?: BoolFilter | Boolean,
+?   role?: IntFilter | Int,
+?   isVerified?: BoolFilter | Boolean,
+?   resetToken?: StringNullableFilter | String | Null,
+?   resetTokenExpiry?: DateTimeNullableFilter | DateTime | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   createdAt?: DateTimeNullableFilter | DateTime | Null,
+?   updatedAt?: DateTimeNullableFilter | DateTime | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2026-01-27 19:20:51] [31merror[39m: Author request failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   isActive?: BoolFilter | Boolean,
+?   role?: IntFilter | Int,
+?   isVerified?: BoolFilter | Boolean,
+?   resetToken?: StringNullableFilter | String | Null,
+?   resetTokenExpiry?: DateTimeNullableFilter | DateTime | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   createdAt?: DateTimeNullableFilter | DateTime | Null,
+?   updatedAt?: DateTimeNullableFilter | DateTime | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2026-01-27 19:22:08] [31merror[39m: Author request failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   isActive?: BoolFilter | Boolean,
+?   role?: IntFilter | Int,
+?   isVerified?: BoolFilter | Boolean,
+?   resetToken?: StringNullableFilter | String | Null,
+?   resetTokenExpiry?: DateTimeNullableFilter | DateTime | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   createdAt?: DateTimeNullableFilter | DateTime | Null,
+?   updatedAt?: DateTimeNullableFilter | DateTime | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2026-01-27 19:22:35] [31merror[39m: Author request failed: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    id: undefined,
+?   email?: String,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   profileImage?: StringNullableFilter | String | Null,
+?   isActive?: BoolFilter | Boolean,
+?   role?: IntFilter | Int,
+?   isVerified?: BoolFilter | Boolean,
+?   resetToken?: StringNullableFilter | String | Null,
+?   resetTokenExpiry?: DateTimeNullableFilter | DateTime | Null,
+?   bio?: StringNullableFilter | String | Null,
+?   facebook?: StringNullableFilter | String | Null,
+?   instagram?: StringNullableFilter | String | Null,
+?   twitter?: StringNullableFilter | String | Null,
+?   linkedin?: StringNullableFilter | String | Null,
+?   github?: StringNullableFilter | String | Null,
+?   createdAt?: DateTimeNullableFilter | DateTime | Null,
+?   updatedAt?: DateTimeNullableFilter | DateTime | Null,
+?   blogs?: BlogListRelationFilter,
+?   sessions?: SessionListRelationFilter
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?.
+[2026-01-27 19:24:41] [31merror[39m: Author request failed: Cannot read properties of undefined (reading 'create')
+[2026-01-27 19:27:39] [31merror[39m: Author request failed: Cannot read properties of undefined (reading 'create')
+[2026-01-27 19:30:19] [31merror[39m: Author request failed: Cannot read properties of undefined (reading 'create')
+[2026-01-27 19:31:22] [31merror[39m: Author request failed: 
+Invalid `prisma.authorRequest.create()` invocation:
+
+{
+  data: {
+    userId: "697251389862c0451b7b7bc9",
+    reason: "test",
+    ~~~~~~
+    status: "PENDING",
+?   id?: String,
+?   bio?: String | Null,
+?   writingSamples?: String | Null,
+?   reviewedBy?: String | Null
+  }
+}
+
+Unknown argument `reason`. Available options are marked with ?.
+[2026-01-27 21:24:28] [31merror[39m: Fetch author requests failed: Cannot read properties of undefined (reading 'findMany')
+[2026-01-27 21:28:10] [31merror[39m: Fetch author requests failed: 
+Invalid `prisma.authorRequest.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        name: {
+          contains: "t",
+          mode: "insensitive"
+        }
+      },
+      {
+        email: {
+          contains: "t",
+          mode: "insensitive"
+        }
+      }
+    ]
+  },
+  include: {
+    user: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true
+      }
+    }
+  },
+  orderBy: {
+    id: "desc"
+  },
+  skip: 0,
+  take: 5
+}
+
+Unknown argument `name`. Available options are marked with ?.
+[2026-01-27 21:28:20] [31merror[39m: Fetch author requests failed: 
+Invalid `prisma.authorRequest.findMany()` invocation:
+
+{
+  where: {
+    OR: [
+      {
+        name: {
+          contains: "r",
+          mode: "insensitive"
+        }
+      },
+      {
+        email: {
+          contains: "r",
+          mode: "insensitive"
+        }
+      }
+    ]
+  },
+  include: {
+    user: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true
+      }
+    }
+  },
+  orderBy: {
+    id: "desc"
+  },
+  skip: 0,
+  take: 5
+}
+
+Unknown argument `name`. Available options are marked with ?.
+[2026-01-29 21:00:11] [31merror[39m: Update author request status failed: 
+Invalid `prisma.authorRequest.update()` invocation:
+
+{
+  where: {
+    id: "6978c5ca7590538e25fc87ff"
+  },
+  data: {
+    status: {
+      client: {},
+      ~~~~~~
+?     set?: String
+    }
+  }
+}
+
+Unknown argument `client`. Available options are marked with ?.
+[2026-01-29 21:04:35] [31merror[39m: Update author request status failed: 
+Invalid `prisma.authorRequest.findFirst()` invocation:
+
+
+Inconsistent column data: Malformed ObjectID: provided hex string representation must be exactly 12 bytes, instead got: "undefined", length 9.
+[2026-01-29 21:08:17] [31merror[39m: Error sending verification email: createTransporter is not defined
+[2026-01-29 21:11:35] [31merror[39m: Error sending verification email: reason is not defined

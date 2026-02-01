@@ -16,6 +16,7 @@ import {
     AssessmentOutlined,
     SettingsOutlined,
     Logout,
+    GroupsOutlined,
 } from "@mui/icons-material";
 
 
@@ -34,8 +35,9 @@ export default function Sidebar({ active, setActive }) {
     const menus = [
         { key: "dashboard", label: "Dashboard", url: "/admin", icon: <DashboardOutlined /> },
         { key: "users", label: "Manage Users", url: "/admin/users", icon: <GroupOutlined /> },
-        { key: "posts", label: "Manage Blogs", url: "/admin/posts", icon: <ArticleOutlined /> },
-        { key: "reports", label: "Reports", url: "/admin/reports", icon: <AssessmentOutlined /> },
+        { key: "posts", label: "Manage Posts", url: "/admin/posts", icon: <ArticleOutlined /> },
+        { key: "author-requests", label: "Author Requests", url: "/admin/author-requests", icon: <GroupsOutlined /> },
+        // { key: "reports", label: "Reports", url: "/admin/reports", icon: <AssessmentOutlined /> },
         { key: "profile", label: "Profile", url: "/admin/profile", icon: <SettingsOutlined /> },
     ];
 
@@ -101,7 +103,7 @@ export default function Sidebar({ active, setActive }) {
 
                 <List>
                     {menus.map(menu => {
-                        const isActive = location.pathname === menu.url;
+                        const isActive = (menu.key === 'dashboard' && location.pathname === '/admin') || location.pathname.includes(menu.key);
                         return (
                             <ListItemButton
                                 key={menu.key}

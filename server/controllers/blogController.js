@@ -192,7 +192,7 @@ export const updateBlog = async (req, res) => {
                     content,
                     categoryId,
                     coverImage,
-                    isPublished : isPublished === "1" || isPublished === 1 ? true : false,
+                    isPublished: isPublished === "1" || isPublished === 1 ? true : false,
                     authorId: userId,
                 }
             });

@@ -92,82 +92,90 @@ export default function Profile() {
                 </Box>
             </Paper>
 
-            <Paper
-                elevation={0}
-                sx={{
-                    p: 3,
-                    borderRadius: "10px",
-                    border: "1px solid #E5E7EB",
-                    bgcolor: "white",
-                    mb: 4
-                }}
-            >
-                <Typography fontWeight={700} fontSize={18} mb={2}>
-                    Social Links
-                </Typography>
 
-                <Box display="flex" gap={2} flexWrap="wrap">
-                    {profileData?.twitter && (
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            sx={{ borderRadius: "20px", px: 2 }}
-                            href={profileData.twitter}
-                            target="_blank"
-                        >
-                            <Twitter />
-                        </Button>
-                    )}
 
-                    {profileData?.linkedin && (
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            sx={{ borderRadius: "20px", px: 2 }}
-                            href={profileData.linkedin}
-                            target="_blank"
-                        >
-                            <LinkedIn />
-                        </Button>
-                    )}
+            {
+                [1, 2].includes(profileData?.role) && (
+                    <Paper
+                        elevation={0}
+                        sx={{
+                            p: 3,
+                            borderRadius: "10px",
+                            border: "1px solid #E5E7EB",
+                            bgcolor: "white",
+                            mb: 4
+                        }}
+                    >
+                        <Typography fontWeight={700} fontSize={18} mb={2}>
+                            Social Links
+                        </Typography>
 
-                    {profileData?.facebook && (
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            sx={{ borderRadius: "20px", px: 2 }}
-                            href={profileData.facebook}
-                            target="_blank"
-                        >
-                            <Facebook />
-                        </Button>
-                    )}
+                        <Box display="flex" gap={2} flexWrap="wrap">
+                            {profileData?.twitter && (
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    sx={{ borderRadius: "20px", px: 2 }}
+                                    href={profileData.twitter}
+                                    target="_blank"
+                                >
+                                    <Twitter />
+                                </Button>
+                            )}
 
-                    {profileData?.instagram && (
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            sx={{ borderRadius: "20px", px: 2 }}
-                            href={profileData.instagram}
-                            target="_blank"
-                        >
-                            <Instagram />
-                        </Button>
-                    )}
+                            {profileData?.linkedin && (
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    sx={{ borderRadius: "20px", px: 2 }}
+                                    href={profileData.linkedin}
+                                    target="_blank"
+                                >
+                                    <LinkedIn />
+                                </Button>
+                            )}
 
-                    {profileData?.github && (
-                        <Button
-                            variant="outlined"
-                            size="small"
-                            sx={{ borderRadius: "20px", px: 2 }}
-                            href={profileData.github}
-                            target="_blank"
-                        >
-                            <GitHub />
-                        </Button>
-                    )}
-                </Box>
-            </Paper>
+                            {profileData?.facebook && (
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    sx={{ borderRadius: "20px", px: 2 }}
+                                    href={profileData.facebook}
+                                    target="_blank"
+                                >
+                                    <Facebook />
+                                </Button>
+                            )}
+
+                            {profileData?.instagram && (
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    sx={{ borderRadius: "20px", px: 2 }}
+                                    href={profileData.instagram}
+                                    target="_blank"
+                                >
+                                    <Instagram />
+                                </Button>
+                            )}
+
+                            {profileData?.github && (
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    sx={{ borderRadius: "20px", px: 2 }}
+                                    href={profileData.github}
+                                    target="_blank"
+                                >
+                                    <GitHub />
+                                </Button>
+                            )}
+                        </Box>
+                    </Paper>
+
+                )
+            }
+
 
 
             <EditProfileModal

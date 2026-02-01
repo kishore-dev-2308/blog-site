@@ -21,14 +21,15 @@ import Image from "@tiptap/extension-image";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 
-import BreadcrumbsTrail from "../Common/BreadcrumbsTrail";
+import BreadcrumbsTrail from "./BreadcrumbsTrail";
 import { createBlog } from "../../services/blogService";
 import apiPrivate from "../../api/apiPrivate";
+import { useSelector } from "react-redux";
 
 export default function CreateBlog() {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
-
+    const { isAuthenticated, user } = useSelector((s) => s.auth);
     const [title, setTitle] = useState("");
     const [categoryId, setCategoryId] = useState("");
     const [content, setContent] = useState("");
@@ -77,7 +78,12 @@ export default function CreateBlog() {
         mutationFn: createBlog,
         onSuccess: () => {
             queryClient.invalidateQueries(["blogs"]);
-            navigate("/author/posts");
+            if (user?.role === 1) {
+                navigate("/admin/posts");
+            }
+            else {
+                navigate("/author/posts");
+            }
         },
         onError: (err) => {
             console.error("Blog create error:", err);
@@ -113,8 +119,8 @@ export default function CreateBlog() {
         <>
             <BreadcrumbsTrail
                 items={[
-                    { label: "Posts", href: "/author/posts" },
-                    { label: "View Blog" },
+                    { label: "Posts", href: user?.role === 1 ? "/admin/posts" : "/author/posts" },
+                    { label: "Create Post" },
                 ]}
             />
 
@@ -223,14 +229,14 @@ export default function CreateBlog() {
                     </Stack>
 
                     <Button variant="contained" component="label" sx={{ mt: 2 }}>
-                            Upload Image
-                            <input
-                                type="file"
-                                accept="image/*"
-                                hidden
-                                onChange={handleImageInput}
-                            />
-                        </Button>
+                        Upload Image
+                        <input
+                            type="file"
+                            accept="image/*"
+                            hidden
+                            onChange={handleImageInput}
+                        />
+                    </Button>
                 </Box>
 
                 <Box display="flex" justifyContent="end" gap={2}>
