@@ -1,9 +1,10 @@
 import { toast } from "react-toastify";
 import apiPrivate from "../api/apiPrivate";
-import { setUser } from "../store/authSlice";
 
 export const fetchBlogs = async ({ page = 1, search = "", filter = "All" }) => {
-  const res = await apiPrivate.get(`/blog/list?page=${page}&search=${search}&filter=${filter}`);
+  const res = await apiPrivate.get(
+    `/blog/list?page=${page}&search=${search}&filter=${filter}`,
+  );
   return res.data;
 };
 
@@ -20,8 +21,7 @@ export const createBlog = async (formData) => {
       isLoading: false,
       autoClose: 2000,
     });
-  }
-  else {
+  } else {
     toast.update(toastId, {
       render: "Failed to create blog. Please try again.",
       type: "error",
@@ -44,10 +44,7 @@ export const updateBlog = async ({ id, formData }) => {
       isLoading: false,
       autoClose: 2000,
     });
-
-    dispatch(setUser(res.data.user));
-  }
-  else {
+  } else {
     toast.update(toastId, {
       render: "Failed to update blog. Please try again.",
       type: "error",
@@ -85,7 +82,7 @@ export const fetchRecentBlogs = async () => {
     });
   }
   return res.data.blogs;
-}
+};
 
 export const deleteBlog = async (id) => {
   const toastId = toast.loading("Deleting blog...");
@@ -97,8 +94,7 @@ export const deleteBlog = async (id) => {
       isLoading: false,
       autoClose: 2000,
     });
-  }
-  else {
+  } else {
     toast.update(toastId, {
       render: "Blog deleted successfully!",
       type: "success",
@@ -107,4 +103,30 @@ export const deleteBlog = async (id) => {
     });
   }
   return res.data;
+};
+
+export const toggleFeaturedBlog = (id, featured) => {
+  const toastId = toast.loading("Updating blog...");
+  return apiPrivate
+    .post(`/blog/${id}/featured`, {
+      featured,
+    })
+    .then((res) => {
+      toast.update(toastId, {
+        render: "Blog updated successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
+      return res.data;
+    })
+    .catch((err) => {
+      toast.update(toastId, {
+        render: "Failed to update blog. Please try again.",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+      throw err;
+    });
 };

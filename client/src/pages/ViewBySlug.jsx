@@ -54,7 +54,7 @@ const ViewBySlug = () => {
 
   const imageUrl = coverImage
     ? `${import.meta.env.VITE_SERVER_MEDIA_URL}${coverImage}`
-    : "https://via.placeholder.com/900x400?text=No+Image";
+    : "/placeholder.png";
 
   return (
     <Container maxWidth="md" sx={{ mt: 6, mb: 10 }}>

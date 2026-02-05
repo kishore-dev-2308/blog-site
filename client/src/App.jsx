@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 import apiPrivate from "./api/apiPrivate";
 import { setUser, clearUser } from "./store/authSlice";

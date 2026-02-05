@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const ArticleCard = ({ category, title, author, createdAt, coverImage, slug }) => {
   const imageUrl = coverImage
     ? `${import.meta.env.VITE_SERVER_MEDIA_URL}${coverImage}`
-    : "https://via.placeholder.com/400x200?text=No+Image";
+    : "/placeholder.png";
   const navigate = useNavigate();
   return (
     <Card

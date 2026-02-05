@@ -208,3 +208,26 @@ export const userAuthorRequest = async (req, res) => {
         return res.status(500).json({ message: "Unable to process author request" });
     }
 }
+
+export const getFeaturedBlog = async (req, res) => {
+    try {
+        const blog = await prisma.blog.findFirst({
+            where: {
+                isPublished: true,
+                isFeatured: true
+            },
+            include: {
+                author: {
+                    select: { name: true },
+                },
+                category: {
+                    select: { name: true }
+                }
+            }
+        });
+        res.json({ blog });
+    } catch (error) {
+        logger.error(error);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+}

@@ -1,6 +1,5 @@
 import { toast } from "react-toastify";
 import apiPublic from "../api/apiPublic";
-import { setUser } from "../store/authSlice";
 
 export const latestBlogs = async () => {
   const res = await apiPublic.get(`/home/latest`);
@@ -21,14 +20,20 @@ export const getBlogBySlug = async (slug) => {
   return res.data;
 };
 
-export const getBlogByCategory = async ({ page = 1, search = "", categoryId = "" }) => {
-  const res = await apiPublic.get(`/home/get-by-category?page=${page}&search=${search}&category=${categoryId}`);
+export const getBlogByCategory = async ({
+  page = 1,
+  search = "",
+  categoryId = "",
+}) => {
+  const res = await apiPublic.get(
+    `/home/get-by-category?page=${page}&search=${search}&category=${categoryId}`,
+  );
   if (res.status !== 200) {
     toast.error("Failed to fetch latest blogs");
     return [];
   }
   return res.data;
-}
+};
 
 export const getCategories = async () => {
   const res = await apiPublic.get("/category/get-list");
@@ -37,4 +42,9 @@ export const getCategories = async () => {
     return [];
   }
   return res.data || [];
+};
+
+export const fetchFeaturedBlog = async () => {
+  const res = await apiPublic.get("/home/featured");
+  return res.data.blog;
 };

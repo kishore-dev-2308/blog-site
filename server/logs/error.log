@@ -1730,3 +1730,43 @@ Invalid `prisma.authorRequest.findFirst()` invocation:
 Inconsistent column data: Malformed ObjectID: provided hex string representation must be exactly 12 bytes, instead got: "undefined", length 9.
 [2026-01-29 21:08:17] [31merror[39m: Error sending verification email: createTransporter is not defined
 [2026-01-29 21:11:35] [31merror[39m: Error sending verification email: reason is not defined
+[2026-02-04 21:57:47] [31merror[39m: 
+Invalid `prisma.blog.findFirst()` invocation:
+
+{
+  where: {
+    isPublished: true,
+    featured: true,
+    ~~~~~~~~
+?   AND?: BlogWhereInput | BlogWhereInput[],
+?   OR?: BlogWhereInput[],
+?   NOT?: BlogWhereInput | BlogWhereInput[],
+?   id?: StringFilter | String,
+?   title?: StringFilter | String,
+?   slug?: StringFilter | String,
+?   content?: JsonFilter,
+?   coverImage?: StringNullableFilter | String | Null,
+?   isFeatured?: BoolFilter | Boolean,
+?   isArchived?: BoolFilter | Boolean,
+?   categoryId?: StringFilter | String,
+?   authorId?: StringFilter | String,
+?   createdAt?: DateTimeFilter | DateTime,
+?   updatedAt?: DateTimeFilter | DateTime,
+?   category?: CategoryScalarRelationFilter | CategoryWhereInput,
+?   author?: UserScalarRelationFilter | UserWhereInput
+  },
+  include: {
+    author: {
+      select: {
+        name: true
+      }
+    },
+    category: {
+      select: {
+        name: true
+      }
+    }
+  }
+}
+
+Unknown argument `featured`. Did you mean `isFeatured`? Available options are marked with ?.
