@@ -2146,3 +2146,4 @@ Invalid `prisma.blog.findFirst()` invocation:
 }
 
 Unknown argument `featured`. Did you mean `isFeatured`? Available options are marked with ?.
+[2026-02-08 12:22:18] [32minfo[39m: Profile fetched for admin@techstream.com

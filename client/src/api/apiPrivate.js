@@ -4,7 +4,7 @@ import { handleGlobalErrors } from "./apiBase";
 const apiPrivate = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
-  timeout: 15000,
+  timeout: 25000,
   headers: {
     "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
     Pragma: "no-cache",
