@@ -55,17 +55,21 @@ export const register = async (req, res) => {
       console.error("Error sending verification email:", error);
     }
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Registration successful | Verification email sent",
-        email: user.email,
-          });
+    res.status(200).json({
+      success: true,
+      message: "Registration successful | Verification email sent",
+      email: user.email,
+    });
   } catch (err) {
     console.error(err);
     user.delete();
-    res.status(500).json({ success: false, message: "Something went wrong" });
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Something went wrong",
+        error: err.message,
+      });
   }
 };
 
@@ -84,12 +88,10 @@ export const login = async (req, res) => {
         .json({ success: false, message: "Account not found" });
 
     if (user.role !== 1 && user.isVerified === false) {
-      return res
-        .status(403)
-        .json({
-          success: false,
-          message: "Please verify your email before logging in.",
-        });
+      return res.status(403).json({
+        success: false,
+        message: "Please verify your email before logging in.",
+      });
     }
 
     const valid = await bcrypt.compare(password, user.password);
@@ -99,12 +101,10 @@ export const login = async (req, res) => {
         .json({ success: false, message: "Invalid credentials" });
 
     if (user.isActive === false) {
-      return res
-        .status(403)
-        .json({
-          success: false,
-          message: "Account is deactivated. Please contact support.",
-        });
+      return res.status(403).json({
+        success: false,
+        message: "Account is deactivated. Please contact support.",
+      });
     }
 
     const accessToken = createAccessToken({
