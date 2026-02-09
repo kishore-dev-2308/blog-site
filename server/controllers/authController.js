@@ -15,6 +15,64 @@ import { verifyEmailTemplate } from "../mails/templates/verifyEmail.js";
 
 const prisma = new PrismaClient();
 
+// export const register = async (req, res) => {
+//   const errors = validationResult(req);
+//   if (!errors.isEmpty())
+//     return res.status(400).json({ errors: errors.array() });
+
+//   const { name, email, password } = req.body;
+
+//   try {
+//     const exists = await prisma.user.findUnique({ where: { email } });
+//     if (exists)
+//       return res.status(400).json({ message: "Email already exists" });
+
+//     const hashed = await bcrypt.hash(password, 10);
+
+//     const user = await prisma.user.create({
+//       data: { name, email, password: hashed, isVerified: false },
+//     });
+
+//     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+//       expiresIn: "24h",
+//     });
+
+//     const verifyLink = `${process.env.CLIENT_URL}/verify-email/${token}`;
+
+//     try {
+//       const transporter = createTransporter();
+
+//       await transporter.sendMail({
+//         from: `"Techstream" <${process.env.EMAIL_USER}>`,
+//         to: user.email,
+//         subject: "Verify your email",
+//         html: verifyEmailTemplate({
+//           name: user.name,
+//           link: verifyLink,
+//         }),
+//       });
+//     } catch (error) {
+//       console.error("Error sending verification email:", error);
+//     }
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Registration successful | Verification email sent",
+//       email: user.email,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     user.delete();
+//     res
+//       .status(500)
+//       .json({
+//         success: false,
+//         message: "Something went wrong",
+//         error: err.message,
+//       });
+//   }
+// };
+
 export const register = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty())
@@ -33,16 +91,21 @@ export const register = async (req, res) => {
       data: { name, email, password: hashed, isVerified: false },
     });
 
+    res.status(200).json({
+      success: true,
+      message: "Registration successful. Please verify your email.",
+      email: user.email,
+    });
+
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
 
     const verifyLink = `${process.env.CLIENT_URL}/verify-email/${token}`;
 
-    try {
-      const transporter = createTransporter();
-
-      await transporter.sendMail({
+    const transporter = createTransporter();
+    transporter
+      .sendMail({
         from: `"Techstream" <${process.env.EMAIL_USER}>`,
         to: user.email,
         subject: "Verify your email",
@@ -50,26 +113,14 @@ export const register = async (req, res) => {
           name: user.name,
           link: verifyLink,
         }),
-      });
-    } catch (error) {
-      console.error("Error sending verification email:", error);
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "Registration successful | Verification email sent",
-      email: user.email,
-    });
+      })
+      .catch(console.error);
   } catch (err) {
     console.error(err);
-    user.delete();
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Something went wrong",
-        error: err.message,
-      });
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+    });
   }
 };
 
