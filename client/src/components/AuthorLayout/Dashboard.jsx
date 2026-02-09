@@ -19,8 +19,10 @@ import { fetchRecentBlogs } from "../../services/blogService";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import AppLoader from "../Common/AppLoader";
+import { useSelector } from "react-redux";
 
 export default function AuthorDashboard() {
+  const { user } = useSelector((s) => s.auth);
   const navigate = useNavigate();
   const stats = [
     {
@@ -49,13 +51,21 @@ export default function AuthorDashboard() {
   const { data: recentblogs, isLoading } = useQuery({
     queryKey: ["recentblogs"],
     queryFn: fetchRecentBlogs,
+    enabled: !!user,
     staleTime: 5 * 60 * 1000,
+    retry: false,
+    refetchOnWindowFocus: false,
   });
   if (isLoading) return <AppLoader />;
 
   return (
     <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={3}
+      >
         <Box>
           <Typography fontWeight={800} fontSize={32}>
             Dashboard
@@ -86,7 +96,11 @@ export default function AuthorDashboard() {
                 bgcolor: "#fff",
               }}
             >
-              <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
                 <Typography fontWeight={600}>{item.label}</Typography>
 
                 <Box

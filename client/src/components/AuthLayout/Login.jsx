@@ -46,6 +46,7 @@ const Login = () => {
                 }
 
                 dispatch(setUser(response.data.user));
+                await new Promise((resolve) => setTimeout(resolve, 80));
                 toast.update(toastId, {
                     render: "Login successful 🎉",
                     type: "success",
