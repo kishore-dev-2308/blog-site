@@ -1,6 +1,7 @@
 export const handleGlobalErrors = (error) => {
   if (!error.response) {
-    window.location.href = "/500";
+    // window.location.href = "/500";
+    console.error("Network error occurred:", error);
     return Promise.reject(error);
   }
 
