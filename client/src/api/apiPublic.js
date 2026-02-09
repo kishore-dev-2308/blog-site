@@ -3,7 +3,7 @@ import { handleGlobalErrors } from "./apiBase";
 
 const apiPublic = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 15000,
+  timeout: 50000,
 });
 
 apiPublic.interceptors.response.use(
