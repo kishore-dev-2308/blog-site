@@ -27,7 +27,7 @@ export const storeBlog = async (req, res) => {
     const result = await prisma.$transaction(async (tx) => {
       if (req.user.role === 3) {
         await tx.user.update({
-          where: { id: req.user.id },
+          where: { id: req.user.userId },
           data: { role: 2 },
         });
       }
@@ -63,7 +63,7 @@ export const storeBlog = async (req, res) => {
 
 export const editBlog = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const blogId = req.params.id;
     let blog = {};
 
@@ -124,7 +124,7 @@ export const updateBlog = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const blogId = req.params.id;
     let { title, content, categoryId, isPublished } = req.body;
     let blog = {};
@@ -212,7 +212,7 @@ export const listBlog = async (req, res) => {
     let where = {};
 
     if (user.role === 2) {
-      where.authorId = user.id;
+      where.authorId = user.userId;
     }
 
     if (search) {
@@ -256,7 +256,7 @@ export const recentBlogs = async (req, res) => {
     let where = {};
 
     if (user.role === 2) {
-      where.authorId = user.id;
+      where.authorId = user.userId;
     }
 
     const [blogs, total] = await Promise.all([
@@ -319,7 +319,7 @@ export const unPublishBlog = async (req, res) => {
 
 export const deleteBlog = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const blogId = req.params.id;
     let blog = {};
     if (req.user.role === 2) {

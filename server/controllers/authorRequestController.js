@@ -45,7 +45,7 @@ export const updateRequestStatus = async (req, res) => {
         const { id } = req.params;
         const { status } = req.body;
 
-        console.log("Status:", status);
+        const allowedStatus = ["APPROVED", "REJECTED"];
         const request = await prisma.authorRequest.findFirst({
             where: { id: id },
             include: {
@@ -59,53 +59,54 @@ export const updateRequestStatus = async (req, res) => {
             return res.status(404).json({ message: "Author request not found" });
         }
 
-        await prisma.authorRequest.update({
-            where: { id: id },
-            data: { status: status },
-        });
-
-
-        if (status === "APPROVED") {
-            await prisma.user.update({
-                where: { id: request.userId },
-                data: { role: 2 },
+        if (request.status !== "PENDING") {
+            return res.status(400).json({
+                message: "This request has already been processed",
             });
         }
+
+        const updatedRequest = await prisma.$transaction(async (tx) => {
+            const updated = await tx.authorRequest.update({
+                where: { id: requestId },
+                data: { status },
+            });
+
+            if (status === "APPROVED") {
+                await tx.user.update({
+                    where: { id: request.userId },
+                    data: { role: 2 },
+                });
+            }
+
+            return updated;
+        });
+
+        res.status(200).json({
+            message: "Author request status updated",
+            request: updatedRequest,
+        });
 
 
         try {
             const transporter = createTransporter();
 
-            if (status === "APPROVED") {
-                await transporter.sendMail({
-                    from: `"Techstream" <${process.env.EMAIL_USER}>`,
-                    to: request.user.email,
-                    subject: "Request Approved",
-                    html: authorRequestResultTemplate({
-                        name: request.user.name,
-                        status,
-                        reason: "",
-                        reviewLink: `${process.env.CLIENT_URL}`,
-                    }),
-                });
-            } else if (status === "REJECTED") {
-                await transporter.sendMail({
-                    from: `"Techstream" <${process.env.EMAIL_USER}>`,
-                    to: request.user.email,
-                    subject: "Request Rejected",
-                    html: authorRequestResultTemplate({
-                        name: request.user.name,
-                        status,
-                        reason: "",
-                        reviewLink: `${process.env.CLIENT_URL}`,
-                    }),
-                });
-            }
-
-        } catch (error) {
-            logger.error("Error sending verification email:", error);
+            await transporter.sendMail({
+                from: `"Techstream" <${process.env.EMAIL_USER}>`,
+                to: request.user.email,
+                subject:
+                    status === "APPROVED"
+                        ? "Request Approved"
+                        : "Request Rejected",
+                html: authorRequestResultTemplate({
+                    name: request.user.name,
+                    status,
+                    reason: "",
+                    reviewLink: `${process.env.CLIENT_URL}`,
+                }),
+            });
+        } catch (mailError) {
+            logger.error("Error sending status email:", mailError);
         }
-        res.status(200).json({ message: "Author request status updated", request });
     }
     catch (error) {
         logger.error(`Update author request status failed: ${error.message}`);
