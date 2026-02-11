@@ -154,6 +154,13 @@ export const userAuthorRequest = async (req, res) => {
     try {
         const { userId } = req.user;
         const { reason } = req.body;
+
+        if (!reason || reason.trim().length < 10) {
+            return res.status(400).json({
+                message: "Reason must be at least 10 characters long"
+            });
+        }
+
         const user = await prisma.user.findUnique({
             where: { id: userId },
         });
@@ -161,27 +168,34 @@ export const userAuthorRequest = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+
         if (user.role === 2) {
             return res.status(400).json({ message: "Already in author role" });
         }
 
         const existingRequest = await prisma.authorRequest.findFirst({
             where: {
-                userId: userId,
+                userId,
                 status: "PENDING",
             },
         });
 
         if (existingRequest) {
-            return res.status(400).json({ message: "An author request is already pending" });
+            return res.status(400).json({
+                message: "An author request is already pending"
+            });
         }
 
         await prisma.authorRequest.create({
             data: {
-                userId: userId,
+                userId,
                 reason,
                 status: "PENDING",
             },
+        });
+
+        res.status(201).json({
+            message: "Author request submitted successfully"
         });
 
         try {
@@ -198,16 +212,18 @@ export const userAuthorRequest = async (req, res) => {
                     reviewLink: `${process.env.CLIENT_URL}/admin/users`,
                 }),
             });
-        } catch (error) {
-            console.error("Error sending author request email:", error);
+        } catch (mailError) {
+            console.error("Error sending author request email:", mailError);
         }
 
-        res.status(200).json({ message: "Author request submitted successfully" });
     } catch (error) {
         logger.error(`Author request failed: ${error.message}`);
-        return res.status(500).json({ message: "Unable to process author request" });
+        return res.status(500).json({
+            message: "Unable to process author request"
+        });
     }
-}
+};
+
 
 export const getFeaturedBlog = async (req, res) => {
     try {
